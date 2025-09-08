@@ -1,0 +1,194 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: white;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+  /* 모듈 컨테이너 */
+  .modules_container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+  }
+  
+  /* 개별 영역 */
+  .module_area {
+    width: 100%;
+    border: 1px solid blue;
+    padding: 1rem;
+  }
+  
+  /* 모듈 컴포넌트 */
+  .module_component {
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* 모듈 상단 라벨 */
+  .module_bar {
+    background: linear-gradient(90deg, rgb(39, 0, 21), rgb(83, 5, 48), rgb(94, 32, 70), rgb(179, 84, 135));
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    width: 100%;
+  }
+  
+  /* 모듈 라벨 내부 구조 */
+  .module_bar_wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;             /* ✅ 가로 정렬 유지 */
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+    overflow-x: auto;              /* 화면 작을 때 가로 스크롤 가능 */
+  }
+  
+  /* 모듈 심볼 */
+  .module_symbol {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    background-color: rgba(228, 0, 159, 0.858);
+    color: white;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0 2px black;
+    white-space: nowrap;
+  }
+  
+  .module_symbol-href {
+    font-size: 20px;
+  }
+  
+  /* 모듈 이름 */
+  .module_name {
+    flex: 1 1 auto;
+    min-width: 0;                 /* ✅ 줄바꿈 방지 */
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    text-shadow: 0 0 2px black;
+  }
+  
+  .module_name a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+  
+  /* 모듈 툴 */
+  .module_tool {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+  
+  .module_tool-href {
+    color: white;
+    font-size: 22px;
+    text-shadow: 0 0 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin-right: 12px;
+  }
+  
+  .module_tool-href:hover {
+    a{
+      color: rgb(255, 0, 157) !important;
+      transition: color 0.4s ease;
+    }
+  }
+  
+  /* 모듈 하단 내용 */
+  .module_content {
+    background-color: white;
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: rgba(0, 0, 0, 0.23);
+  }
+  
+  .module_content_start {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  /* 안내문 영역 */
+  .module_title {
+    width: 100%;
+    color: black;
+    justify-items: left;
+    text-align: center;
+
+    margin: 0px;
+
+    
+  }
+  
+  .main_title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .sub_title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 5px 0 15px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  @media screen and (max-width: 1050px) {
+    .module_component {
+      min-width: 940px;
+    }
+
+    .hide_rate_1_index{
+      display: none !important;
+    }
+  }
+
+  
+  
