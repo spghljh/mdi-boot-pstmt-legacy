@@ -33,7 +33,7 @@ public class CpuDAOImpl implements CpuDAO {
 	@Override
 	public List<CpuDTO> selectAllCpus() {
 		List<CpuDTO> cpuList = new ArrayList<>();
-		String sql = "SELECT id_cpu, name_cpu, release_cpu, manf_cpu, core_cpu, thread_cpu, maxghz_cpu, minghz_cpu, choice_cpu, type_cpu FROM mcl";
+		String sql = "SELECT * FROM mcl";
 
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -45,6 +45,7 @@ public class CpuDAOImpl implements CpuDAO {
 				cpu.setNameCpu(rs.getString("name_cpu"));
 				cpu.setReleaseCpu(rs.getLong("release_cpu"));
 				cpu.setManfCpu(rs.getString("manf_cpu"));
+				cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
 				cpu.setCoreCpu(rs.getFloat("core_cpu"));
 				cpu.setThreadCpu(rs.getLong("thread_cpu"));
 				cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
@@ -63,7 +64,7 @@ public class CpuDAOImpl implements CpuDAO {
 
 	@Override
 	public CpuDTO selectCpuById(Long cpuId) {
-		String sql = "SELECT id_cpu, name_cpu, release_cpu, manf_cpu, core_cpu, thread_cpu, maxghz_cpu, minghz_cpu, choice_cpu, type_cpu FROM mcl WHERE id_cpu = ?";
+		String sql = "SELECT * FROM mcl WHERE id_cpu = ?";
 		CpuDTO cpu = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -76,6 +77,7 @@ public class CpuDAOImpl implements CpuDAO {
 					cpu.setNameCpu(rs.getString("name_cpu"));
 					cpu.setReleaseCpu(rs.getLong("release_cpu"));
 					cpu.setManfCpu(rs.getString("manf_cpu"));
+					cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
 					cpu.setCoreCpu(rs.getFloat("core_cpu"));
 					cpu.setThreadCpu(rs.getLong("thread_cpu"));
 					cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));

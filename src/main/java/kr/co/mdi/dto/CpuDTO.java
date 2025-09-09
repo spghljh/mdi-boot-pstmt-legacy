@@ -5,6 +5,7 @@ public class CpuDTO {
 	private String nameCpu;
 	private Long releaseCpu;
 	private String manfCpu;
+	private String cpuManfCode;
 	private Float coreCpu;
 	private Long threadCpu;
 	private Float maxghzCpu;
@@ -42,6 +43,14 @@ public class CpuDTO {
 
 	public void setManfCpu(String manfCpu) {
 		this.manfCpu = manfCpu;
+	}
+
+	public String getCpuManfCode() {
+		return cpuManfCode;
+	}
+
+	public void setCpuManfCode(String cpuManfCode) {
+		this.cpuManfCode = cpuManfCode;
 	}
 
 	public Float getCoreCpu() {
@@ -90,13 +99,6 @@ public class CpuDTO {
 
 	public void setTypeCpu(String typeCpu) {
 		this.typeCpu = typeCpu;
-	}
-
-	@Override
-	public String toString() {
-		return "CpuDTO [idCpu=" + idCpu + ", nameCpu=" + nameCpu + ", releaseCpu=" + releaseCpu + ", manfCpu=" + manfCpu
-				+ ", coreCpu=" + coreCpu + ", threadCpu=" + threadCpu + ", maxghzCpu=" + maxghzCpu + ", minghzCpu="
-				+ minghzCpu + ", choiceCpu=" + choiceCpu + ", typeCpu=" + typeCpu + "]";
 	}
 
 }

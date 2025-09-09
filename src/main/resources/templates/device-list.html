@@ -55,8 +55,7 @@
 
 <table class="cpulist_table_page2">
     
-
-<tr class="SearchResult_Table_Row_page2">    
+<tr th:each="device : ${devices}" class="SearchResult_Table_Row_page2">    
 
     <td>
         <div class="total1_image">
@@ -78,13 +77,13 @@
 
     <td>
         <div class="total1_name_device">
-            <div class="total2_name_device"><a href="../page2/page2view_id.php?id_device=<?=$id_device?>"></a></div>
+            <div class="total2_name_device"><a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.nameDevice}"></a></div>
         </div>
     </td>
    
     <td style="margin-left:-30px">
         <div class="total1_cpuindevice">
-            <div class="total2_cpuindevice"><a href="../page2/page2view_id.php?id_device=<?=$id_device?>"></a></div>
+            <div class="total2_cpuindevice"></div>
         </div>
     </td>
 

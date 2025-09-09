@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.co.mdi.dto.CpuDTO;
-import kr.co.mdi.dto.CpuViewModel;
+import kr.co.mdi.service.CpuService;
 
 @Controller
 public class CpuController {
 
 	@Autowired
-	private kr.co.mdi.service.CpuService cpuService;
+	private CpuService cpuService;
 
 	@GetMapping("/cpus")
 	public String cpuList(Model model) {
-		List<CpuViewModel> cpuList = cpuService.getCpuListWithImage();
+		List<CpuDTO> cpuList = cpuService.getCpuList();
 		model.addAttribute("cpus", cpuList);
 		return "cpu-list";
 	}
