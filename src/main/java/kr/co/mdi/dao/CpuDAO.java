@@ -7,4 +7,6 @@ import kr.co.mdi.dto.CpuDTO;
 public interface CpuDAO {
 
 	List<CpuDTO> selectAllCpus();
+
+	CpuDTO selectCpuById(Long cpuId);
 }

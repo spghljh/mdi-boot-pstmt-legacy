@@ -61,4 +61,35 @@ public class CpuDAOImpl implements CpuDAO {
 		return cpuList;
 	}
 
+	@Override
+	public CpuDTO selectCpuById(Long cpuId) {
+		String sql = "SELECT id_cpu, name_cpu, release_cpu, manf_cpu, core_cpu, thread_cpu, maxghz_cpu, minghz_cpu, choice_cpu, type_cpu FROM mcl WHERE id_cpu = ?";
+		CpuDTO cpu = null;
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setLong(1, cpuId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cpu = new CpuDTO();
+					cpu.setIdCpu(rs.getLong("id_cpu"));
+					cpu.setNameCpu(rs.getString("name_cpu"));
+					cpu.setReleaseCpu(rs.getLong("release_cpu"));
+					cpu.setManfCpu(rs.getString("manf_cpu"));
+					cpu.setCoreCpu(rs.getFloat("core_cpu"));
+					cpu.setThreadCpu(rs.getLong("thread_cpu"));
+					cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+					cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+					cpu.setChoiceCpu(rs.getLong("choice_cpu"));
+					cpu.setTypeCpu(rs.getString("type_cpu"));
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cpu;
+	}
+
 }
