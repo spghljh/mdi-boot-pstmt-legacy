@@ -20,18 +20,5 @@ public class DeviceController {
 		model.addAttribute("deviceId", deviceId);
 		return "device-detail";
 	}
-	
-	// 디바이스 목록 페이지2
-	@GetMapping("/devices2")
-	public String deviceList2() {
-		return "device-list2";
-	}
-
-	// 디바이스 상세 페이지2
-	@GetMapping("/devices2/{deviceId}")
-	public String deviceDetail2(@PathVariable Long deviceId, Model model) {
-		model.addAttribute("deviceId", deviceId);
-		return "device-detail2";
-	}
 
 }
