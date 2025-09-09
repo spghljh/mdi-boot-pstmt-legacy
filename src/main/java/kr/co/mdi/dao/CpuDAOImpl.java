@@ -1,0 +1,64 @@
+package kr.co.mdi.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.co.mdi.dto.CpuDTO;
+
+@Repository
+public class CpuDAOImpl implements CpuDAO {
+
+	private final DataSource dataSource;
+
+	@Autowired
+	public CpuDAOImpl(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	public Connection getConnection() throws SQLException {
+		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+	@Override
+	public List<CpuDTO> selectAllCpus() {
+		List<CpuDTO> cpuList = new ArrayList<>();
+		String sql = "SELECT id_cpu, name_cpu, release_cpu, manf_cpu, core_cpu, thread_cpu, maxghz_cpu, minghz_cpu, choice_cpu, type_cpu FROM mcl";
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			while (rs.next()) {
+				CpuDTO cpu = new CpuDTO();
+				cpu.setIdCpu(rs.getLong("id_cpu"));
+				cpu.setNameCpu(rs.getString("name_cpu"));
+				cpu.setReleaseCpu(rs.getLong("release_cpu"));
+				cpu.setManfCpu(rs.getString("manf_cpu"));
+				cpu.setCoreCpu(rs.getFloat("core_cpu"));
+				cpu.setThreadCpu(rs.getLong("thread_cpu"));
+				cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+				cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+				cpu.setChoiceCpu(rs.getLong("choice_cpu"));
+				cpu.setTypeCpu(rs.getString("type_cpu"));
+				cpuList.add(cpu);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace(); // 필요 시 로깅 처리
+		}
+
+		return cpuList;
+	}
+
+}
