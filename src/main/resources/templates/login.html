@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/index_body_index.css}">
+<link rel="stylesheet" th:href="@{/css/main_header.css}">
+<link rel="stylesheet" th:href="@{/css/user.css}">
+<link rel="stylesheet" th:href="@{/css/login/index_body.css}">
+<title>mdi-index.html</title>
+</head>
+<body>
+	<!-- 헤더 포함 -->
+	<div th:replace="fragments/main-header :: header"></div>
+
+	<div class="ground">
+		<!--div class="ground"-->
+		<div class="index_content">
+			<!--div class="index_content"-->
+			<div class="index_button_line1" style="margin-top: 30px;">
+				<!--div class="index_button_line1"-->
+				<div class="button_content1">
+					<!--div class="button_content1"-->
+
+
+
+					<div class="Module_Layout_1">
+						<!--div class="Module_Layout_1"-->
+						<div class="Module_Layout_1_1">
+							<!--div class="Module_Layout_1_1"-->
+
+							<div class="Module_Layout_1_1_1">
+								<div class="Module_Layout_1_1_1_1">
+									<div class="Module_Layout_1_1_1_1_0">
+										<a style="font-size: 18px;">U1</a>
+									</div>
+									<div class="Module_Layout_1_1_1_1_1">
+
+										<a class="Module_Layout_1_1_1_1_1_0_page">로그인</a>
+
+									</div>
+
+									<div class="Module_Layout_1_1_1_1_2_back"
+										onclick="history.back()">
+										<a class="Module_Layout_1_1_1_1_1_0">뒤로가기</a>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="Module_Layout_1_1_2">
+								<!--div class="Module_Layout_1_1_2"-->
+								<div class="Module_Layout_1_1_2_1_user">
+									<!--div class="Module_Layout_1_1_2_1"-->
+
+									<div class="Module_Layout_1_1_2_1_1">
+										<a></a>
+									</div>
+
+									<div class="Module_Layout_1_1_2_1_2">
+										<!--div class="Module_Layout_1_1_2_1_2"-->
+										<div class="Module_Layout_1_1_2_1_2_1">
+											<!--div class="Module_Layout_1_1_2_1_2_1"-->
+
+											<div class="Module1">
+												<!--모듈1-Start-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+												<!--내용-->
+
+												<div class="tool1_user">
+
+
+
+
+													<script>
+														function check_input() {
+															if (!document.login.id.value) {
+																alert("아이디를 입력하세요");
+																document.login_form.id
+																		.focus();
+																return;
+															}
+
+															if (!document.login.pass.value) {
+																alert("비밀번호를 입력하세요");
+																document.login.pass
+																		.focus();
+																return;
+															}
+
+															document.login
+																	.submit();
+
+															if (((document.login.id.value) == ('eris'))) {
+																window.location.href = "../admin/index_admin.php";
+															}
+
+														}
+													</script>
+
+
+
+													<div class="user_layout">
+														<div class="user_layout_form">
+															<div class="user_layout_form_line">
+
+
+
+
+
+																<div class="user_layout_form_line_box1"
+																	style="margin-top: -10px;">
+
+																	<?php include $_SERVER['DOCUMENT_ROOT'].'/users/user_semi.php';?>
+
+																	<a class="user_layout_form_line_box1_semi">로그인</a>
+
+																</div>
+
+
+																<div class="user_layout_form_line_box2">
+
+
+
+
+
+
+																	<form name="login" method="post"
+																		action="login_test.php">
+
+
+
+																		<div class="user_layout_form_line_content">
+																			<input class="id_input" type="text" name="id"
+																				placeholder="아이디">
+																		</div>
+
+																		<div class="user_layout_form_line_content">
+																			<input class="pw_input" type="password" name="pass"
+																				placeholder="비밀번호">
+																		</div>
+
+																		<div class="user_layout_form_line_content">
+																			<button class="login_button" type="button"
+																				onclick="check_input()">
+																				<a>로그인</a>
+																			</button>
+																		</div>
+
+																		<div class="user_layout_form_line_content">
+																			<button class="register_button" type="button"
+																				onclick="location.href='./user_RegisterForm.php'">
+																				<a>회원가입</a>
+																			</button>
+																		</div>
+
+
+
+																	</form>
+
+
+
+
+
+
+
+
+
+
+																</div>
+
+															</div>
+														</div>
+													</div>
+
+
+
+												</div>
+												<!--내용-->
+
+
+
+
+
+
+											</div>
+											<!--모듈1-End-->
+
+										</div>
+										<!--div class="Module_Layout_1_1_2_1_2_1"-->
+									</div>
+									<!--div class="Module_Layout_1_1_2_1_2"-->
+								</div>
+								<!--div class="Module_Layout_1_1_2_1"-->
+							</div>
+							<!--div class="Module_Layout_1_1_2"-->
+						</div>
+						<!--div class="Module_Layout_1_1"-->
+					</div>
+					<!--div class="Module_Layout_1"-->
+
+				</div>
+				<!--div class="button_content1"-->
+			</div>
+			<!--div class="index_button_line1"-->
+		</div>
+		<!--div class="index_content"-->
+	</div>
+	<!--div class="ground"-->
+</body>
+
+
+<script src="/js/auth.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

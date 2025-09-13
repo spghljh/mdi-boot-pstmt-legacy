@@ -1,9 +1,7 @@
 package kr.co.mdi.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MainController {
@@ -14,5 +12,10 @@ public class MainController {
 		return "index";
 	}
 
+	// 로그인 페이지
+	@GetMapping("/login")
+	public String loginPage() {
+		return "login"; // templates/login.html
+	}
 
 }
