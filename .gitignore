@@ -41,3 +41,5 @@ application-dev-mysql.properties
 *.bak
 *.pid
 *.gz
+
+.factorypath
