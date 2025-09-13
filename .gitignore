@@ -43,3 +43,4 @@ application-dev-mysql.properties
 *.gz
 
 .factorypath
+HELP.md
