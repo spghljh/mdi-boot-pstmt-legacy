@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.co.mdi.dto.CpuDTO;
 
-public interface CpuDAO {
+public interface CpuDao {
 
 	List<CpuDTO> selectAllCpus();
 

@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.mdi.dao.DeviceDAO;
+import kr.co.mdi.dao.DeviceDao;
 import kr.co.mdi.dto.DeviceDTO;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
-	private final DeviceDAO deviceDAO;
+	private final DeviceDao deviceDAO;
 
 	@Autowired
-	public DeviceServiceImpl(DeviceDAO deviceDAO) {
+	public DeviceServiceImpl(DeviceDao deviceDAO) {
 		this.deviceDAO = deviceDAO;
 	}
 

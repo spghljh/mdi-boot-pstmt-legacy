@@ -10,17 +10,19 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.dto.CpuDTO;
 
+@Profile("dev-oracle")
 @Repository
-public class CpuDAOImpl implements CpuDAO {
+public class CpuDaoOracleImpl implements CpuDao {
 
 	private final DataSource dataSource;
 
 	@Autowired
-	public CpuDAOImpl(DataSource dataSource) {
+	public CpuDaoOracleImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 

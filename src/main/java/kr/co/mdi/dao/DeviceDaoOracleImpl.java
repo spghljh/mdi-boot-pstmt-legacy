@@ -10,17 +10,19 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.dto.DeviceDTO;
 
+@Profile("dev-oracle")
 @Repository
-public class DeviceDAOImpl implements DeviceDAO {
+public class DeviceDaoOracleImpl implements DeviceDao {
 
 	private final DataSource dataSource;
 
 	@Autowired
-	public DeviceDAOImpl(DataSource dataSource) {
+	public DeviceDaoOracleImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 

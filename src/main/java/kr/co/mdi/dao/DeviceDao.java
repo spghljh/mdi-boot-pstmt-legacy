@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.co.mdi.dto.DeviceDTO;
 
-public interface DeviceDAO {
+public interface DeviceDao {
 
 	List<DeviceDTO> selectAllDevices();
 
