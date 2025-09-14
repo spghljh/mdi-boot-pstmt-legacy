@@ -21,9 +21,11 @@ out/
 *.lock
 
 application-dev.properties
+application-dev-maria.properties
+application-dev-mysql.properties
 application-dev-oracle.properties
 application-dev-psql.properties
-application-dev-mysql.properties
+
 .env
 
 *.db
