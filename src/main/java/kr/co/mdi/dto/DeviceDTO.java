@@ -2,17 +2,21 @@ package kr.co.mdi.dto;
 
 public class DeviceDTO {
 
-	private Long idDevice; // id_device NUMBER(10)
-	private String typeDevice; // type_device VARCHAR2(255)
-	private String nameDevice; // name_device VARCHAR2(255)
-	private String manfDevice; // manf_device VARCHAR2(255)
-	private String deviceManfCode; // device_manf_code VARCHAR2(255)
-	private String cpuDevice; // cpu_device VARCHAR2(255)
-	private String lineupDevice; // lineup_device VARCHAR2(255)
-	private Long releaseDevice; // release_device NUMBER(10)
-	private Float weightDevice; // weight_device FLOAT
-	private Float diagonalDevice; // diagonal_device FLOAT
-	private Long choiceDevice; // choice_device NUMBER(10)
+	private Long idDevice; // mdl.id_device
+	private String nameDevice; // mdl.name_device
+	private String lineupDevice; // mdl.lineup_device
+	private Long releaseDevice; // mdl.release_device
+	private Float weightDevice; // mdl.weight_device
+	private Long choiceDevice; // mdl.choice_device
+
+	private String deviceTypeCode; // mdl.device_type_code (외래 키)
+	private String typeDevice; // device_type.type_device (표시용 이름)
+
+	private String deviceManfCode; // mdl.device_manf_code (외래 키)
+	private String manfDevice; // device_manf_brand.manf_device (표시용 이름)
+
+	private Long idCpu; // mdl.id_cpu (외래 키 → mcl.id_cpu)
+	private String cpuDevice; // mcl.name_cpu (표시용 CPU 이름)
 
 	public Long getIdDevice() {
 		return idDevice;
@@ -22,44 +26,12 @@ public class DeviceDTO {
 		this.idDevice = idDevice;
 	}
 
-	public String getTypeDevice() {
-		return typeDevice;
-	}
-
-	public void setTypeDevice(String typeDevice) {
-		this.typeDevice = typeDevice;
-	}
-
 	public String getNameDevice() {
 		return nameDevice;
 	}
 
 	public void setNameDevice(String nameDevice) {
 		this.nameDevice = nameDevice;
-	}
-
-	public String getManfDevice() {
-		return manfDevice;
-	}
-
-	public void setManfDevice(String manfDevice) {
-		this.manfDevice = manfDevice;
-	}
-
-	public String getDeviceManfCode() {
-		return deviceManfCode;
-	}
-
-	public void setDeviceManfCode(String deviceManfCode) {
-		this.deviceManfCode = deviceManfCode;
-	}
-
-	public String getCpuDevice() {
-		return cpuDevice;
-	}
-
-	public void setCpuDevice(String cpuDevice) {
-		this.cpuDevice = cpuDevice;
 	}
 
 	public String getLineupDevice() {
@@ -86,20 +58,60 @@ public class DeviceDTO {
 		this.weightDevice = weightDevice;
 	}
 
-	public Float getDiagonalDevice() {
-		return diagonalDevice;
-	}
-
-	public void setDiagonalDevice(Float diagonalDevice) {
-		this.diagonalDevice = diagonalDevice;
-	}
-
 	public Long getChoiceDevice() {
 		return choiceDevice;
 	}
 
 	public void setChoiceDevice(Long choiceDevice) {
 		this.choiceDevice = choiceDevice;
+	}
+
+	public String getDeviceTypeCode() {
+		return deviceTypeCode;
+	}
+
+	public void setDeviceTypeCode(String deviceTypeCode) {
+		this.deviceTypeCode = deviceTypeCode;
+	}
+
+	public String getTypeDevice() {
+		return typeDevice;
+	}
+
+	public void setTypeDevice(String typeDevice) {
+		this.typeDevice = typeDevice;
+	}
+
+	public String getDeviceManfCode() {
+		return deviceManfCode;
+	}
+
+	public void setDeviceManfCode(String deviceManfCode) {
+		this.deviceManfCode = deviceManfCode;
+	}
+
+	public String getManfDevice() {
+		return manfDevice;
+	}
+
+	public void setManfDevice(String manfDevice) {
+		this.manfDevice = manfDevice;
+	}
+
+	public Long getIdCpu() {
+		return idCpu;
+	}
+
+	public void setIdCpu(Long idCpu) {
+		this.idCpu = idCpu;
+	}
+
+	public String getCpuDevice() {
+		return cpuDevice;
+	}
+
+	public void setCpuDevice(String cpuDevice) {
+		this.cpuDevice = cpuDevice;
 	}
 
 }

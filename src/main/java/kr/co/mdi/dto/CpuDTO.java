@@ -1,17 +1,20 @@
 package kr.co.mdi.dto;
 
 public class CpuDTO {
-	private Long idCpu;
-	private String nameCpu;
-	private Long releaseCpu;
-	private String manfCpu;
-	private String cpuManfCode;
-	private Float coreCpu;
-	private Long threadCpu;
-	private Float maxghzCpu;
-	private Float minghzCpu;
-	private Long choiceCpu;
-	private String typeCpu;
+	private Long idCpu; // mcl.id_cpu
+	private String nameCpu; // mcl.name_cpu
+	private Long releaseCpu; // mcl.release_cpu
+	private Float coreCpu; // mcl.core_cpu
+	private Long threadCpu; // mcl.thread_cpu
+	private Float maxghzCpu; // mcl.maxghz_cpu
+	private Float minghzCpu; // mcl.minghz_cpu
+	private Long choiceCpu; // mcl.choice_cpu
+
+	private String cpuTypeCode; // mcl.cpu_type_code (외래 키)
+	private String typeCpu; // cpu_type.type_cpu (표시용 이름)
+
+	private String cpuManfCode; // mcl.cpu_manf_code (외래 키)
+	private String manfCpu; // cpu_manf_brand.manf_cpu (표시용 이름)
 
 	public Long getIdCpu() {
 		return idCpu;
@@ -35,22 +38,6 @@ public class CpuDTO {
 
 	public void setReleaseCpu(Long releaseCpu) {
 		this.releaseCpu = releaseCpu;
-	}
-
-	public String getManfCpu() {
-		return manfCpu;
-	}
-
-	public void setManfCpu(String manfCpu) {
-		this.manfCpu = manfCpu;
-	}
-
-	public String getCpuManfCode() {
-		return cpuManfCode;
-	}
-
-	public void setCpuManfCode(String cpuManfCode) {
-		this.cpuManfCode = cpuManfCode;
 	}
 
 	public Float getCoreCpu() {
@@ -93,12 +80,36 @@ public class CpuDTO {
 		this.choiceCpu = choiceCpu;
 	}
 
+	public String getCpuTypeCode() {
+		return cpuTypeCode;
+	}
+
+	public void setCpuTypeCode(String cpuTypeCode) {
+		this.cpuTypeCode = cpuTypeCode;
+	}
+
 	public String getTypeCpu() {
 		return typeCpu;
 	}
 
 	public void setTypeCpu(String typeCpu) {
 		this.typeCpu = typeCpu;
+	}
+
+	public String getCpuManfCode() {
+		return cpuManfCode;
+	}
+
+	public void setCpuManfCode(String cpuManfCode) {
+		this.cpuManfCode = cpuManfCode;
+	}
+
+	public String getManfCpu() {
+		return manfCpu;
+	}
+
+	public void setManfCpu(String manfCpu) {
+		this.manfCpu = manfCpu;
 	}
 
 }

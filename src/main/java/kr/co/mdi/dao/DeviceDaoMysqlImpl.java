@@ -52,7 +52,6 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 				device.setLineupDevice(rs.getString("lineup_device"));
 				device.setReleaseDevice(rs.getLong("release_device"));
 				device.setWeightDevice(rs.getFloat("weight_device"));
-				device.setDiagonalDevice(rs.getFloat("diagonal_device"));
 				device.setChoiceDevice(rs.getLong("choice_device"));
 
 				deviceList.add(device);
@@ -85,7 +84,6 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 					device.setLineupDevice(rs.getString("lineup_device"));
 					device.setReleaseDevice(rs.getLong("release_device"));
 					device.setWeightDevice(rs.getFloat("weight_device"));
-					device.setDiagonalDevice(rs.getFloat("diagonal_device"));
 					device.setChoiceDevice(rs.getLong("choice_device"));
 
 				}
