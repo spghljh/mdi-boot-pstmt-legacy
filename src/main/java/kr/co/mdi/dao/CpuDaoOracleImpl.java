@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -17,18 +14,18 @@ import kr.co.mdi.dto.CpuDTO;
 
 @Profile("dev-oracle")
 @Repository
-public class CpuDaoOracleImpl implements CpuDao {
+public class CpuDaoOracleImpl extends AbstractJdbcDao implements CpuDao {
 
-	private final DataSource dataSource;
-
-	@Autowired
-	public CpuDaoOracleImpl(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public Connection getConnection() throws SQLException {
-		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-	}
+//	private final DataSource dataSource;
+//
+//	@Autowired
+//	public CpuDaoOracleImpl(DataSource dataSource) {
+//		this.dataSource = dataSource;
+//	}
+//
+//	public Connection getConnection() throws SQLException {
+//		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
+//	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------
 
