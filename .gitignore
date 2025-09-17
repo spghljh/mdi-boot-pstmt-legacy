@@ -26,6 +26,12 @@ application-dev-mysql.properties
 application-dev-oracle.properties
 application-dev-psql.properties
 
+application-dev.yml
+application-dev-maria.yml
+application-dev-mysql.yml
+application-dev-oracle.yml
+application-dev-psql.yml
+
 .env
 
 *.db

@@ -57,8 +57,9 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 				deviceList.add(device);
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace(); // 필요 시 로깅 처리
+		} catch (SQLException se) {
+			se.printStackTrace(); // 필요 시 로깅 처리
+			throw new RuntimeException("DB 조회 중 오류 발생", se);
 		}
 
 		return deviceList;
@@ -89,8 +90,9 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 				}
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("DB 조회 중 오류 발생2", se);
 		}
 
 		return device;

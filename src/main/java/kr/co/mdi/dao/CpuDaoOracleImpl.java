@@ -75,8 +75,9 @@ public class CpuDaoOracleImpl implements CpuDao {
 				cpuList.add(cpu);
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace(); // 필요 시 로깅 처리
+		} catch (SQLException se) {
+			se.printStackTrace(); // 필요 시 로깅 처리
+			throw new RuntimeException("DB 조회 중 오류 발생", se);
 		}
 
 		return cpuList;
@@ -127,8 +128,9 @@ public class CpuDaoOracleImpl implements CpuDao {
 				}
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("DB 조회 중 오류 발생2", se);
 		}
 
 		return cpu;

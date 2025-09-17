@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mdi
+
+  profiles:
+    #active: dev-mysql
+    active: dev-oracle
+    #active: dev-psql
+

@@ -80,8 +80,9 @@ public class DeviceDaoOracleImpl implements DeviceDao {
 				deviceList.add(device);
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("DB 조회 중 오류 발생", se);
 		}
 
 		return deviceList;
@@ -136,8 +137,9 @@ public class DeviceDaoOracleImpl implements DeviceDao {
 				}
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("DB 조회 중 오류 발생", se);
 		}
 
 		return device;
