@@ -43,16 +43,16 @@ public class CpuDaoMysqlImpl implements CpuDao {
 
 			while (rs.next()) {
 				CpuDTO cpu = new CpuDTO();
-				cpu.setIdCpu(rs.getLong("id_cpu"));
+				cpu.setIdCpu(rs.getInt("id_cpu"));
 				cpu.setNameCpu(rs.getString("name_cpu"));
-				cpu.setReleaseCpu(rs.getLong("release_cpu"));
+				cpu.setReleaseCpu(rs.getInt("release_cpu"));
 				cpu.setManfCpu(rs.getString("manf_cpu"));
 				cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
-				cpu.setCoreCpu(rs.getFloat("core_cpu"));
-				cpu.setThreadCpu(rs.getLong("thread_cpu"));
+				cpu.setCoreCpu(rs.getInt("core_cpu"));
+				cpu.setThreadCpu(rs.getInt("thread_cpu"));
 				cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
 				cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
-				cpu.setChoiceCpu(rs.getLong("choice_cpu"));
+				cpu.setChoiceCpu(rs.getInt("choice_cpu"));
 				cpu.setTypeCpu(rs.getString("type_cpu"));
 				cpuList.add(cpu);
 			}
@@ -66,26 +66,26 @@ public class CpuDaoMysqlImpl implements CpuDao {
 	}
 
 	@Override
-	public CpuDTO selectCpuById(Long cpuId) {
+	public CpuDTO selectCpuById(Integer cpuId) {
 		String sql = "SELECT * FROM mcl WHERE id_cpu = ?";
 		CpuDTO cpu = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			pstmt.setLong(1, cpuId);
+			pstmt.setInt(1, cpuId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cpu = new CpuDTO();
-					cpu.setIdCpu(rs.getLong("id_cpu"));
+					cpu.setIdCpu(rs.getInt("id_cpu"));
 					cpu.setNameCpu(rs.getString("name_cpu"));
-					cpu.setReleaseCpu(rs.getLong("release_cpu"));
+					cpu.setReleaseCpu(rs.getInt("release_cpu"));
 					cpu.setManfCpu(rs.getString("manf_cpu"));
 					cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
-					cpu.setCoreCpu(rs.getFloat("core_cpu"));
-					cpu.setThreadCpu(rs.getLong("thread_cpu"));
+					cpu.setCoreCpu(rs.getInt("core_cpu"));
+					cpu.setThreadCpu(rs.getInt("thread_cpu"));
 					cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
 					cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
-					cpu.setChoiceCpu(rs.getLong("choice_cpu"));
+					cpu.setChoiceCpu(rs.getInt("choice_cpu"));
 					cpu.setTypeCpu(rs.getString("type_cpu"));
 				}
 			}

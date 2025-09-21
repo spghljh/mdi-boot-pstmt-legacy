@@ -24,7 +24,7 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 
 	@Override
-	public DeviceDTO getDeviceById(Long deviceId) {
+	public DeviceDTO getDeviceById(Integer deviceId) {
 		return deviceDAO.selectDeviceById(deviceId);
 	}
 

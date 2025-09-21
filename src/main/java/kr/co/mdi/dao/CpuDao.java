@@ -8,5 +8,5 @@ public interface CpuDao {
 
 	List<CpuDTO> selectAllCpus();
 
-	CpuDTO selectCpuById(Long cpuId);
+	CpuDTO selectCpuById(Integer cpuId);
 }

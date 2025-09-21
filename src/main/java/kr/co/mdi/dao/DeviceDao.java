@@ -8,5 +8,5 @@ public interface DeviceDao {
 
 	List<DeviceDTO> selectAllDevices();
 
-	DeviceDTO selectDeviceById(Long deviceId);
+	DeviceDTO selectDeviceById(Integer deviceId);
 }

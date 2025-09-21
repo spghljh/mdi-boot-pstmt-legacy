@@ -26,7 +26,7 @@ public class CpuController {
 
 	// CPU 상세 페이지
 	@GetMapping("/cpus/{cpuId}")
-	public String cpuDetail(@PathVariable Long cpuId, Model model) {
+	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
 		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
 		model.addAttribute("cpu", cpu); // 뷰에 전달
 		return "cpu-detail";

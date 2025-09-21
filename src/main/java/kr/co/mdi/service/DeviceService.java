@@ -7,6 +7,6 @@ import kr.co.mdi.dto.DeviceDTO;
 public interface DeviceService {
 	List<DeviceDTO> getDeviceList();
 
-	DeviceDTO getDeviceById(Long deviceId);
+	DeviceDTO getDeviceById(Integer deviceId);
 
 }

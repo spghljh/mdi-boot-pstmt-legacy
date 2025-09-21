@@ -1,14 +1,14 @@
 package kr.co.mdi.dto;
 
 public class CpuDTO {
-	private Long idCpu; // mcl.id_cpu
+	private Integer idCpu; // mcl.id_cpu
 	private String nameCpu; // mcl.name_cpu
-	private Long releaseCpu; // mcl.release_cpu
-	private Float coreCpu; // mcl.core_cpu
-	private Long threadCpu; // mcl.thread_cpu
+	private Integer releaseCpu; // mcl.release_cpu
+	private Integer coreCpu; // mcl.core_cpu
+	private Integer threadCpu; // mcl.thread_cpu
 	private Float maxghzCpu; // mcl.maxghz_cpu
 	private Float minghzCpu; // mcl.minghz_cpu
-	private Long choiceCpu; // mcl.choice_cpu
+	private Integer choiceCpu; // mcl.choice_cpu
 
 	private String cpuTypeCode; // mcl.cpu_type_code (외래 키)
 	private String typeCpu; // cpu_type.type_cpu (표시용 이름)
@@ -16,11 +16,11 @@ public class CpuDTO {
 	private String cpuManfCode; // mcl.cpu_manf_code (외래 키)
 	private String manfCpu; // cpu_manf_brand.manf_cpu (표시용 이름)
 
-	public Long getIdCpu() {
+	public Integer getIdCpu() {
 		return idCpu;
 	}
 
-	public void setIdCpu(Long idCpu) {
+	public void setIdCpu(Integer idCpu) {
 		this.idCpu = idCpu;
 	}
 
@@ -32,27 +32,27 @@ public class CpuDTO {
 		this.nameCpu = nameCpu;
 	}
 
-	public Long getReleaseCpu() {
+	public Integer getReleaseCpu() {
 		return releaseCpu;
 	}
 
-	public void setReleaseCpu(Long releaseCpu) {
+	public void setReleaseCpu(Integer releaseCpu) {
 		this.releaseCpu = releaseCpu;
 	}
 
-	public Float getCoreCpu() {
+	public Integer getCoreCpu() {
 		return coreCpu;
 	}
 
-	public void setCoreCpu(Float coreCpu) {
+	public void setCoreCpu(Integer coreCpu) {
 		this.coreCpu = coreCpu;
 	}
 
-	public Long getThreadCpu() {
+	public Integer getThreadCpu() {
 		return threadCpu;
 	}
 
-	public void setThreadCpu(Long threadCpu) {
+	public void setThreadCpu(Integer threadCpu) {
 		this.threadCpu = threadCpu;
 	}
 
@@ -72,11 +72,11 @@ public class CpuDTO {
 		this.minghzCpu = minghzCpu;
 	}
 
-	public Long getChoiceCpu() {
+	public Integer getChoiceCpu() {
 		return choiceCpu;
 	}
 
-	public void setChoiceCpu(Long choiceCpu) {
+	public void setChoiceCpu(Integer choiceCpu) {
 		this.choiceCpu = choiceCpu;
 	}
 

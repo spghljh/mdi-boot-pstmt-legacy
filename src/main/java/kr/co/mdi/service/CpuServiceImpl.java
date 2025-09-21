@@ -24,7 +24,7 @@ public class CpuServiceImpl implements CpuService {
 	}
 
 	@Override
-	public CpuDTO getCpuById(Long cpuId) {
+	public CpuDTO getCpuById(Integer cpuId) {
 		return cpuDAO.selectCpuById(cpuId);
 	}
 

@@ -58,12 +58,12 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 
 			while (rs.next()) {
 				DeviceDTO device = new DeviceDTO();
-				device.setIdDevice(rs.getLong("id_device"));
+				device.setIdDevice(rs.getInt("id_device"));
 				device.setNameDevice(rs.getString("name_device"));
 				device.setLineupDevice(rs.getString("lineup_device"));
-				device.setReleaseDevice(rs.getLong("release_device"));
+				device.setReleaseDevice(rs.getInt("release_device"));
 				device.setWeightDevice(rs.getFloat("weight_device"));
-				device.setChoiceDevice(rs.getLong("choice_device"));
+				device.setChoiceDevice(rs.getInt("choice_device"));
 
 				device.setDeviceTypeCode(rs.getString("device_type_code"));
 				device.setTypeDevice(rs.getString("type_device"));
@@ -71,7 +71,7 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 				device.setDeviceManfCode(rs.getString("device_manf_code"));
 				device.setManfDevice(rs.getString("manf_device"));
 
-				device.setIdCpu(rs.getLong("id_cpu"));
+				device.setIdCpu(rs.getInt("id_cpu"));
 				device.setCpuDevice(rs.getString("name_cpu"));
 
 				deviceList.add(device);
@@ -86,7 +86,7 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 	}
 
 	@Override
-	public DeviceDTO selectDeviceById(Long deviceId) {
+	public DeviceDTO selectDeviceById(Integer deviceId) {
 		String sql = """
 				    SELECT
 				        m.id_device,
@@ -112,16 +112,16 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			pstmt.setLong(1, deviceId);
+			pstmt.setInt(1, deviceId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					device = new DeviceDTO();
-					device.setIdDevice(rs.getLong("id_device"));
+					device.setIdDevice(rs.getInt("id_device"));
 					device.setNameDevice(rs.getString("name_device"));
 					device.setLineupDevice(rs.getString("lineup_device"));
-					device.setReleaseDevice(rs.getLong("release_device"));
+					device.setReleaseDevice(rs.getInt("release_device"));
 					device.setWeightDevice(rs.getFloat("weight_device"));
-					device.setChoiceDevice(rs.getLong("choice_device"));
+					device.setChoiceDevice(rs.getInt("choice_device"));
 
 					device.setDeviceTypeCode(rs.getString("device_type_code"));
 					device.setTypeDevice(rs.getString("type_device"));
@@ -129,7 +129,7 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 					device.setDeviceManfCode(rs.getString("device_manf_code"));
 					device.setManfDevice(rs.getString("manf_device"));
 
-					device.setIdCpu(rs.getLong("id_cpu"));
+					device.setIdCpu(rs.getInt("id_cpu"));
 					device.setCpuDevice(rs.getString("name_cpu"));
 				}
 			}

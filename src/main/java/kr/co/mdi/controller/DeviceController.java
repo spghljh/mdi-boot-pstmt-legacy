@@ -26,7 +26,7 @@ public class DeviceController {
 
 	// DEVICE 상세 페이지
 	@GetMapping("/devices/{deviceId}")
-	public String deviceDetail(@PathVariable Long deviceId, Model model) {
+	public String deviceDetail(@PathVariable Integer deviceId, Model model) {
 		DeviceDTO device = deviceService.getDeviceById(deviceId); // 상세 정보 조회
 		model.addAttribute("device", device); // 뷰에 전달
 		return "device-detail";
