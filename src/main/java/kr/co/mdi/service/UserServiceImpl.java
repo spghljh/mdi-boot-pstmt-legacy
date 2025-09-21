@@ -3,6 +3,7 @@ package kr.co.mdi.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -37,21 +38,28 @@ public class UserServiceImpl implements UserService {
 			throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
 		}
 
-		// 3. 가입일 설정
+		// 3-1. 비밀번호 암호화 (레거시 방식)
+		user.setPass(BCrypt.hashpw(user.getPass(), BCrypt.gensalt()));
+
+		// 3-2. 비밀번호 암호화 (스프링 시큐리티 방식)
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		user.setPass(passwordEncoder.encode(user.getPass()));
+
+		// 4. 가입일 설정
 		user.setRegistDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd (HH:mm)")));
 
-		// 4. 회원 정보 저장
+		// 5. 회원 정보 저장
 		userDao.insertUser(user);
 
-		// 5. 관심 CPU 저장
-		if (user.getCpuInterestIds() != null) {
+		// 6. 관심 CPU 저장
+		if (user.getCpuInterestIds() != null && !user.getCpuInterestIds().isEmpty()) {
 			for (Integer cpuId : user.getCpuInterestIds()) {
 				cpuPreferenceDao.insert(user.getId(), cpuId);
 			}
 		}
 
-		// 6. 관심 디바이스 저장
-		if (user.getDeviceInterestIds() != null) {
+		// 7. 관심 디바이스 저장
+		if (user.getDeviceInterestIds() != null && !user.getDeviceInterestIds().isEmpty()) {
 			for (Integer deviceId : user.getDeviceInterestIds()) {
 				devicePreferenceDao.insert(user.getId(), deviceId);
 			}
