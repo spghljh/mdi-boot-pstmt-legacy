@@ -55,4 +55,29 @@ public class UserDaoOracleImpl extends AbstractJdbcDao implements UserDao {
 		}
 		return false;
 	}
+
+	@Override
+	public UserDTO findById(String id) {
+		String sql = "SELECT * FROM members WHERE id = ?";
+		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				UserDTO user = new UserDTO();
+				user.setId(rs.getString("id"));
+				user.setPass(rs.getString("pass"));
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));
+				user.setRegistDay(rs.getString("regist_day"));
+				// 관심 CPU/디바이스는 필요 시 추가 조회
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

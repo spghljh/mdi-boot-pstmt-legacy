@@ -70,4 +70,10 @@ public class UserServiceImpl implements UserService {
 	public boolean isDuplicateId(String id) {
 		return userDao.existsById(id);
 	}
+
+	@Override
+	public UserDTO findUserById(String id) {
+		return userDao.findById(id);
+	}
+
 }

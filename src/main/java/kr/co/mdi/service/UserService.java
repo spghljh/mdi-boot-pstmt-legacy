@@ -8,4 +8,6 @@ public interface UserService {
 
 	public boolean isDuplicateId(String id);
 
+	UserDTO findUserById(String id);
+
 }
