@@ -2,7 +2,7 @@ package kr.co.mdi.member.dto;
 
 import java.util.List;
 
-public class UserDTO {
+public class MemberDTO {
 	private String id;
 	private String pass;
 	private String passConfirm;

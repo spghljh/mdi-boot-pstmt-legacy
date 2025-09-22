@@ -6,12 +6,12 @@ public class PasswordUtil {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    // 비밀번호 암호화
+    // 암호화
     public static String encode(String rawPassword) {
         return encoder.encode(rawPassword);
     }
 
-    // 비밀번호 비교
+    // 비교
     public static boolean matches(String rawPassword, String encodedPassword) {
         return encoder.matches(rawPassword, encodedPassword);
     }

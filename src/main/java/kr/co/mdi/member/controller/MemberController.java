@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-import kr.co.mdi.member.dto.UserDTO;
-import kr.co.mdi.member.service.UserService;
+import kr.co.mdi.member.dto.MemberDTO;
+import kr.co.mdi.member.service.MemberService;
 
 @Controller
-public class UserController {
+public class MemberController {
 
 	@Autowired
-	private UserService userService;
+	private MemberService userService;
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		model.addAttribute("user", new UserDTO());
+		model.addAttribute("user", new MemberDTO());
 		return "register";
 	}
 
 	@PostMapping("/register")
-	public String processRegister(@ModelAttribute UserDTO user) {
+	public String processRegister(@ModelAttribute MemberDTO user) {
 		userService.registerUser(user);
 		return "redirect:/login";
 	}
@@ -41,7 +41,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String processLogin(@RequestParam String id, @RequestParam String pass, HttpSession session, Model model) {
 
-		UserDTO user = userService.findUserById(id); // 아이디로 사용자 조회
+		MemberDTO user = userService.findUserById(id); // 아이디로 사용자 조회
 
 //		if (user == null) {
 //			model.addAttribute("error", "존재하지 않는 아이디입니다.");
