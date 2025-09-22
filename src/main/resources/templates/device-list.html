@@ -7,10 +7,12 @@
 <link rel="stylesheet" th:href="@{/css/page2/index_body.css}">
 <link rel="stylesheet" th:href="@{/css/page2/page2_body.css}">
 <link rel="stylesheet" th:href="@{/css/page2/page0_body_total.css}">
-<title>device_list2.html</title>
+<title>device_list.html</title>
 </head>
 <body>
-	<main>
+
+<div th:replace="fragments/main-header :: header"></div>
+
 		<div class="ground"><!--div class="ground"-->
 <div class="index_content"><!--div class="index_content"-->
 <div class="index_button_line1" style="margin-top:30px;"><!--div class="index_button_line1"-->
@@ -107,6 +109,5 @@
 </div><!--div class="ground"-->
 
 
-	</main>
 </body>
 </html>
