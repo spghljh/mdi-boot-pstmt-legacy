@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import kr.co.mdi.common.util.PasswordUtil;
 import kr.co.mdi.member.dao.MemberPreferenceDao;
 import kr.co.mdi.member.dao.UserDao;
 import kr.co.mdi.member.dto.UserDTO;
@@ -39,7 +40,12 @@ public class UserServiceImpl implements UserService {
 		}
 
 		// 3-1. 비밀번호 암호화 (레거시 방식)
-		user.setPass(BCrypt.hashpw(user.getPass(), BCrypt.gensalt()));
+		
+		// 바로 적용하는 관점
+//		user.setPass(BCrypt.hashpw(user.getPass(), BCrypt.gensalt()));
+		
+		// 유틸클래스로 관리하는 관점
+		user.setPass(PasswordUtil.encode(user.getPass()));
 
 		// 3-2. 비밀번호 암호화 (스프링 시큐리티 방식)
 //		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
