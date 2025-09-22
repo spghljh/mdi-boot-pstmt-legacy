@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>kr.co.mdi</groupId>
 	<artifactId>mdi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>mdi</name>
-	<description>mobile info</description>
+	<description>mobile-device-info</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -98,6 +98,16 @@
     <artifactId>jbcrypt</artifactId>
     <version>0.4</version>
 </dependency>
+
+
+
+<dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>6.0.0</version>
+    <scope>provided</scope>
+</dependency>
+
 
 
 <!--    <dependency>-->

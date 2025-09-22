@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} %-5level %logger{40} - %msg%n"/>
+
+    <!-- 콘솔 로그 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 파일 로그 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- 하루 단위로 로그 파일 생성 -->
+        <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+        <!-- 최근 14일치 로그 유지 -->
+        <maxHistory>14</maxHistory>
+
+        <!-- 전체 용량 제한 (선택) -->
+        <totalSizeCap>100MB</totalSizeCap>
+    </rollingPolicy>
+
+    <encoder>
+        <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+</appender>
+
+
+
+    <!-- 루트 로거에 둘 다 연결 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
