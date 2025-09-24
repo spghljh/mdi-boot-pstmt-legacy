@@ -38,16 +38,19 @@ public class GlobalExceptionHandlerOracle {
 			break;
 		case 936: // ORA-00936
 		case 933: // ORA-00933
-			model.addAttribute("errorMessage", "SQL 문법 오류가 발생했습니다.");
+			model.addAttribute("errorMessage", "SQL 문법 오류");
 			break;
 		case 1031: // ORA-01031
-			model.addAttribute("errorMessage", "권한이 부족하여 작업을 수행할 수 없습니다.");
+			model.addAttribute("errorMessage", "권한 부족.");
+			break;
+		case 1017: // ORA-01017
+			model.addAttribute("errorMessage", "데이터베이스 인증 실패");
 			break;
 		case 1: // ORA-00001
-			model.addAttribute("errorMessage", "중복된 데이터가 존재합니다.");
+			model.addAttribute("errorMessage", "중복 데이터 존재.");
 			break;
 		default:
-			model.addAttribute("errorMessage", "Oracle 데이터 처리 중 오류가 발생했습니다.");
+			model.addAttribute("errorMessage", "Oracle 데이터 처리 중 오류");
 		}
 
 		return "error/db-error";
