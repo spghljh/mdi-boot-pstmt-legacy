@@ -6,6 +6,8 @@ import kr.co.mdi.device.dto.DeviceDTO;
 
 public interface DeviceDao {
 
+	int selectTotalDeviceCount();
+
 	List<DeviceDTO> selectAllDevices();
 
 	DeviceDTO selectDeviceById(Integer deviceId);

@@ -19,6 +19,11 @@ public class CpuServiceImpl implements CpuService {
 	}
 
 	@Override
+	public int getTotalCpuCount() {
+		return cpuDAO.selectTotalCpuCount();
+	}
+
+	@Override
 	public List<CpuDTO> getCpuList() {
 		return cpuDAO.selectAllCpus();
 	}

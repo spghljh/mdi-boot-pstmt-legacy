@@ -33,6 +33,21 @@ public class DeviceDaoPostgreImpl implements DeviceDao {
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 	@Override
+	public int selectTotalDeviceCount() {
+		String sql = "SELECT COUNT(*) FROM mdl";
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("디바이스 row 수 조회 중 오류 발생", e);
+		}
+		return 0;
+	}
+
+	@Override
 	public List<DeviceDTO> selectAllDevices() {
 		List<DeviceDTO> deviceList = new ArrayList<>();
 		String sql = "SELECT * FROM mdl";

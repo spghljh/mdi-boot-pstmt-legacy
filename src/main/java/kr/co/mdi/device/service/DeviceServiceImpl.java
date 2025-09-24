@@ -19,6 +19,11 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 
 	@Override
+	public int getTotalDeviceCount() {
+		return deviceDAO.selectTotalDeviceCount();
+	}
+
+	@Override
 	public List<DeviceDTO> getDeviceList() {
 		return deviceDAO.selectAllDevices();
 	}

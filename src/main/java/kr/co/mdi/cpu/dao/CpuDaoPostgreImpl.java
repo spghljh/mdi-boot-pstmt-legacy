@@ -33,6 +33,21 @@ public class CpuDaoPostgreImpl implements CpuDao {
 	// ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 	@Override
+	public int selectTotalCpuCount() {
+		String sql = "SELECT COUNT(*) FROM mcl";
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("CPU row 수 조회 중 오류 발생", e);
+		}
+		return 0;
+	}
+
+	@Override
 	public List<CpuDTO> selectAllCpus() {
 		List<CpuDTO> cpuList = new ArrayList<>();
 		String sql = "SELECT * FROM mcl";

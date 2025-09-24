@@ -5,6 +5,8 @@ import java.util.List;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
 public interface CpuService {
+	int getTotalCpuCount();
+
 	List<CpuDTO> getCpuList();
 
 	CpuDTO getCpuById(Integer cpuId);
