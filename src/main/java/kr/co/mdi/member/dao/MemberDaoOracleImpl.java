@@ -16,18 +16,38 @@ import kr.co.mdi.member.dto.MemberDTO;
 public class MemberDaoOracleImpl extends AbstractJdbcDao implements MemberDao {
 
 	@Override
+	public int getNextMemberId() {
+		String sql = "SELECT seq_id_member.NEXTVAL FROM dual";
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			if (rs.next()) {
+				return rs.getInt(1);
+			} else {
+				throw new RuntimeException("시퀀스 값을 가져올 수 없습니다.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("시퀀스 조회 중 오류 발생", e);
+		}
+	}
+
+	@Override
 	public void insertUser(MemberDTO member) {
 		String sql = """
-				    INSERT INTO member (id, pass, name, email)
-				    VALUES (?, ?, ?, ?)
+				    INSERT INTO member (id_member, id, pass, name, email)
+				    VALUES (?, ?, ?, ?, ?)
 				""";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPass());
-			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getEmail());
+			pstmt.setInt(1, member.getIdMember()); // 시퀀스 값
+			pstmt.setString(2, member.getId());
+			pstmt.setString(3, member.getPass());
+			pstmt.setString(4, member.getName());
+			pstmt.setString(5, member.getEmail());
 			// regist_day는 생략 → SYSDATE 자동 적용
 
 			pstmt.executeUpdate();

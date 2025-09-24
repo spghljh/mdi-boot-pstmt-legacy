@@ -73,7 +73,9 @@
 
     <td>
         <div class="total1_manf_image">
-            <div class="total2_manf_image"></div>
+            <div class="total2_manf_image">
+				<img th:src="@{'/image/' + ${device.manfDevice} + '.png'}" style="width: 100%; height:100%">
+            </div>
         </div>
     </td>
 
@@ -84,9 +86,10 @@
     </td>
    
     <td style="margin-left:-30px">
-        <div class="total1_cpuindevice">
-            <div class="total2_cpuindevice"><a th:text="${device.cpuDevice}"></a></div>
-        </div>
+		<div class="total2_cpuindevice">
+		    <a th:if="${device.cpuDevice != null}" th:text="${device.cpuDevice}"></a>
+		    <a th:if="${device.cpuDevice == null}">NULL</a>
+		</div>
     </td>
 
 </tr>

@@ -9,4 +9,5 @@ public interface MemberDao {
 
 	MemberDTO findById(String id);
 
+	int getNextMemberId(); // 시퀀스 값 가져오기
 }

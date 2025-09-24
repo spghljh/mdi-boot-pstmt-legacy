@@ -3,6 +3,8 @@ package kr.co.mdi.member.dto;
 import java.util.List;
 
 public class MemberDTO {
+
+	private int idMember;
 	private String id;
 	private String pass;
 	private String passConfirm;
@@ -12,6 +14,14 @@ public class MemberDTO {
 
 	private List<Integer> cpuInterestIds; // 관심 CPU ID 리스트
 	private List<Integer> deviceInterestIds; // 관심 디바이스 ID 리스트
+
+	public int getIdMember() {
+		return idMember;
+	}
+
+	public void setIdMember(int idMember) {
+		this.idMember = idMember;
+	}
 
 	public String getId() {
 		return id;
@@ -79,8 +89,9 @@ public class MemberDTO {
 
 	@Override
 	public String toString() {
-		return "UserDTO [id=" + id + ", pass=" + pass + ", passConfirm=" + passConfirm + ", name=" + name + ", email="
-				+ email + ", registDay=" + registDay + "]";
+		return "MemberDTO [idMember=" + idMember + ", id=" + id + ", pass=" + pass + ", passConfirm=" + passConfirm
+				+ ", name=" + name + ", email=" + email + ", registDay=" + registDay + ", cpuInterestIds="
+				+ cpuInterestIds + ", deviceInterestIds=" + deviceInterestIds + "]";
 	}
 
 }

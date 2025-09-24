@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.co.mdi.common.util.PasswordUtil;
-import kr.co.mdi.member.dao.MemberPreferenceDao;
 import kr.co.mdi.member.dao.MemberDao;
+import kr.co.mdi.member.dao.MemberPreferenceDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
 @Service
@@ -39,10 +39,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		// 3-1. 비밀번호 암호화 (레거시 방식)
-		
+
 		// 바로 적용하는 관점
 //		member.setPass(BCrypt.hashpw(member.getPass(), BCrypt.gensalt()));
-		
+
 		// 유틸클래스로 관리하는 관점
 		member.setPass(PasswordUtil.encode(member.getPass()));
 
@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setRegistDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd (HH:mm)")));
 
 		// 5. 회원 정보 저장
+		member.setIdMember(memberDao.getNextMemberId());
 		memberDao.insertUser(member);
 
 		// 6. 관심 CPU 저장
