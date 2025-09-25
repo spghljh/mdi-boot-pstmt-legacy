@@ -75,13 +75,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<repository>
-  <id>oracle</id>
-  <url>https://maven.oracle.com</url>
-</repository>
-
-		
+	
 		<dependency>
 		  <groupId>com.oracle.database.jdbc</groupId>
 		  <artifactId>ojdbc8</artifactId>
@@ -122,10 +116,10 @@
 </dependency>
 
 		<!-- 스프링 시큐리티 -->
-		<!--    <dependency>-->
-		<!--    <groupId>org.springframework.boot</groupId>-->
-		<!--    <artifactId>spring-boot-starter-security</artifactId>-->
-		<!--</dependency>-->
+		    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
 
 		<!-- 스프링 시큐리티 없이 경량 암호화 -->
@@ -140,6 +134,16 @@
 	
 
 	</dependencies>
+
+
+
+  <repositories>
+    <repository>
+      <id>oracle</id>
+      <url>https://maven.oracle.com</url>
+    </repository>
+  </repositories>
+
 
 	<build>
 		<plugins>

@@ -51,9 +51,16 @@ public class MemberServiceImpl implements MemberService {
 //		member.setPass(passwordEncoder.encode(member.getPass()));
 
 		// 4. 가입일 설정
-		member.setRegistDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd (HH:mm)")));
+//		member.setRegistDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd (HH:mm)")));
+		member.setRegistDay(LocalDateTime.now());
+
 
 		// 5. 회원 정보 저장
+		member.setRole("USER");
+		member.setStatus("ACTIVE");
+		member.setEmailVerified("N");
+		member.setFailCount(0);
+
 		member.setIdMember(memberDao.getNextMemberId());
 		memberDao.insertUser(member);
 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -36,27 +38,34 @@ public class MemberDaoOracleImpl extends AbstractJdbcDao implements MemberDao {
 
 	@Override
 	public void insertUser(MemberDTO member) {
-		String sql = """
-				    INSERT INTO member (id_member, id, pass, name, email)
-				    VALUES (?, ?, ?, ?, ?)
-				""";
+	    String sql = """
+	        INSERT INTO member (
+	            id_member, id, pass, name, email,
+	            role, status, email_verified, fail_count, regist_day
+	        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	    """;
 
-		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			pstmt.setInt(1, member.getIdMember()); // 시퀀스 값
-			pstmt.setString(2, member.getId());
-			pstmt.setString(3, member.getPass());
-			pstmt.setString(4, member.getName());
-			pstmt.setString(5, member.getEmail());
-			// regist_day는 생략 → SYSDATE 자동 적용
+	        pstmt.setInt(1, member.getIdMember());
+	        pstmt.setString(2, member.getId());
+	        pstmt.setString(3, member.getPass());
+	        pstmt.setString(4, member.getName());
+	        pstmt.setString(5, member.getEmail());
+	        pstmt.setString(6, member.getRole());
+	        pstmt.setString(7, member.getStatus());
+	        pstmt.setString(8, member.getEmailVerified());
+	        pstmt.setInt(9, member.getFailCount());
+	        pstmt.setTimestamp(10, java.sql.Timestamp.valueOf(member.getRegistDay()));
 
-			pstmt.executeUpdate();
+	        pstmt.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("회원가입 중 오류 발생", e);
-		}
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("회원가입 중 오류 발생", e);
+	    }
 	}
+
 
 	@Override
 	public boolean existsById(String id) {
@@ -79,26 +88,45 @@ public class MemberDaoOracleImpl extends AbstractJdbcDao implements MemberDao {
 
 	@Override
 	public MemberDTO findById(String id) {
-		String sql = "SELECT * FROM member WHERE id = ?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    String sql = "SELECT * FROM member WHERE id = ?";
 
-			pstmt.setString(1, id);
-			ResultSet rs = pstmt.executeQuery();
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			if (rs.next()) {
-				MemberDTO member = new MemberDTO();
-				member.setId(rs.getString("id"));
-				member.setPass(rs.getString("pass"));
-				member.setName(rs.getString("name"));
-				member.setEmail(rs.getString("email"));
-				member.setRegistDay(rs.getString("regist_day"));
-				// 관심 CPU/디바이스는 필요 시 추가 조회
-				return member;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	        pstmt.setString(1, id);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            MemberDTO member = new MemberDTO();
+	            member.setIdMember(rs.getInt("id_member"));
+	            member.setId(rs.getString("id"));
+	            member.setPass(rs.getString("pass"));
+	            member.setName(rs.getString("name"));
+	            member.setEmail(rs.getString("email"));
+	            member.setRole(rs.getString("role"));
+	            member.setStatus(rs.getString("status"));
+	            member.setEmailVerified(rs.getString("email_verified"));
+	            member.setFailCount(rs.getInt("fail_count"));
+
+	            member.setRegistDay(toLocalDateTime(rs.getTimestamp("regist_day")));
+	            member.setLastLogin(toLocalDateTime(rs.getTimestamp("last_login")));
+	            member.setUpdatedAt(toLocalDateTime(rs.getTimestamp("updated_at")));
+	            member.setDeletedAt(toLocalDateTime(rs.getTimestamp("deleted_at")));
+
+	            return member;
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("회원 조회 중 오류 발생", e);
+	    }
+
+	    return null;
 	}
+
+	// 헬퍼 메서드
+	private LocalDateTime toLocalDateTime(java.sql.Timestamp timestamp) {
+	    return timestamp != null ? timestamp.toLocalDateTime() : null;
+	}
+
 
 }
