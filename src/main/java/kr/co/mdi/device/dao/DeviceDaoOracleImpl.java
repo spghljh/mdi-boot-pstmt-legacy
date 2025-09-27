@@ -32,7 +32,7 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 
 	@Override
 	public int selectTotalDeviceCount() {
-		String sql = "SELECT COUNT(*) FROM mdl";
+		String sql = "SELECT COUNT(*) FROM device";
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -62,10 +62,10 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 				        b.manf_device,
 				        m.id_cpu,
 				        c.name_cpu
-				    FROM mdl m
+				    FROM device m
 				    LEFT JOIN device_type t ON m.device_type_code = t.device_type_code
 				    LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
-				    LEFT JOIN mcl c ON m.id_cpu = c.id_cpu
+				    LEFT JOIN cpu c ON m.id_cpu = c.id_cpu
 				""";
 
 		try (Connection conn = getConnection();
@@ -117,10 +117,10 @@ public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
 				        b.manf_device,
 				        m.id_cpu,
 				        c.name_cpu
-				    FROM mdl m
+				    FROM device m
 				    LEFT JOIN device_type t ON m.device_type_code = t.device_type_code
 				    LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
-				    LEFT JOIN mcl c ON m.id_cpu = c.id_cpu
+				    LEFT JOIN cpu c ON m.id_cpu = c.id_cpu
 				    WHERE m.id_device = ?
 				""";
 

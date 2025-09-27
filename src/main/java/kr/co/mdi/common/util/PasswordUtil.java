@@ -1,18 +1,16 @@
 package kr.co.mdi.common.util;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordUtil {
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	// 암호화
+	public static String encode(String rawPassword) {
+		return BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+	}
 
-    // 암호화
-    public static String encode(String rawPassword) {
-        return encoder.encode(rawPassword);
-    }
-
-    // 비교
-    public static boolean matches(String rawPassword, String encodedPassword) {
-        return encoder.matches(rawPassword, encodedPassword);
-    }
+	// 비교
+	public static boolean matches(String rawPassword, String encodedPassword) {
+		return BCrypt.checkpw(rawPassword, encodedPassword);
+	}
 }

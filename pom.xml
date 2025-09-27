@@ -107,7 +107,6 @@
 </dependency>
 
 
-
 <dependency>
     <groupId>jakarta.servlet</groupId>
     <artifactId>jakarta.servlet-api</artifactId>
@@ -115,23 +114,6 @@
     <scope>provided</scope>
 </dependency>
 
-		<!-- 스프링 시큐리티 -->
-		    <dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-
-		<!-- 스프링 시큐리티 없이 경량 암호화 -->
-<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-crypto</artifactId>
-</dependency>
-
-
-
-	
-	
 
 	</dependencies>
 

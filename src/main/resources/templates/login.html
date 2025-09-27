@@ -83,21 +83,16 @@
 																<div class="user_layout_form_line_box1"
 																	style="margin-top: -10px;">
 
-																	<th:block th:insert="fragments/user-semi :: user_semi"></th:block>
+																	<th:block th:insert="~{fragments/user-semi :: user_semi}"></th:block>
 
 																	<a class="user_layout_form_line_box1_semi">로그인</a>
 
 																</div>
-																
-																<div th:if="${error}" class="error-message">
-    <p th:text="${error}"></p>
-</div>
-																
-
+															
 
 																<div class="user_layout_form_line_box2">
 
-																	<form name="login" method="post" action="/login">
+																	<form name="login" method="post" th:action="@{/loginProc}">
 																		<div class="user_layout_form_line_content">
 																			<input class="id_input" type="text" name="id"
 																				placeholder="아이디">

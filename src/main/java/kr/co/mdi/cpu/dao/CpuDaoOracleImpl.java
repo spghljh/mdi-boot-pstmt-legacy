@@ -32,7 +32,7 @@ public class CpuDaoOracleImpl extends AbstractJdbcDao implements CpuDao {
 
 	@Override
 	public int selectTotalCpuCount() {
-		String sql = "SELECT COUNT(*) FROM mcl";
+		String sql = "SELECT COUNT(*) FROM cpu";
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -62,7 +62,7 @@ public class CpuDaoOracleImpl extends AbstractJdbcDao implements CpuDao {
 				        t.type_cpu,
 				        m.cpu_manf_code,
 				        b.manf_cpu
-				    FROM mcl m
+				    FROM cpu m
 				    LEFT JOIN cpu_type t ON m.cpu_type_code = t.cpu_type_code
 				    LEFT JOIN cpu_manf_brand b ON m.cpu_manf_code = b.cpu_manf_code
 				""";
@@ -112,7 +112,7 @@ public class CpuDaoOracleImpl extends AbstractJdbcDao implements CpuDao {
 				        t.type_cpu,
 				        m.cpu_manf_code,
 				        b.manf_cpu
-				    FROM mcl m
+				    FROM cpu m
 				    LEFT JOIN cpu_type t ON m.cpu_type_code = t.cpu_type_code
 				    LEFT JOIN cpu_manf_brand b ON m.cpu_manf_code = b.cpu_manf_code
 				    WHERE m.id_cpu = ?

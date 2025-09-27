@@ -38,7 +38,7 @@ public class MemberController {
 		return userService.isDuplicateId(id);
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/loginProc")
 	public String processLogin(@RequestParam String id, @RequestParam String pass, HttpSession session, Model model) {
 
 		MemberDTO user = userService.findUserById(id); // 아이디로 사용자 조회
@@ -56,7 +56,7 @@ public class MemberController {
 		// 아이디 존재 여부를 노출하지 않도록 처리하는 게 실무 보안 기준
 		if (user == null || !BCrypt.checkpw(pass, user.getPass())) {
 			model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "login";
+			return "redirect:/login"; // 로그인 페이지로 이동
 		}
 
 		// 로그인 성공 → 세션에 사용자 정보 저장
