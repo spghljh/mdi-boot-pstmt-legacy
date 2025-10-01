@@ -1,4 +1,4 @@
-package kr.co.mdi.device.dao;
+package kr.co.mdi.device.dao.postgres;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,17 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import kr.co.mdi.common.jdbc.AbstractJdbcDao;
+import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
-@Profile("dev-mysql")
+@Profile("dev-psql")
 @Repository
-public class DeviceDaoMysqlImpl extends AbstractJdbcDao implements DeviceDao {
+public class DeviceDaoImpl implements DeviceDao {
 
 	private final DataSource dataSource;
 
 	@Autowired
-	public DeviceDaoMysqlImpl(DataSource dataSource) {
+	public DeviceDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
@@ -128,7 +128,6 @@ public class DeviceDaoMysqlImpl extends AbstractJdbcDao implements DeviceDao {
 		DeviceDTO device = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
 			pstmt.setInt(1, deviceId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -150,7 +149,6 @@ public class DeviceDaoMysqlImpl extends AbstractJdbcDao implements DeviceDao {
 					device.setCpuDevice(rs.getString("name_cpu"));
 				}
 			}
-
 		} catch (SQLException se) {
 			se.printStackTrace();
 			throw new RuntimeException("DB 조회 중 오류 발생", se);

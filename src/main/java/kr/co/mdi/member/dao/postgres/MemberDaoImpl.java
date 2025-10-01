@@ -1,4 +1,4 @@
-package kr.co.mdi.member.dao;
+package kr.co.mdi.member.dao.postgres;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,11 +10,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
+import kr.co.mdi.member.dao.MemberDao;
+import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
 @Profile("dev-psql")
 @Repository
-public class MemberDaoPostgresImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
+public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 
 	@Override
 	public int getNextMemberId() {

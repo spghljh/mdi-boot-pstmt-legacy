@@ -5,11 +5,10 @@
 <link rel="stylesheet" th:href="@{/css/index_body_index.css}">
 <link rel="stylesheet" th:href="@{/css/main_header.css}">
 <link rel="stylesheet" th:href="@{/css/user.css}">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <link rel="stylesheet" th:href="@{/css/index-slick-cpu.css}">
 <link rel="stylesheet" th:href="@{/css/index-slick-device.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
 
 
@@ -75,7 +74,7 @@
 											<div class="Total_Count"
 												onclick="location.href='/mdi/page1/page1_list.php' ">
 												<div class="Total_Count_Amount">
-													<a th:text="${totalCpuCount}"></a>
+													<a th:text="${totalCpuCount}" th:href="@{/cpus}"></a>
 												</div>
 												<div class="Total_Count_Processor">
 													<a>프로세서</a>
@@ -163,7 +162,7 @@
 												onclick="location.href='/mdi/page2/page2_list.php' "
 												style="margin-right: 40px; margin-left: -20px;">
 												<div class="Total_Count_Amount">
-													<a th:text="${totalDeviceCount}">
+													<a th:text="${totalDeviceCount}" th:href="@{/devices}">
 													</a>
 												</div>
 												<div class="Total_Count_Device">

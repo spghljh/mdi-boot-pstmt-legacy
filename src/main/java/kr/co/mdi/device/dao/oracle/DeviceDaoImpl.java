@@ -1,4 +1,4 @@
-package kr.co.mdi.device.dao;
+package kr.co.mdi.device.dao.oracle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +11,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
+import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
 @Profile("dev-oracle")
 @Repository
-public class DeviceDaoOracleImpl extends AbstractJdbcDao implements DeviceDao {
+public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 
 //	private final DataSource dataSource;
 //

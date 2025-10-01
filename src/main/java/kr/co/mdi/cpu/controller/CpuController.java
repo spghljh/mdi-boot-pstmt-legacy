@@ -21,7 +21,7 @@ public class CpuController {
 	public String cpuList(Model model) {
 		List<CpuDTO> cpuList = cpuService.getCpuList();
 		model.addAttribute("cpus", cpuList);
-		return "cpu-list";
+		return "/cpu/cpu-list";
 	}
 
 	// CPU 상세 페이지
@@ -29,7 +29,7 @@ public class CpuController {
 	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
 		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
 		model.addAttribute("cpu", cpu); // 뷰에 전달
-		return "cpu-detail";
+		return "/cpu/cpu-detail";
 	}
 
 }

@@ -21,7 +21,7 @@ public class DeviceController {
 	public String deviceList(Model model) {
 		List<DeviceDTO> deviceList = deviceService.getDeviceList();
 		model.addAttribute("devices", deviceList);
-		return "device-list";
+		return "/device/device-list";
 	}
 
 	// DEVICE 상세 페이지
@@ -29,7 +29,7 @@ public class DeviceController {
 	public String deviceDetail(@PathVariable Integer deviceId, Model model) {
 		DeviceDTO device = deviceService.getDeviceById(deviceId); // 상세 정보 조회
 		model.addAttribute("device", device); // 뷰에 전달
-		return "device-detail";
+		return "/device/device-detail";
 	}
 
 }

@@ -395,7 +395,15 @@
                         width: auto;
                         height: auto;
                         outline-width: 1px;
-                        color: black;
+                        
+							a,
+							a:visited,
+							a:hover,
+							a:active {
+							  color: #000; /* 검정색 고정 */
+							  text-decoration: none; /* 밑줄 제거 */
+							}
+
                         display: flex;
                         justify-content: center;
                         align-items: end;
