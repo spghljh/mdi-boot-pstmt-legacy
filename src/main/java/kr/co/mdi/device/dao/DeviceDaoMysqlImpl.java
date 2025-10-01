@@ -34,7 +34,7 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 
 	@Override
 	public int selectTotalDeviceCount() {
-		String sql = "SELECT COUNT(*) FROM mdl";
+		String sql = "SELECT COUNT(*) FROM device";
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -50,7 +50,7 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 	@Override
 	public List<DeviceDTO> selectAllDevices() {
 		List<DeviceDTO> deviceList = new ArrayList<>();
-		String sql = "SELECT * FROM mdl";
+		String sql = "SELECT * FROM device";
 
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class DeviceDaoMysqlImpl implements DeviceDao {
 
 	@Override
 	public DeviceDTO selectDeviceById(Integer deviceId) {
-		String sql = "SELECT * FROM mdl WHERE id_device = ?";
+		String sql = "SELECT * FROM device WHERE id_device = ?";
 		DeviceDTO device = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -34,7 +34,7 @@ public class CpuDaoMysqlImpl implements CpuDao {
 
 	@Override
 	public int selectTotalCpuCount() {
-		String sql = "SELECT COUNT(*) FROM mcl";
+		String sql = "SELECT COUNT(*) FROM cpu";
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -50,7 +50,7 @@ public class CpuDaoMysqlImpl implements CpuDao {
 	@Override
 	public List<CpuDTO> selectAllCpus() {
 		List<CpuDTO> cpuList = new ArrayList<>();
-		String sql = "SELECT * FROM mcl";
+		String sql = "SELECT * FROM cpu";
 
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class CpuDaoMysqlImpl implements CpuDao {
 
 	@Override
 	public CpuDTO selectCpuById(Integer cpuId) {
-		String sql = "SELECT * FROM mcl WHERE id_cpu = ?";
+		String sql = "SELECT * FROM cpu WHERE id_cpu = ?";
 		CpuDTO cpu = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
