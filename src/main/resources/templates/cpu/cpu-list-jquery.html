@@ -78,48 +78,48 @@
 
 
 
-<tr th:each="cpu : ${cpus}" class="SearchResult_Table_Row_page1">   
+<!-- <tr th:each="cpu : ${cpus}" class="SearchResult_Table_Row_page1">    -->
 
-    <td>
-        <div class="total1_image">
-            <div class="Module_Layout_1_1_1_1_0" style="margin-left:10px;"><a style="font-size:14px; color:white; width: 40px;">Proc</a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_image"> -->
+<!--             <div class="Module_Layout_1_1_1_1_0" style="margin-left:10px;"><a style="font-size:14px; color:white; width: 40px;">Proc</a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
 
-    <td>
-        <div class="total1_type">
-            <div class="total2_type"><a th:text="${cpu.typeCpu}"></a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_type"> -->
+<!--             <div class="total2_type"><a th:text="${cpu.typeCpu}"></a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-    <td>
-        <div class="total1_manf_image">
-            <div class="total2_manf_image">
-				<img th:src="@{'/image/' + ${cpu.manfCpu} + '.png'}" style="width: 100%; height:100%">
-            </div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_manf_image"> -->
+<!--             <div class="total2_manf_image"> -->
+<!-- 				<img th:src="@{'/image/' + ${cpu.manfCpu} + '.png'}" style="width: 100%; height:100%"> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-    <td>
-        <div class="total1_name">
-            <div class="total2_name"><a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_name"> -->
+<!--             <div class="total2_name"><a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-    <td style="margin-left:-15px">
-        <div class="total1_c">
-            <div class="total2_c"><a th:text="${cpu.coreCpu}"></a><a style="font-size:16px; margin-left:3px; margin-top:3px;">코어</a></div>
-        </div>
-    </td>
+<!--     <td style="margin-left:-15px"> -->
+<!--         <div class="total1_c"> -->
+<!--             <div class="total2_c"><a th:text="${cpu.coreCpu}"></a><a style="font-size:16px; margin-left:3px; margin-top:3px;">코어</a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-    <td>
-        <div class="total1_t">
-            <div class="total2_t"><a style="font-size:16px; margin-right:5px; margin-left:-12px;">최고</a><a th:text="${cpu.maxghzCpu}"></a><a style="font-size:16px; margin-left:5px;">Ghz</a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_t"> -->
+<!--             <div class="total2_t"><a style="font-size:16px; margin-right:5px; margin-left:-12px;">최고</a><a th:text="${cpu.maxghzCpu}"></a><a style="font-size:16px; margin-left:5px;">Ghz</a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-</tr>
+<!-- </tr> -->
 
 
 
@@ -169,4 +169,14 @@
 
 
 </body>
+
+
+<!-- jQuery CDN 먼저 포함 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 분리된 JS 파일 연결 -->
+<script src="/js/cpu-list-jquery.js"></script>
+
+
+
 </html>
