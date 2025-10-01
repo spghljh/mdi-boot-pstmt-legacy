@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Profile("dev-psql")
 @ControllerAdvice
-public class GlobalExceptionHandlerPostgre {
+public class GlobalExceptionHandlerPostgres {
 
 	@ExceptionHandler(CannotGetJdbcConnectionException.class)
 	public String handleJdbcConnectionError(Model model) {
