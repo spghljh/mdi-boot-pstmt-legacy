@@ -12,4 +12,4 @@
 ## 주요 기능
 
 ### 메인 화면
-![메인 화면](./readme-img/mdi1-readme-cover.png)
+![메인 화면](./readme-img/mdi-boot-readme-cover.png)
