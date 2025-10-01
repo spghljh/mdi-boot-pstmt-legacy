@@ -9,5 +9,9 @@ public interface MemberDao {
 
 	MemberDTO findById(String id);
 
-	int getNextMemberId(); // 시퀀스 값 가져오기
+	// 시퀀스 값 가져오기
+	// Mysql은 미적용
+	// 인터페이스 분리(SequenceBasedMemberDao)
+	// SOLID 원칙 중 ISP
+//	int getNextMemberId();
 }

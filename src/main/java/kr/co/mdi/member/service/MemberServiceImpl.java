@@ -1,7 +1,6 @@
 package kr.co.mdi.member.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.mdi.common.util.PasswordUtil;
 import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.MemberPreferenceDao;
+import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
 @Service
@@ -54,14 +54,20 @@ public class MemberServiceImpl implements MemberService {
 //		member.setRegistDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd (HH:mm)")));
 		member.setRegistDay(LocalDateTime.now());
 
-
 		// 5. 회원 정보 저장
 		member.setRole("USER");
 		member.setStatus("ACTIVE");
 		member.setEmailVerified("N");
 		member.setFailCount(0);
 
-		member.setIdMember(memberDao.getNextMemberId());
+//		member.setIdMember(memberDao.getNextMemberId());
+//		1) memberDao가 SequenceBasedMemberDao를 구현한 객체인지 확인
+//		2-1) Oracle이나 PostgreSQL이면 true → 시퀀스를 호출해서 ID를 가져옴
+//		2-2) MySQL이면 false → 아무 것도 하지 않음 (ID는 DB가 자동 생성)
+		if (memberDao instanceof SequenceBasedMemberDao sequenceDao) {
+			member.setIdMember(sequenceDao.getNextMemberId());
+		}
+
 		memberDao.insertUser(member);
 
 		// 6. 관심 CPU 저장

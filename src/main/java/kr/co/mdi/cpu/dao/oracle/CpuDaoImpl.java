@@ -1,4 +1,4 @@
-package kr.co.mdi.cpu.dao;
+package kr.co.mdi.cpu.dao.oracle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,28 +7,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mdi.common.jdbc.AbstractJdbcDao;
+import kr.co.mdi.cpu.dao.CpuDao;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
-@Profile("dev-psql")
+@Profile("dev-oracle")
 @Repository
-public class CpuDaoPostgresImpl implements CpuDao {
+public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 
-	private final DataSource dataSource;
+//	private final DataSource dataSource;
+//
+//	@Autowired
+//	public CpuDaoOracleImpl(DataSource dataSource) {
+//		this.dataSource = dataSource;
+//	}
+//
+//	public Connection getConnection() throws SQLException {
+//		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
+//	}
 
-	@Autowired
-	public CpuDaoPostgresImpl(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public Connection getConnection() throws SQLException {
-		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-	}
+	// ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public int selectTotalCpuCount() {
@@ -89,7 +90,7 @@ public class CpuDaoPostgresImpl implements CpuDao {
 			}
 
 		} catch (SQLException se) {
-			se.printStackTrace();
+			se.printStackTrace(); // 필요 시 로깅 처리
 			throw new RuntimeException("DB 조회 중 오류 발생", se);
 		}
 
@@ -121,6 +122,7 @@ public class CpuDaoPostgresImpl implements CpuDao {
 		CpuDTO cpu = null;
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
 			pstmt.setInt(1, cpuId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -139,6 +141,7 @@ public class CpuDaoPostgresImpl implements CpuDao {
 					cpu.setManfCpu(rs.getString("manf_cpu"));
 				}
 			}
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 			throw new RuntimeException("DB 조회 중 오류 발생2", se);
@@ -146,4 +149,5 @@ public class CpuDaoPostgresImpl implements CpuDao {
 
 		return cpu;
 	}
+
 }

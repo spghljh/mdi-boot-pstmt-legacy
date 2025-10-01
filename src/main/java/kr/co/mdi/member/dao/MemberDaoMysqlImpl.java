@@ -12,50 +12,30 @@ import org.springframework.stereotype.Repository;
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
-@Profile("dev-psql")
+@Profile("dev-mysql")
 @Repository
-public class MemberDaoPostgresImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
-
-	@Override
-	public int getNextMemberId() {
-		String sql = "SELECT nextval('seq_id_member')";
-
-		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-
-			if (rs.next()) {
-				return rs.getInt(1);
-			} else {
-				throw new RuntimeException("시퀀스 값을 가져올 수 없습니다.");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("시퀀스 조회 중 오류 발생", e);
-		}
-	}
+public class MemberDaoMysqlImpl extends AbstractJdbcDao implements MemberDao {
 
 	@Override
 	public void insertUser(MemberDTO member) {
 		String sql = """
 				    INSERT INTO member (
-				        id_member, id, pass, name, email,
+				        id, pass, name, email,
 				        role, status, email_verified, fail_count, regist_day
-				    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+				    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 				""";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			pstmt.setInt(1, member.getIdMember());
-			pstmt.setString(2, member.getId());
-			pstmt.setString(3, member.getPass());
-			pstmt.setString(4, member.getName());
-			pstmt.setString(5, member.getEmail());
-			pstmt.setString(6, member.getRole());
-			pstmt.setString(7, member.getStatus());
-			pstmt.setString(8, member.getEmailVerified());
-			pstmt.setInt(9, member.getFailCount());
-			pstmt.setTimestamp(10, java.sql.Timestamp.valueOf(member.getRegistDay()));
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPass());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getRole());
+			pstmt.setString(6, member.getStatus());
+			pstmt.setString(7, member.getEmailVerified());
+			pstmt.setInt(8, member.getFailCount());
+			pstmt.setTimestamp(9, java.sql.Timestamp.valueOf(member.getRegistDay()));
 
 			pstmt.executeUpdate();
 
