@@ -30,6 +30,6 @@ public class MainController {
 	// 로그인 페이지
 	@GetMapping("/login")
 	public String loginPage() {
-		return "login"; // templates/login.html
+		return "/member/login"; // templates/login.html
 	}
 }

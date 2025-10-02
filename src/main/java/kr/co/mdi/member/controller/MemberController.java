@@ -23,7 +23,7 @@ public class MemberController {
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
 		model.addAttribute("user", new MemberDTO());
-		return "register";
+		return "/member/register";
 	}
 
 	@PostMapping("/register")
