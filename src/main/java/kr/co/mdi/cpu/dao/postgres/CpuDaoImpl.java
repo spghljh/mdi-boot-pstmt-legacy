@@ -14,13 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.cpu.dao.CpuDao;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
 @Profile("dev-psql")
 @Repository
 
-public class CpuDaoImpl implements CpuDao {
+public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 	
 	@Value("${current.schema}")
 	private String currentSchema;
@@ -32,9 +33,7 @@ public class CpuDaoImpl implements CpuDao {
 		this.dataSource = dataSource;
 	}
 
-//	public Connection getConnection() throws SQLException {
-//		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-//	}
+	@Override
 	public Connection getConnection() throws SQLException {
         Connection conn = dataSource.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {

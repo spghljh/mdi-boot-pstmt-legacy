@@ -14,12 +14,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
 @Profile("dev-psql")
 @Repository
-public class DeviceDaoImpl implements DeviceDao {
+public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	
 	@Value("${current.schema}")
 	private String currentSchema;
@@ -30,11 +31,8 @@ public class DeviceDaoImpl implements DeviceDao {
 	public DeviceDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
-//	public Connection getConnection() throws SQLException {
-//		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-//	}
 	
+    @Override
 	public Connection getConnection() throws SQLException {
         Connection conn = dataSource.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {

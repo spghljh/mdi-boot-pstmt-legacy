@@ -31,10 +31,6 @@ public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, Sequenc
     public MemberDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    
-//	public Connection getConnection() throws SQLException {
-//	return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-//}
 
     @Override
     public Connection getConnection() throws SQLException {
