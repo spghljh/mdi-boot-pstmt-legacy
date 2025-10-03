@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +22,29 @@ import kr.co.mdi.member.dto.MemberDTO;
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 
+    @Value("${current.schema}")
+    private String currentSchema;
+
+    private final DataSource dataSource;
+
+    @Autowired
+    public MemberDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    
+//	public Connection getConnection() throws SQLException {
+//	return dataSource.getConnection(); // 커넥션 풀에서 가져옴
+//}
+
+    @Override
+    public Connection getConnection() throws SQLException {
+        Connection conn = dataSource.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
+            stmt.execute();
+        }
+        return conn;
+    }
+	
 	@Override
 	public int getNextMemberId() {
 		String sql = "SELECT nextval('seq_id_member')";

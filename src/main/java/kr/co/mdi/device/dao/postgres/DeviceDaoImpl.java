@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,9 @@ import kr.co.mdi.device.dto.DeviceDTO;
 @Profile("dev-psql")
 @Repository
 public class DeviceDaoImpl implements DeviceDao {
+	
+	@Value("${current.schema}")
+	private String currentSchema;
 
 	private final DataSource dataSource;
 
@@ -27,9 +31,17 @@ public class DeviceDaoImpl implements DeviceDao {
 		this.dataSource = dataSource;
 	}
 
+//	public Connection getConnection() throws SQLException {
+//		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
+//	}
+	
 	public Connection getConnection() throws SQLException {
-		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-	}
+        Connection conn = dataSource.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
+            stmt.execute();
+        }
+        return conn;
+    }
 
 	@Override
 	public int selectTotalDeviceCount() {
