@@ -18,7 +18,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.cpu.dao.CpuDao;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
-@Profile("dev-psql")
+@Profile("dev-postgres")
 @Repository
 
 public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {

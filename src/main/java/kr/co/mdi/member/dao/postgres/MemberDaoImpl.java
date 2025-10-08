@@ -18,7 +18,7 @@ import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
-@Profile("dev-psql")
+@Profile("dev-postgres")
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 

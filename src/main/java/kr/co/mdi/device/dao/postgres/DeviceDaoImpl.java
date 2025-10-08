@@ -18,7 +18,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
-@Profile("dev-psql")
+@Profile("dev-postgres")
 @Repository
 public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	

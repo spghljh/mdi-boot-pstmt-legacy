@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Profile("dev-psql")
+@Profile("dev-postgres")
 @ControllerAdvice
 public class GlobalExceptionHandlerPostgres {
 
