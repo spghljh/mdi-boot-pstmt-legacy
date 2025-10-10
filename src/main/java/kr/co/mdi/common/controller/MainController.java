@@ -31,6 +31,6 @@ public class MainController {
     // 로그인 페이지
     @GetMapping("/login")
     public String loginPage() {
-        return "/member/login";
+        return "member/login";
     }
 }

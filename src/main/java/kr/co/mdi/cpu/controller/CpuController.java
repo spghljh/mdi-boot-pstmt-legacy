@@ -23,7 +23,7 @@ public class CpuController {
 	public String cpuList(Model model) {
 		List<CpuDTO> cpuList = cpuService.getCpuList();
 		model.addAttribute("cpus", cpuList);
-		return "/cpu/cpu-list";
+		return "cpu/cpu-list";
 	}
 
 	// HTML 반환 컨트롤러
@@ -32,19 +32,19 @@ public class CpuController {
 	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
 		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
 		model.addAttribute("cpu", cpu); // 뷰에 전달
-		return "/cpu/cpu-detail";
+		return "cpu/cpu-detail";
 	}
 
 	// HTML 반환 컨트롤러
 	@GetMapping("/cpus-fetch")
 	public String cpuRestPageFetch() {
-		return "/cpu/cpu-list-fetch";
+		return "cpu/cpu-list-fetch";
 	}
 
 	// HTML 반환 컨트롤러
 	@GetMapping("/cpus-jquery")
 	public String cpuRestPageJquery() {
-		return "/cpu/cpu-list-jquery";
+		return "cpu/cpu-list-jquery";
 	}
 
 }
