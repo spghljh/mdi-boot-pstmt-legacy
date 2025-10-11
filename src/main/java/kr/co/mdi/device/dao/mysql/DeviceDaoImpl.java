@@ -17,7 +17,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
-@Profile("dev-mysql")
+@Profile("dev-mdi-mysql")
 @Repository
 public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 

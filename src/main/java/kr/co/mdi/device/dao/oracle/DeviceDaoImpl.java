@@ -14,7 +14,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
-@Profile("dev-oracle")
+@Profile("dev-mdi-oracle")
 @Repository
 public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 
