@@ -40,9 +40,9 @@ logs/
 
 application-dev.properties
 application-dev-maria.properties
-application-dev-mysql.properties
-application-dev-oracle.properties
-application-dev-postgres.properties
+application-dev-mdi-mysql.properties
+application-dev-mdi-oracle.properties
+application-dev-mdi-postgres.properties
 
 application-dev.yml
 application-dev-maria.yml
