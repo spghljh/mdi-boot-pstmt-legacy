@@ -1,4 +1,4 @@
-package kr.co.mdi.device.dao.postgres;
+package kr.co.mdi.device.dao.postgre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
-@Profile("dev-mdi-postgres")
+@Profile("dev-user-postgre")
 @Repository
 public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	

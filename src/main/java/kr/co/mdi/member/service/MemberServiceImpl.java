@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 
 //		member.setIdMember(memberDao.getNextMemberId());
 //		1) memberDao가 SequenceBasedMemberDao를 구현한 객체인지 확인
-//		2-1) Oracle이나 PostgreSQL이면 true → 시퀀스를 호출해서 ID를 가져옴
+//		2-1) Oracle이나 postgreQL이면 true → 시퀀스를 호출해서 ID를 가져옴
 //		2-2) MySQL이면 false → 아무 것도 하지 않음 (ID는 DB가 자동 생성)
 		if (memberDao instanceof SequenceBasedMemberDao sequenceDao) {
 			member.setIdMember(sequenceDao.getNextMemberId());

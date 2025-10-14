@@ -1,4 +1,4 @@
-package kr.co.mdi.member.dao.postgres;
+package kr.co.mdi.member.dao.postgre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
-@Profile("dev-mdi-postgres")
+@Profile("dev-user-postgre")
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 

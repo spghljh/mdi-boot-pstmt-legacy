@@ -14,7 +14,7 @@ import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
-@Profile("dev-mdi-oracle")
+@Profile("dev-user-oracle")
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 

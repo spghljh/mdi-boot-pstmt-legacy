@@ -15,7 +15,7 @@ public class DbProfileResolver {
     public String getDbType() {
         String[] profiles = env.getActiveProfiles();
         for (String profile : profiles) {
-            if (profile.contains("postgres")) return "Postgres";
+            if (profile.contains("postgre")) return "postgre";
             if (profile.contains("mysql")) return "MySQL";
             if (profile.contains("oracle")) return "Oracle";
         }

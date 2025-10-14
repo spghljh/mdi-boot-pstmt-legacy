@@ -13,7 +13,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
-@Profile("dev-mdi-mysql")
+@Profile("dev-user-mysql")
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao {
 

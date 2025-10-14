@@ -1,4 +1,4 @@
-package kr.co.mdi.cpu.dao.postgres;
+package kr.co.mdi.cpu.dao.postgre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.cpu.dao.CpuDao;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
-@Profile("dev-mdi-postgres")
+@Profile("dev-user-postgre")
 @Repository
 
 public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {

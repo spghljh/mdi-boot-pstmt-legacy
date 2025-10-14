@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Profile("dev-postgres")
+@Profile("dev-postgre")
 @ControllerAdvice
-public class GlobalExceptionHandlerPostgres {
+public class GlobalExceptionHandlerPostgre {
 
 	@ExceptionHandler(CannotGetJdbcConnectionException.class)
 	public String handleJdbcConnectionError(Model model) {
@@ -26,7 +26,7 @@ public class GlobalExceptionHandlerPostgres {
 	}
 
 	@ExceptionHandler(SQLException.class)
-	public String handlePostgresSqlError(SQLException e, Model model) {
+	public String handlepostgreSqlError(SQLException e, Model model) {
 		String sqlState = e.getSQLState();
 
 		switch (sqlState) {
@@ -46,7 +46,7 @@ public class GlobalExceptionHandlerPostgres {
 			model.addAttribute("errorMessage", "데이터베이스 접근 권한이 없습니다.");
 			break;
 		default:
-			model.addAttribute("errorMessage", "PostgreSQL 데이터 처리 중 오류가 발생했습니다.");
+			model.addAttribute("errorMessage", "postgreQL 데이터 처리 중 오류가 발생했습니다.");
 		}
 
 		return "error/db-error";
