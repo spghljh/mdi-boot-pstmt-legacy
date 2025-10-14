@@ -47,6 +47,12 @@ jobs:
           echo "COMMIT_MSG=$SAFE_COMMIT_MSG"
           echo "COMMIT_MSG=$SAFE_COMMIT_MSG" >> $GITHUB_ENV
 
+      - name: Set JAR Name
+        run: |
+          JAR_NAME=$(ls target/*.jar | head -n 1)
+          echo "JAR_NAME=$JAR_NAME"
+          echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
+
       - name: List JAR Output
         run: ls -lh target/*.jar
 
