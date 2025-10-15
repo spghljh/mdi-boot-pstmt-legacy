@@ -14,6 +14,8 @@ HELP.md
 bin/
 out/
 /target/
+!/target/cosign.pub
+!/target/output.bundle
 /build/
 *.class
 *.jar

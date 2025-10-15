@@ -136,6 +136,7 @@
 
 	<build>
 	    <plugins>
+	    
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-compiler-plugin</artifactId>
@@ -166,6 +167,27 @@
 	                </excludes>
 	            </configuration>
 	        </plugin>
+	        
+			<plugin>
+			  <groupId>org.cyclonedx</groupId>
+			  <artifactId>cyclonedx-maven-plugin</artifactId>
+			  <version>2.7.5</version>
+			  <executions>
+			    <execution>
+			      <phase>verify</phase>
+			      <goals>
+			        <goal>makeAggregateBom</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			  <configuration>
+			    <outputFormat>json</outputFormat>
+			    <outputName>bom</outputName>
+			    <outputDirectory>${project.build.directory}</outputDirectory>
+			    <includeBomSerialNumber>true</includeBomSerialNumber>
+			  </configuration>
+			</plugin>
+			
 	    </plugins>
 	</build>
 
