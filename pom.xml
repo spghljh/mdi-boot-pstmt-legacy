@@ -174,7 +174,7 @@
 			  <version>2.7.5</version>
 			  <executions>
 			    <execution>
-			      <phase>verify</phase>
+			      <phase>package</phase>
 			      <goals>
 			        <goal>makeAggregateBom</goal>
 			      </goals>
@@ -188,7 +188,51 @@
 			  </configuration>
 			</plugin>
 			
-	    </plugins>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-antrun-plugin</artifactId>
+			  <version>3.0.0</version>
+			  <executions>
+			    <execution>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>run</goal>
+			      </goals>
+			      <configuration>
+			        <target>
+			          <!-- dist 디렉토리 생성 -->
+					<delete dir="${project.basedir}/dist" failonerror="false"/>
+					<mkdir dir="${project.basedir}/dist"/>
+
+			          <!-- JAR 복사 -->
+			          <copy file="${project.build.directory}/${project.build.finalName}.jar"
+			                tofile="${project.basedir}/dist/${project.build.finalName}.jar"/>
+			
+			          <!-- SBOM 복사 및 이름 변경 -->
+<!--			          <copy file="${project.build.directory}/bom.json"-->
+<!--			                tofile="${project.basedir}/dist/${project.build.finalName}-sbom.json"/>-->
+					<copy file="${project.build.outputDirectory}/META-INF/sbom/application.cdx.json"
+					      tofile="${project.basedir}/dist/${project.build.finalName}-sbom.json"
+					      failonerror="false"/>
+
+			          <!-- Cosign 서명 번들 복사 -->
+					<copy file="${project.basedir}/output.bundle"
+					      tofile="${project.basedir}/dist/${project.build.finalName}-output.bundle"
+					      failonerror="false"/>
+					<delete file="${project.basedir}/output.bundle" failonerror="false"/>
+
+
+			          <!-- Cosign 공개키 복사 -->
+			          <copy file="${project.basedir}/keys/cosign.pub"
+			                tofile="${project.basedir}/dist/cosign.pub"
+			                failonerror="false"/>
+			        </target>
+			      </configuration>
+			    </execution>
+			  </executions>
+			</plugin>
+
+	    </plugins> 
 	</build>
 
 </project>

@@ -14,8 +14,6 @@ HELP.md
 bin/
 out/
 /target/
-!/target/cosign.pub
-!/target/output.bundle
 /build/
 *.class
 *.jar
@@ -39,6 +37,17 @@ logs/
 # 환경 설정 및 민감 정보
 *.lock
 .env
+
+# 민감 정보만 제외
+keys/cosign.key
+!keys/cosign.pub         # 공개키는 추적
+
+# 루트 번들 파일은 추적
+!output.bundle            # 루트에 생성된 서명 번들 포함
+
+# dist 디렉토리는 추적 (배포 대상)
+!dist/
+!dist/**                  # 내부 파일 포함
 
 application-dev.properties
 application-dev-user-maria.properties
