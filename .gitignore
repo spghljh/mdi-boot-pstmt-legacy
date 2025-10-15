@@ -48,7 +48,6 @@ keys/cosign.key
 # dist 디렉토리는 추적 (배포 대상)
 !dist/
 !dist/**
-!dist/*.jar
 
 application-dev.properties
 application-dev-user-maria.properties
