@@ -101,13 +101,32 @@
         </div>
     </td>
 
-    <td>
-        <div class="total1_name">
-            <div class="total2_name"><a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_name"> -->
+<!--             <div class="total2_name"><a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a></div> -->
+<!--         </div> -->
+<!--     </td> -->
 
-    <td style="margin-left:-15px">
+<td>
+  <div class="total1_name" style="width:210px;">
+    <div class="total2_name">
+      <a th:href="@{'/cpus/' + ${cpu.idCpu}}"
+         th:text="${cpu.nameCpu}"
+         style="
+           display: block;
+           font-size: clamp(14px, 2vw, 24px);
+           line-height: 1.3;
+           white-space: normal;
+           word-break: break-word;
+           overflow-wrap: break-word;
+         ">
+      </a>
+    </div>
+  </div>
+</td>
+
+
+    <td>
         <div class="total1_c">
             <div class="total2_c"><a th:text="${cpu.coreCpu}"></a><a style="font-size:16px; margin-left:3px; margin-top:3px;">코어</a></div>
         </div>
@@ -167,6 +186,6 @@
 </div><!--div class="index_content"-->
 </div><!--div class="ground"-->
 
-
+<script src="/js/cpu-font-adjust.js"></script>
 </body>
 </html>

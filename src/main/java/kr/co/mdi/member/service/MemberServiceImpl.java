@@ -71,18 +71,19 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.insertUser(member);
 
 		// 6. 관심 CPU 저장
-		if (member.getCpuInterestIds() != null && !member.getCpuInterestIds().isEmpty()) {
-			for (Integer cpuId : member.getCpuInterestIds()) {
-				cpuPreferenceDao.insert(member.getId(), cpuId);
-			}
+		if (member.getCpuPreferenceIds() != null && !member.getCpuPreferenceIds().isEmpty()) {
+		    for (Integer cpuPreferenceId : member.getCpuPreferenceIds()) {
+		        cpuPreferenceDao.insert(member.getId(), cpuPreferenceId);
+		    }
 		}
 
 		// 7. 관심 디바이스 저장
-		if (member.getDeviceInterestIds() != null && !member.getDeviceInterestIds().isEmpty()) {
-			for (Integer deviceId : member.getDeviceInterestIds()) {
-				devicePreferenceDao.insert(member.getId(), deviceId);
-			}
+		if (member.getDevicePreferenceIds() != null && !member.getDevicePreferenceIds().isEmpty()) {
+		    for (Integer devicePreferenceId : member.getDevicePreferenceIds()) {
+		        devicePreferenceDao.insert(member.getId(), devicePreferenceId);
+		    }
 		}
+
 	}
 
 	@Override

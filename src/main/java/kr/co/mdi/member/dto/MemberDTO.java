@@ -1,7 +1,7 @@
 package kr.co.mdi.member.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 public class MemberDTO {
 
@@ -23,9 +23,9 @@ public class MemberDTO {
     private LocalDateTime updatedAt;       // 정보 수정일
     private LocalDateTime deletedAt;       // 탈퇴 처리 시간
 
-	private List<Integer> cpuInterestIds; // 관심 CPU ID 리스트
-	private List<Integer> deviceInterestIds; // 관심 디바이스 ID 리스트
-	
+    private Set<Integer> cpuPreferenceIds;    // 관심 CPU ID 집합 → MemberCpuPreferenceDTO와 연결
+    private Set<Integer> devicePreferenceIds; // 관심 디바이스 ID 집합 → MemberDevicePreferenceDTO와 연결
+
 	public int getIdMember() {
 		return idMember;
 	}
@@ -110,19 +110,21 @@ public class MemberDTO {
 	public void setDeletedAt(LocalDateTime deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-	public List<Integer> getCpuInterestIds() {
-		return cpuInterestIds;
+	public Set<Integer> getCpuPreferenceIds() {
+		return cpuPreferenceIds;
 	}
-	public void setCpuInterestIds(List<Integer> cpuInterestIds) {
-		this.cpuInterestIds = cpuInterestIds;
+	public void setCpuPreferenceIds(Set<Integer> cpuPreferenceIds) {
+		this.cpuPreferenceIds = cpuPreferenceIds;
 	}
-	public List<Integer> getDeviceInterestIds() {
-		return deviceInterestIds;
+	public Set<Integer> getDevicePreferenceIds() {
+		return devicePreferenceIds;
 	}
-	public void setDeviceInterestIds(List<Integer> deviceInterestIds) {
-		this.deviceInterestIds = deviceInterestIds;
+	public void setDevicePreferenceIds(Set<Integer> devicePreferenceIds) {
+		this.devicePreferenceIds = devicePreferenceIds;
 	}
+
 	
-	
+    
+    
 	
 }

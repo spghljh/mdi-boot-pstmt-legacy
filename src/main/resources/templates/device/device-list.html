@@ -79,11 +79,30 @@
         </div>
     </td>
 
-    <td>
-        <div class="total1_name_device">
-            <div class="total2_name_device"><a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.nameDevice}"></a></div>
-        </div>
-    </td>
+<!--     <td> -->
+<!--         <div class="total1_name_device"> -->
+<!--             <div class="total2_name_device"><a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.nameDevice}"></a></div> -->
+<!--         </div> -->
+<!--     </td> -->
+
+	<td>
+	  <div class="total1_name_device" style="width:260px;">
+	    <div class="total2_name_device">
+	      <a th:href="@{'/devices/' + ${device.idDevice}}"
+	         th:text="${device.nameDevice}"
+	         style="
+	           display: block;
+	           font-size: clamp(14px, 2vw, 24px);
+	           line-height: 1.3;
+	           white-space: normal;
+	           word-break: break-word;
+	           overflow-wrap: break-word;
+	         ">
+	      </a>
+	    </div>
+	  </div>
+	</td>
+
    
     <td style="margin-left:-30px">
 		<div class="total2_cpuindevice">
@@ -111,6 +130,21 @@
 </div><!--div class="index_content"-->
 </div><!--div class="ground"-->
 
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('.total2_name_device a').forEach(el => {
+    const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+    const height = el.offsetHeight;
+    const lines = Math.round(height / lineHeight);
+
+    if (lines > 1) {
+      el.style.setProperty('font-size', '18px', 'important');
+    } else {
+      el.style.setProperty('font-size', '22px', 'important');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
