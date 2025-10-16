@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Profile("dev-mysql")
+@Profile("dev-user-mysql")
 @ControllerAdvice
 public class GlobalExceptionHandlerMysql {
 
