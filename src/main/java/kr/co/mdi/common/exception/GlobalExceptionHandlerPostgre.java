@@ -46,7 +46,7 @@ public class GlobalExceptionHandlerPostgre {
 			model.addAttribute("errorMessage", "데이터베이스 접근 권한이 없습니다.");
 			break;
 		default:
-			model.addAttribute("errorMessage", "postgreQL 데이터 처리 중 오류가 발생했습니다.");
+			model.addAttribute("errorMessage", "postgreSQL 데이터 처리 중 오류가 발생했습니다.");
 		}
 
 		return "error/db-error";
