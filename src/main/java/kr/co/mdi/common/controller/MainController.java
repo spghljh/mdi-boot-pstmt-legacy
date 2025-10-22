@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.mdi.common.config.DbProfileResolver;
 import kr.co.mdi.cpu.service.CpuService;
 import kr.co.mdi.device.service.DeviceService;
@@ -31,6 +32,13 @@ public class MainController {
     // 로그인 페이지
     @GetMapping("/login")
     public String loginPage() {
-        return "member/login";
+        return "member/member-login";
     }
+    
+    // BASE 페이지
+    @GetMapping("/base")
+    public String basePage() {
+        return "base/base";
+    }
+
 }

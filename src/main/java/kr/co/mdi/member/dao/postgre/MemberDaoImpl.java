@@ -22,25 +22,30 @@ import kr.co.mdi.member.dto.MemberDTO;
 @Repository
 public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, SequenceBasedMemberDao {
 
-    @Value("${current.schema}")
-    private String currentSchema;
+//    @Value("${current.schema}")
+//    private String currentSchema;
 
+//    @Override
+//    public Connection getConnection() throws SQLException {
+//        Connection conn = dataSource.getConnection();
+//        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
+//            stmt.execute();
+//        }
+//        return conn;
+//    }
+	
     private final DataSource dataSource;
 
     @Autowired
     public MemberDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    
     @Override
     public Connection getConnection() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
-            stmt.execute();
-        }
-        return conn;
+        return dataSource.getConnection(); // SET search_path 생략
     }
-	
+
 	@Override
 	public int getNextMemberId() {
 		String sql = "SELECT nextval('seq_id_member')";

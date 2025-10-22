@@ -305,11 +305,14 @@
 					<div class="drop2_title" style="margin-top: 2px; width: 200px;">
 						<div class="drop2_user" id="user-info">
 							<!-- 로그인 상태에 따라 타임리프로 출력 -->
-							<span th:if="${session.loginUser != null}"> <span
-								th:text="${session.loginUser} + '님'"></span> <a
-								th:href="@{/logout}" style="margin-left: 8px;">로그아웃</a>
-							</span> <span th:if="${session.loginUser == null}"> <a
-								th:href="@{/login}">로그인</a>
+							<span th:if="${session.loginUser != null}">
+							<a th:href="@{/member/detail}" style="color: white;">
+								<span th:text="${session.loginUser} + '님'"></span>
+							</a>
+								<a th:href="@{/logout}" style="margin-left: 8px;">로그아웃</a>
+							</span>
+							<span th:if="${session.loginUser == null}">
+								<a th:href="@{/login}">로그인</a>
 							</span>
 						</div>
 					</div>

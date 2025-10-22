@@ -22,23 +22,28 @@ import kr.co.mdi.device.dto.DeviceDTO;
 @Repository
 public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	
-	@Value("${current.schema}")
-	private String currentSchema;
+//	@Value("${current.schema}")
+//	private String currentSchema;
 
+//    @Override
+//	public Connection getConnection() throws SQLException {
+//        Connection conn = dataSource.getConnection();
+//        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
+//            stmt.execute();
+//        }
+//        return conn;
+//    }
+	
 	private final DataSource dataSource;
 
 	@Autowired
 	public DeviceDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	
+    
     @Override
-	public Connection getConnection() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
-            stmt.execute();
-        }
-        return conn;
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection(); // SET search_path 생략
     }
 
 	@Override

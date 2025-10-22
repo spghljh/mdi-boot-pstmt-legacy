@@ -20,26 +20,30 @@ import kr.co.mdi.cpu.dto.CpuDTO;
 
 @Profile("dev-user-postgre")
 @Repository
-
 public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 	
-	@Value("${current.schema}")
-	private String currentSchema;
+//	@Value("${current.schema}")
+//	private String currentSchema;
 
+//	@Override
+//	public Connection getConnection() throws SQLException {
+//        Connection conn = dataSource.getConnection();
+//        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
+//            stmt.execute();
+//        }
+//        return conn;
+//    }
+	
 	private final DataSource dataSource;
 
 	@Autowired
 	public CpuDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
-	@Override
-	public Connection getConnection() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement("SET search_path TO " + currentSchema)) {
-            stmt.execute();
-        }
-        return conn;
+	
+    @Override
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection(); // SET search_path 생략
     }
 
 	@Override

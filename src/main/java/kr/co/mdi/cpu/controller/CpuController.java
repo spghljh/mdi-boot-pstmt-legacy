@@ -32,7 +32,8 @@ public class CpuController {
 	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
 		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
 		model.addAttribute("cpu", cpu); // 뷰에 전달
-		return "cpu/cpu-detail";
+//		return "cpu/cpu-detail";
+		return "cpu/cpu-detail-current";
 	}
 
 	// HTML 반환 컨트롤러

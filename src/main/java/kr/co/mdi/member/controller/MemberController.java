@@ -23,7 +23,7 @@ public class MemberController {
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
 		model.addAttribute("user", new MemberDTO());
-		return "member/register";
+		return "member/member-register";
 	}
 
 	@PostMapping("/register")
@@ -73,5 +73,32 @@ public class MemberController {
 		session.invalidate(); // 세션 초기화
 		return "redirect:/login"; // 로그인 페이지로 이동
 	}
+	
+    @GetMapping("/member/detail")
+    public String loginDetail(HttpSession session, Model model) {
+        Object loginUser = session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("loginUser", loginUser);
+        return "member/member-detail";
+    }
+    
+    @GetMapping("/member/modify")
+    public String loginModify(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 ID 가져오기
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+
+        // 사용자 ID로 MemberDTO 조회
+        MemberDTO member = userService.findUserById(loginUserId); // 예: DB에서 SELECT * WHERE id = ?
+
+        // 모델에 MemberDTO 담기
+        model.addAttribute("member", member);
+        return "member/member-modify"; // templates/member/member-modify.html
+    }
+
 
 }

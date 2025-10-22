@@ -29,7 +29,8 @@ public class DeviceController {
 	public String deviceDetail(@PathVariable Integer deviceId, Model model) {
 		DeviceDTO device = deviceService.getDeviceById(deviceId); // 상세 정보 조회
 		model.addAttribute("device", device); // 뷰에 전달
-		return "device/device-detail";
+//		return "device/device-detail";
+		return "device/device-detail-current";
 	}
 
 }
