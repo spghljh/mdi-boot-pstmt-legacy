@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.4",
-  "serialNumber" : "urn:uuid:7ca37860-0a38-4e2c-b5e2-a819e687679e",
+  "serialNumber" : "urn:uuid:31b1c709-d5cc-4031-9160-f827b3922847",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2025-10-16T11:16:37Z",
+    "timestamp" : "2025-10-23T16:53:59Z",
     "tools" : [
       {
         "vendor" : "OWASP Foundation",
@@ -5998,6 +5998,69 @@
       ],
       "type" : "library",
       "bom-ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.19.2?type=jar"
+    },
+    {
+      "publisher" : "Microsoft Corporation",
+      "group" : "com.microsoft.sqlserver",
+      "name" : "mssql-jdbc",
+      "version" : "12.4.2.jre11",
+      "description" : "Microsoft JDBC Driver for SQL Server.",
+      "scope" : "optional",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "083688841881389ef1cd7cf6fd32b96c"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "d10ac00de02a1a682da0bea13aee20f49e756ef8"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "e14bc6afacadef91085f2aaf2a9c275fe54ee93f4f7a499fb4d5a2e288043f01"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "289439931fdf7f98be66d790ee53cdd2cc2fd1b0975a3d1b66e43a06cd86bd0c7597132a34167e029ebd47947b5191a40ae89ea92561bf3b0f4cff6a3e869c2f"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "4f4b7d4e640b6e1413438cf75a5236ce1b8d3f3757c7a599456f50f6f1fef1ac64989c0cb2c75dd3885e6be01fb84719"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "b51d40c3fe96b245fd6c8ceaf62ed04f74a1fd6f23b4727b7bc5e48123617771afc7cf35e1905edf3b614af174221f39"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "4cbb11518f9f0f09e28b4c2abc60d37dc907f1745ffaf82b2f6293a7878bb335"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "55ac15ed6cc0fa656f6f574d5f8a7b7939a06377223ded7a09be97e94624342f735a3c0f8267d3e44c228c9443b3ea7e7a1a3c54cf568a62414b51864cfbde98"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MIT",
+            "url" : "https://opensource.org/licenses/MIT"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.microsoft.sqlserver/mssql-jdbc@12.4.2.jre11?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/Microsoft/mssql-jdbc"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/Microsoft/mssql-jdbc"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.microsoft.sqlserver/mssql-jdbc@12.4.2.jre11?type=jar"
     }
   ],
   "dependencies" : [
@@ -6015,7 +6078,8 @@
         "pkg:maven/org.mariadb.jdbc/mariadb-java-client@3.3.2?type=jar",
         "pkg:maven/org.mindrot/jbcrypt@0.4?type=jar",
         "pkg:maven/jakarta.servlet/jakarta.servlet-api@6.0.0?type=jar",
-        "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.2?type=jar"
+        "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.2?type=jar",
+        "pkg:maven/com.microsoft.sqlserver/mssql-jdbc@12.4.2.jre11?type=jar"
       ]
     },
     {
@@ -6559,6 +6623,10 @@
       "dependsOn" : [
         "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.19.2?type=jar"
       ]
+    },
+    {
+      "ref" : "pkg:maven/com.microsoft.sqlserver/mssql-jdbc@12.4.2.jre11?type=jar",
+      "dependsOn" : [ ]
     },
     {
       "ref" : "pkg:maven/org.springframework/spring-jcl@6.2.10?type=jar",

@@ -55,12 +55,14 @@ application-dev-user-maria.properties
 application-dev-user-mysql.properties
 application-dev-user-oracle.properties
 application-dev-user-postgre.properties
+application-dev-user-mssql.properties
 
 application-dev.yml
 application-dev-user-maria.yml
 application-dev-user-mysql.yml
 application-dev-user-oracle.yml
 application-dev-user-postgre.yml
+application-dev-user-mssql.yml
 
 # 데이터베이스 파일
 *.db

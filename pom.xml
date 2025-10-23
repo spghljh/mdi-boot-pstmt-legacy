@@ -124,15 +124,25 @@
 		  <artifactId>logstash-logback-encoder</artifactId>
 		  <version>7.2</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+		    <version>12.4.2.jre11</version>
+		</dependency>
 
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>oracle</id>
-            <url>https://maven.oracle.com</url>
-        </repository>
-    </repositories>
+	<repositories>
+	    <repository>
+	        <id>central</id>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	    </repository>
+	    <repository>
+	        <id>oracle</id>
+	        <url>https://maven.oracle.com</url>
+	    </repository>
+	</repositories>
 
 	<build>
 	    <plugins>
