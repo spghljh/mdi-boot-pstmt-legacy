@@ -74,7 +74,7 @@ public class MdiApplication extends SpringBootServletInitializer {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
         	writer.write(String.format("Beans by IoC Container : %,d%n", beanNames.length));
             for (int i = 0; i < beanNames.length; i++) {
-                writer.write(String.format("(%d) %s%n", i + 1, beanNames[i]));
+                writer.write(String.format("%d-%s%n", i + 1, beanNames[i]));
             }
 
         } catch (IOException ie) {
