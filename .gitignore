@@ -50,6 +50,11 @@ keys/cosign.key
 !dist/**
 dist/*.jar
 
+# SSL
+application.properties
+application.yml
+keystore.p12
+
 application-dev.properties
 application-dev-user-maria.properties
 application-dev-user-mysql.properties
@@ -72,3 +77,5 @@ application-dev-user-mssql.yml
 # 테스트 및 커버리지 결과물
 /test-output/
 /coverage/
+
+

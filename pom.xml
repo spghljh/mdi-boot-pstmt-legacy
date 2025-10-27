@@ -105,6 +105,12 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>3.3.2</version> <!-- 버전은 최신으로 조정 -->
         </dependency>
+        
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+		    <version>12.4.2.jre11</version>
+		</dependency>
 
         <dependency>
             <groupId>org.mindrot</groupId>
@@ -123,12 +129,6 @@
 		  <groupId>net.logstash.logback</groupId>
 		  <artifactId>logstash-logback-encoder</artifactId>
 		  <version>7.2</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>com.microsoft.sqlserver</groupId>
-		    <artifactId>mssql-jdbc</artifactId>
-		    <version>12.4.2.jre11</version>
 		</dependency>
 
     </dependencies>
