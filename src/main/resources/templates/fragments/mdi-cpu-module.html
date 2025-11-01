@@ -1,0 +1,73 @@
+
+<div th:fragment="mdiModule">
+    <div class="mdi1_total1">  
+        <div class="Total_Count">
+            <div class="Total_Count_Amount">
+                <a th:text="${totalCpuCount}">0</a>
+            </div>
+            <div class="Total_Count_Processor"><a>프로세서</a></div>
+        </div>
+    </div>
+
+    <div class="mdi1">
+        <div class="mdi_core_total">
+        
+        <!-- 각 코어별 차트 삽입 -->
+		<div th:replace="~{fragments/mdi-cpu-core/mdi-2core :: mdi2core}"></div>
+		<div th:replace="~{fragments/mdi-cpu-core/mdi-4core :: mdi4core}"></div>
+		<div th:replace="~{fragments/mdi-cpu-core/mdi-6core :: mdi6core}"></div>
+		<div th:replace="~{fragments/mdi-cpu-core/mdi-8core :: mdi8core}"></div>
+		<div th:replace="~{fragments/mdi-cpu-core/mdi-core-pie :: mdiCorePie}"></div>
+		
+            <!-- 2 Core -->
+            <div class="mdi_core">
+                <div class="core001_core">
+                    <a class="core_nums_core">2</a><a class="core_texts">코어</a>
+                </div>
+                <div class="core001_num_core">
+                    <div id="chart_div_core1" style="width: 900px; height:100px;"></div>
+                </div>
+            </div>
+            
+
+            <!-- 4 Core -->
+            <div class="mdi_core">
+                <div class="core001_core">
+                    <a class="core_nums_core">4</a><a class="core_texts">코어</a>
+                </div>
+                <div class="core001_num_core">
+                    <div id="chart_div_core2" style="width: 900px; height:100px;"></div>
+                </div>
+            </div>
+
+
+            <!-- 6 Core -->
+            <div class="mdi_core">
+                <div class="core001_core">
+                    <a class="core_nums_core">6</a><a class="core_texts">코어</a>
+                </div>
+                <div class="core001_num_core">
+                    <div id="chart_div_core3" style="width: 900px; height:100px;"></div>
+                </div>
+            </div>
+            
+
+            <!-- 8 Core -->
+            <div class="mdi_core">
+                <div class="core001_core">
+                    <a class="core_nums_core">8</a><a class="core_texts">코어</a>
+                </div>
+                <div class="core001_num_core">
+                    <div id="chart_div_core4" style="width: 900px; height:100px;"></div>
+                </div>
+            </div>
+
+        </div><!-- mdi_core_total -->
+
+
+        <!-- Pie Chart -->
+        <div class="mdi_corepie">   
+            <div id="mdi_CorePie" style="width: 800px; height: 600px;"></div>
+        </div>
+    </div>
+</div>

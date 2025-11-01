@@ -19,12 +19,41 @@ public class CpuController {
 
 	// HTML 반환 컨트롤러
 	// CPU 목록 페이지
+//	@GetMapping("/cpus")
+//	public String cpuList(Model model) {
+//		List<CpuDTO> cpuList = cpuService.getCpuList();
+//		model.addAttribute("cpus", cpuList);
+//		return "cpu/cpu-list";
+//	}
+	
+	// HTML 반환 컨트롤러
+	// CPU 목록 페이지(mdi)
 	@GetMapping("/cpus")
 	public String cpuList(Model model) {
-		List<CpuDTO> cpuList = cpuService.getCpuList();
-		model.addAttribute("cpus", cpuList);
-		return "cpu/cpu-list";
+	    List<CpuDTO> cpuList = cpuService.getCpuList();
+
+	    // 총 CPU 수
+	    int totalCpuCount = cpuList.size();
+
+	    // 코어별 빈도 계산
+	    long coreCount2 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 2).count();
+	    long coreCount4 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 4).count();
+	    long coreCount6 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 6).count();
+	    long coreCount8 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 8).count();
+	    long coreCount12 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 12).count();
+
+	    // 모델에 추가
+	    model.addAttribute("cpus", cpuList);
+	    model.addAttribute("totalCpuCount", totalCpuCount);
+	    model.addAttribute("coreCount2", coreCount2);
+	    model.addAttribute("coreCount4", coreCount4);
+	    model.addAttribute("coreCount6", coreCount6);
+	    model.addAttribute("coreCount8", coreCount8);
+	    model.addAttribute("coreCount12", coreCount12);
+
+	    return "cpu/cpu-list";
 	}
+
 
 	// HTML 반환 컨트롤러
 	// CPU 상세 페이지
@@ -35,6 +64,7 @@ public class CpuController {
 //		return "cpu/cpu-detail";
 		return "cpu/cpu-detail-current";
 	}
+	
 
 	// HTML 반환 컨트롤러
 	@GetMapping("/cpus-fetch")

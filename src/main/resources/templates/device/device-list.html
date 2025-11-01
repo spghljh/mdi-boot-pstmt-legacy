@@ -7,6 +7,8 @@
 <link rel="stylesheet" th:href="@{/css/page2/index_body.css}">
 <link rel="stylesheet" th:href="@{/css/page2/page2_body.css}">
 <link rel="stylesheet" th:href="@{/css/page2/page0_body_total.css}">
+
+<link rel="stylesheet" th:href="@{/css/page3/page3.css}">
 <title>device_list.html</title>
 </head>
 <body>
@@ -52,8 +54,8 @@
 
 <!--내용-->
 
-<div style="margin-left:40px;">
-</div>
+
+<div style="margin-left:40px;" th:replace="~{fragments/mdi-device-module :: mdiModule2}"></div>
 
 <table class="cpulist_table_page2">
     
