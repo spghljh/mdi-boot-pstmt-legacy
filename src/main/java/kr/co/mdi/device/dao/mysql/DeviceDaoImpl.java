@@ -159,4 +159,5 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 
 		return device;
 	}
+	
 }

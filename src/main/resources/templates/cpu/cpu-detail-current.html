@@ -161,64 +161,30 @@
 
     <div class="module_spec_cpu">
 
-
             <div class="module_spec_cpu_version2">
             <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/ManfGraph_id_cpu.php');?>
             </div>  
 
-            <div class="module_spec_cpu_version2">
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/ReleaseGraph_id_cpu.php');?>
-            </div>
-
-	
-
-<!--             <div class="module_spec_cpu_version2"> -->
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/CoreGraph_id_cpu.php');?>
-<!--             </div> -->
+			<div class="module_spec_cpu_version2"
+			     th:replace="fragments/cpu-spec/cpu-spec-release :: releaseGraph(${cpu.releaseCpu})">
+			</div>
             
 			<div class="module_spec_cpu_version2"
-			     th:replace="fragments/cpu-spec/core-graph :: coreGraph(${cpu.coreCpu})">
+			     th:replace="fragments/cpu-spec/cpu-spec-core :: coreGraph(${cpu.coreCpu})">
 			</div>
-
-            
-            
-            
-
-<!--             <div class="module_spec_cpu_version2"> -->
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/ThreadGraph_id_cpu.php');?>
-<!--             </div> -->
             
 			<div class="module_spec_cpu_version2"
-			     th:replace="fragments/cpu-spec/thread-graph :: threadGraph(${cpu.threadCpu})">
+			     th:replace="fragments/cpu-spec/cpu-spec-thread :: threadGraph(${cpu.threadCpu})">
 			</div>
-			
-			
-				
-
-
-<!--             <div class="module_spec_cpu_version2"> -->
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/MaxghzGraph_id_cpu.php');?>
-<!--             </div> -->
             
             <div class="module_spec_cpu_version2"
-			     th:replace="fragments/cpu-spec/maxghz-graph :: maxghzGraph(${cpu.maxghzCpu})">
+			     th:replace="fragments/cpu-spec/cpu-spec-maxghz :: maxghzGraph(${cpu.maxghzCpu})">
 			</div>
-                     
-                     
-                     
-                     
-                                        
-<!--             <div class="module_spec_cpu_version2"> -->
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/MinghzGraph_id_cpu.php');?>
-<!--             </div> -->
 
 			<div class="module_spec_cpu_version2"
-			     th:replace="fragments/cpu-spec/minghz-graph :: minghzGraph(${cpu.minghzCpu})">
+			     th:replace="fragments/cpu-spec/cpu-spec-minghz :: minghzGraph(${cpu.minghzCpu})">
 			</div>
-			
-			
-			
-			
+	
     </div>
 
     </div>

@@ -241,7 +241,7 @@
         <div class="module_spec_device_version2">
         <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/ManfGraph_id_device.php');?>
         </div>
-
+        
         <div class="module_spec_device_version2">
         <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/CpuGraph_id_device.php');?>
         </div>
@@ -250,20 +250,13 @@
         <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/TypeGraph_id_device.php');?>
         </div>
 
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/ReleaseGraph_id_device.php');?>
-        </div>
-
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/DiagnoalGraph_id_device.php');?>
-        </div>
-
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/WeightGraph_id_device.php');?>
-        </div>
-
-
-
+		<div class="module_spec_device_version2"
+		     th:replace="fragments/device-spec/device-spec-release :: releaseGraph(${device.releaseDevice})">
+		</div>
+        
+		<div class="module_spec_device_version2"
+		     th:replace="fragments/device-spec/device-spec-weight :: weightGraph(${device.weightDevice})">
+		</div>
 </div>
 
 </div>
