@@ -278,9 +278,20 @@
 <div class="module_name1">
 <div class="module_name2">
 
+
+
+<!-- <div class="page2view_id_body_content_outer_title_moduleName1"> -->
+<!--     <a><?=$manf_device?> (<?=$release_device?>) 탑재 프로세서</a> -->
+<!-- </div> -->
+
+
+
 <div class="page2view_id_body_content_outer_title_moduleName1">
-    <a><?=$manf_device?> (<?=$release_device?>) 탑재 프로세서</a>
+    <a th:text="${device.manfDevice + ' (' + device.releaseDevice + ') 탑재 프로세서'}"></a>
 </div>
+
+
+
 <div class="page2view_id_body_content_outer_title_moduleName2">
 
 </div>
@@ -314,9 +325,19 @@
 <div class="module_name1">
 <div class="module_name2">
 
+
+<!-- <div class="page2view_id_body_content_outer_title_moduleName1"> -->
+<!--     <a><?=$lineup_device?> (<?=$release_device?>) 라인업</a> -->
+<!-- </div> -->
+
+
+
 <div class="page2view_id_body_content_outer_title_moduleName1">
-    <a><?=$lineup_device?> (<?=$release_device?>) 라인업</a>
+    <a th:text="${device.lineupDevice + ' (' + device.releaseDevice + ') 라인업'}"></a>
 </div>
+
+
+
 <div class="page2view_id_body_content_outer_title_moduleName2">
 
 </div>

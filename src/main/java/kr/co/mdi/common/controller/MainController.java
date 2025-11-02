@@ -35,10 +35,10 @@ public class MainController {
         return "member/member-login";
     }
     
-    // BASE 페이지
-    @GetMapping("/base")
-    public String basePage() {
-        return "base/base";
-    }
+//    // BASE 페이지
+//    @GetMapping("/base")
+//    public String basePage() {
+//        return "base/base";
+//    }
 
 }

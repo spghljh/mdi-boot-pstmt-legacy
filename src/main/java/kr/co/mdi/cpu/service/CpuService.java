@@ -10,5 +10,8 @@ public interface CpuService {
 	List<CpuDTO> getCpuList();
 
 	CpuDTO getCpuById(Integer cpuId);
+	
+	CpuDTO getCpuByName(String nameCpu);
 
+	
 }

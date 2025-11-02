@@ -77,5 +77,22 @@ public class CpuController {
 	public String cpuRestPageJquery() {
 		return "cpu/cpu-list-jquery";
 	}
+	
+	// ---------------------------------
+	
+	@GetMapping("/cpu-core-graph/{name}")
+	public String cpuCoreGraph(@PathVariable String name, Model model) {
+	    CpuDTO cpu = cpuService.getCpuByName(name);
+	    if (cpu == null) {
+	        return "error/404"; // 또는 에러 처리
+	    }
+	    model.addAttribute("coreCpu", cpu.getCoreCpu());
+	    model.addAttribute("nameCpu", cpu.getNameCpu());
+	    return "cpu/core-graph";
+	}
+
+	
+	
+
 
 }

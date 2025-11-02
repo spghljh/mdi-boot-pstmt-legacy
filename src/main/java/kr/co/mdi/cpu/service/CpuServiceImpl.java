@@ -32,5 +32,13 @@ public class CpuServiceImpl implements CpuService {
 	public CpuDTO getCpuById(Integer cpuId) {
 		return cpuDAO.selectCpuById(cpuId);
 	}
+	
+	// ----------
+	
+	@Override
+	public CpuDTO getCpuByName(String nameCpu) {
+	    return cpuDAO.selectCpuByName(nameCpu);
+	}
+
 
 }

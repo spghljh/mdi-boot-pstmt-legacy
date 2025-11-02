@@ -149,5 +149,35 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 
 		return cpu;
 	}
+	
+	//---------------------------------
+	
+		@Override
+		public CpuDTO selectCpuByName(String nameCpu) {
+		    String sql = "SELECT * FROM cpu WHERE name_cpu = ?";
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setString(1, nameCpu);
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            if (rs.next()) {
+		                CpuDTO cpu = new CpuDTO();
+		                cpu.setIdCpu(rs.getInt("id_cpu"));
+		                cpu.setNameCpu(rs.getString("name_cpu"));
+		                cpu.setManfCpu(rs.getString("manf_cpu"));
+		                cpu.setCoreCpu(rs.getInt("core_cpu"));
+		                cpu.setThreadCpu(rs.getInt("thread_cpu"));
+		                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		                cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+		                cpu.setReleaseCpu(rs.getInt("release_cpu"));
+		                cpu.setChoiceCpu(rs.getInt("choice_cpu"));
+		                return cpu;
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace(); // 로깅 처리 권장
+		    }
+		    return null;
+		}
 
 }
