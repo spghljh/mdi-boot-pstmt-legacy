@@ -180,11 +180,12 @@
     <div class="module2">  
     <div class="module3">
 
-
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/action/(MDL_id_cpu)WITH(MDL_MANF_id_cpu)_CREATE.php';?>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/BrandGraph/BrandGraph_MDL_MANF_id_cpu.php');?>
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/action/(MDL_id_cpu)WITH(MDL_MANF_id_cpu)_DROP.php';?>
-
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-hp :: deviceBrandGraphHp"></div>
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-asus :: deviceBrandGraphAsus"></div>
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-msi :: deviceBrandGraphMsi"></div>
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-dell :: deviceBrandGraphDell"></div>
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-samsung :: deviceBrandGraphSamsung"></div>
+		<div th:replace="fragments/mdi-cpu-device-brand-list/device-brand-lg :: deviceBrandGraphLg"></div>
 
     </div> 
     </div> 
@@ -214,10 +215,10 @@
     <div class="module3">
 
     
-
+	
     <?php include $_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_body_CpuSpecToDevice.php';?>
 
-        
+    <div th:replace="fragments/mdi-cpu-device-list/device-list :: fragment"></div>
 
     </div> 
     </div>

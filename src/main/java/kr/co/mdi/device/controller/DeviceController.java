@@ -62,9 +62,6 @@ public class DeviceController {
 	public String deviceDetail(@PathVariable Integer deviceId, Model model) {
 		DeviceDTO device = deviceService.getDeviceById(deviceId); // 상세 정보 조회
 		
-		 // 디버깅용 로그
-	    System.out.println("CPU 제조사: " + device.getManfCpu());
-		
 		model.addAttribute("device", device); // 뷰에 전달
 //		return "device/device-detail";
 		return "device/device-detail-current";

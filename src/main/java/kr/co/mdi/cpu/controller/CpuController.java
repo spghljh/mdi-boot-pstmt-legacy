@@ -1,6 +1,7 @@
 package kr.co.mdi.cpu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.cpu.service.CpuService;
+import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.service.DeviceService;
 
 @Controller
 public class CpuController {
 
 	@Autowired
 	private CpuService cpuService;
+	
+	@Autowired
+	private DeviceService deviceService;
 
 	// HTML 반환 컨트롤러
 	// CPU 목록 페이지
@@ -57,13 +63,34 @@ public class CpuController {
 
 	// HTML 반환 컨트롤러
 	// CPU 상세 페이지
+//	@GetMapping("/cpus/{cpuId}")
+//	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
+//		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
+//		
+//		List<DeviceDTO> devices = deviceService.getDevicesByCpuName(cpu.getNameCpu());
+//		model.addAttribute("devices", devices);
+//		
+//		model.addAttribute("cpu", cpu); // 뷰에 전달
+//		return "cpu/cpu-detail-current";
+//	}
+	
 	@GetMapping("/cpus/{cpuId}")
 	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
-		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
-		model.addAttribute("cpu", cpu); // 뷰에 전달
-//		return "cpu/cpu-detail";
-		return "cpu/cpu-detail-current";
+	    CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
+	    String cpuName = cpu.getNameCpu();
+
+	    List<DeviceDTO> devices = deviceService.getDevicesByCpuName(cpuName);
+	    System.out.println("조회된 디바이스 수: " + devices.size());
+	    Map<String, Integer> brandCounts = deviceService.getDeviceCountByBrand(cpuName);
+
+	    model.addAttribute("cpu", cpu);
+	    model.addAttribute("devices", devices);
+	    model.addAttribute("brandCounts", brandCounts);
+	    
+
+	    return "cpu/cpu-detail-current";
 	}
+
 	
 
 	// HTML 반환 컨트롤러
@@ -86,6 +113,7 @@ public class CpuController {
 	    if (cpu == null) {
 	        return "error/404"; // 또는 에러 처리
 	    }
+	    
 	    model.addAttribute("coreCpu", cpu.getCoreCpu());
 	    model.addAttribute("nameCpu", cpu.getNameCpu());
 	    return "cpu/core-graph";

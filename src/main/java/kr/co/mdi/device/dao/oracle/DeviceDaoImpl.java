@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -159,4 +161,78 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 		return device;
 	}
 
+	// ------
+	
+	@Override
+	public List<DeviceDTO> selectDevicesByCpuName(String cpuName) {
+	    String sql = "SELECT * FROM device WHERE cpu_device = ? ORDER BY id_device DESC";
+	    List<DeviceDTO> list = new ArrayList<>();
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, cpuName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DeviceDTO dto = new DeviceDTO();
+	                dto.setIdDevice(rs.getInt("id_device"));
+	                dto.setNameDevice(rs.getString("name_device"));
+	                dto.setManfDevice(rs.getString("manf_device"));
+	                dto.setCpuDevice(rs.getString("cpu_device"));
+	                dto.setReleaseDevice(rs.getInt("release_device"));
+	                list.add(dto);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException("디바이스 조회 실패", e);
+	    }
+
+	    return list;
+	}
+	// ------
+	
+//	@Override
+//	public Map<String, Integer> selectDeviceCountByBrand(String cpuName) {
+//	    String sql = "SELECT manf_device, COUNT(*) AS count FROM mdl WHERE cpu_device = ? GROUP BY manf_device";
+//	    return jdbcTemplate.query(sql, new Object[]{cpuName}, rs -> {
+//	        Map<String, Integer> result = new LinkedHashMap<>();
+//	        while (rs.next()) {
+//	            result.put(rs.getString("manf_device"), rs.getInt("count"));
+//	        }
+//	        return result;
+//	    });
+//	}
+
+
+	@Override
+	public Map<String, Integer> selectDeviceCountByBrand(String cpuName) {
+	    String sql = """
+	        SELECT b.manf_device, COUNT(*) AS count
+	        FROM device m
+	        LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
+	        WHERE m.cpu_device = ?
+	        GROUP BY b.manf_device
+	    """;
+
+	    Map<String, Integer> brandCountMap = new LinkedHashMap<>();
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, cpuName);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                String brand = rs.getString("manf_device");
+	                int count = rs.getInt("count");
+	                brandCountMap.put(brand, count);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException("제조사별 디바이스 수 집계 중 오류 발생", e);
+	    }
+
+	    return brandCountMap;
+	}
 }
