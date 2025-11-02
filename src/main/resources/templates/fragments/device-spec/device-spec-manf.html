@@ -1,5 +1,5 @@
-<!-- src/main/resources/templates/fragments/cpu-spec/cpu-spec-manf.html -->
-<div th:fragment="manfGraph(manfCpu)">
+<!-- src/main/resources/templates/fragments/device-spec/device-spec-manf.html -->
+<div th:fragment="manfGraph(manfDevice)">
     <div class="line_spec">
         <div class="chart_div">
 
@@ -17,9 +17,9 @@
 
             <!-- 제조사 이미지 -->
             <div class="chart_div_image4" style="width:45px;">
-                <div class="chart_div_image4_brand" style="margin-right:5px;">
-                    <a th:href="@{'/cpus?manf=' + ${manfCpu}}">
-                        <img th:src="@{'/image/' + ${#strings.toLowerCase(manfCpu)} + '.png'}"
+                <div class="chart_div_image4_brand">
+                    <a th:href="@{'/devices?manf=' + ${manfDevice}}">
+                        <img th:src="@{'/image/' + ${#strings.toLowerCase(manfDevice)} + '.png'}"
                              alt="제조사 로고"
                              style="width:40px; height:auto;" />
                     </a>
@@ -27,25 +27,23 @@
             </div>
 
             <!-- 제조사 이름 -->
-            <div class="chart_div_image3" style="width:100px; justify-content:left; font-size:20px;">
+            <div class="chart_div_image3" style="width:80px; justify-content:left; font-size:18px;">
                 <div>
                     <a class="chart_div_image3_parameter"
-                       th:href="@{'/cpus?manf=' + ${manfCpu}}"
-                       th:text="${manfCpu}"></a>
+                       th:href="@{'/devices?manf=' + ${manfDevice}}"
+                       th:text="${manfDevice}"></a>
                 </div>
             </div>
 
             <!-- 버튼 -->
-            <div class="chart_div_graph_cpu_nochart">
-                <div class="chart_div_graph_cpu_nochart_button">
-                    <a th:href="@{'/cpus?manf=' + ${manfCpu}}">
+            <div class="chart_div_graph_device_nochart">
+                <div class="chart_div_graph_device_nochart_button">
+                    <a th:href="@{'/devices?manf=' + ${manfDevice}}">
                         <span style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;"
-                              th:text="${manfCpu}"></span>의 다른 제품
+                              th:text="${manfDevice}"></span>사의 다른 제품
                     </a>
                 </div>
             </div>
-            
-            
 
         </div>
     </div>

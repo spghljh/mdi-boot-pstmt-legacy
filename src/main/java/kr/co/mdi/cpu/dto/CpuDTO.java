@@ -14,7 +14,7 @@ public class CpuDTO {
 	private String typeCpu; // cpu_type.type_cpu (표시용 이름)
 
 	private String cpuManfCode; // mcl.cpu_manf_code (외래 키)
-	private String manfCpu; // cpu_manf_brand.manf_cpu (표시용 이름)
+	private String manfCpu; // cpu_manf_brand.manf_cpu (해당 cpu의 제조사 정보)
 
 	public Integer getIdCpu() {
 		return idCpu;

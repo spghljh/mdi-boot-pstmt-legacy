@@ -103,61 +103,126 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 		return deviceList;
 	}
 
+//	@Override
+//	public DeviceDTO selectDeviceById(Integer deviceId) {
+//		String sql = """
+//				    SELECT
+//				        m.id_device,
+//				        m.name_device,
+//				        m.lineup_device,
+//				        m.release_device,
+//				        m.weight_device,
+//				        m.choice_device,
+//				        m.device_type_code,
+//				        t.type_device,
+//				        m.device_manf_code,
+//				        b.manf_device,
+//				        m.id_cpu,
+//				        c.name_cpu
+//				    FROM device m
+//				    LEFT JOIN device_type t ON m.device_type_code = t.device_type_code
+//				    LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
+//				    LEFT JOIN cpu c ON m.id_cpu = c.id_cpu
+//				    WHERE m.id_device = ?
+//				""";
+//
+//		DeviceDTO device = null;
+//
+//		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//			pstmt.setInt(1, deviceId);
+//			try (ResultSet rs = pstmt.executeQuery()) {
+//				if (rs.next()) {
+//					device = new DeviceDTO();
+//					device.setIdDevice(rs.getInt("id_device"));
+//					device.setNameDevice(rs.getString("name_device"));
+//					device.setLineupDevice(rs.getString("lineup_device"));
+//					device.setReleaseDevice(rs.getInt("release_device"));
+//					device.setWeightDevice(rs.getFloat("weight_device"));
+//					device.setChoiceDevice(rs.getInt("choice_device"));
+//
+//					device.setDeviceTypeCode(rs.getString("device_type_code"));
+//					device.setTypeDevice(rs.getString("type_device"));
+//
+//					device.setDeviceManfCode(rs.getString("device_manf_code"));
+//					device.setManfDevice(rs.getString("manf_device"));
+//
+//					device.setIdCpu(rs.getInt("id_cpu"));
+//					device.setCpuDevice(rs.getString("name_cpu"));
+//				}
+//			}
+//
+//		} catch (SQLException se) {
+//			se.printStackTrace();
+//			throw new RuntimeException("DB 조회 중 오류 발생", se);
+//		}
+//
+//		return device;
+//	}
+	
 	@Override
 	public DeviceDTO selectDeviceById(Integer deviceId) {
 		String sql = """
-				    SELECT
-				        m.id_device,
-				        m.name_device,
-				        m.lineup_device,
-				        m.release_device,
-				        m.weight_device,
-				        m.choice_device,
-				        m.device_type_code,
-				        t.type_device,
-				        m.device_manf_code,
-				        b.manf_device,
-				        m.id_cpu,
-				        c.name_cpu
-				    FROM device m
-				    LEFT JOIN device_type t ON m.device_type_code = t.device_type_code
-				    LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
-				    LEFT JOIN cpu c ON m.id_cpu = c.id_cpu
-				    WHERE m.id_device = ?
-				""";
+			    SELECT
+			        m.id_device,
+			        m.name_device,
+			        m.lineup_device,
+			        m.release_device,
+			        m.weight_device,
+			        m.choice_device,
+			        m.device_type_code,
+			        t.type_device,
+			        m.device_manf_code,
+			        b.manf_device,
+			        m.id_cpu,
+			        c.name_cpu,
+			        cb.manf_cpu
+			    FROM device m
+			    LEFT JOIN device_type t ON m.device_type_code = t.device_type_code
+			    LEFT JOIN device_manf_brand b ON m.device_manf_code = b.device_manf_code
+			    LEFT JOIN cpu c ON m.id_cpu = c.id_cpu
+			    LEFT JOIN cpu_manf_brand cb ON c.cpu_manf_code = cb.cpu_manf_code
+			    WHERE m.id_device = ?
+			""";
 
-		DeviceDTO device = null;
 
-		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    DeviceDTO device = null;
 
-			pstmt.setInt(1, deviceId);
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					device = new DeviceDTO();
-					device.setIdDevice(rs.getInt("id_device"));
-					device.setNameDevice(rs.getString("name_device"));
-					device.setLineupDevice(rs.getString("lineup_device"));
-					device.setReleaseDevice(rs.getInt("release_device"));
-					device.setWeightDevice(rs.getFloat("weight_device"));
-					device.setChoiceDevice(rs.getInt("choice_device"));
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-					device.setDeviceTypeCode(rs.getString("device_type_code"));
-					device.setTypeDevice(rs.getString("type_device"));
+	        pstmt.setInt(1, deviceId);
 
-					device.setDeviceManfCode(rs.getString("device_manf_code"));
-					device.setManfDevice(rs.getString("manf_device"));
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                device = new DeviceDTO();
+	                device.setIdDevice(rs.getInt("id_device"));
+	                device.setNameDevice(rs.getString("name_device"));
+	                device.setLineupDevice(rs.getString("lineup_device"));
+	                device.setReleaseDevice(rs.getInt("release_device"));
+	                device.setWeightDevice(rs.getFloat("weight_device"));
+	                device.setChoiceDevice(rs.getInt("choice_device"));
 
-					device.setIdCpu(rs.getInt("id_cpu"));
-					device.setCpuDevice(rs.getString("name_cpu"));
-				}
-			}
+	                device.setDeviceTypeCode(rs.getString("device_type_code"));
+	                device.setTypeDevice(rs.getString("type_device"));
 
-		} catch (SQLException se) {
-			se.printStackTrace();
-			throw new RuntimeException("DB 조회 중 오류 발생", se);
-		}
+	                device.setDeviceManfCode(rs.getString("device_manf_code"));
+	                device.setManfDevice(rs.getString("manf_device"));
 
-		return device;
+	                device.setIdCpu(rs.getInt("id_cpu"));
+	                device.setCpuDevice(rs.getString("name_cpu"));
+	                device.setManfCpu(rs.getString("manf_cpu"));
+	                
+	            }
+	        }
+
+	    } catch (SQLException se) {
+	        se.printStackTrace();
+	        throw new RuntimeException("DB 조회 중 오류 발생", se);
+	    }
+
+	    return device;
 	}
+
 	
 }

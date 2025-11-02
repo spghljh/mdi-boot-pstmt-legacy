@@ -238,17 +238,17 @@
 
 <div class="module_spec_device" >
   
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/ManfGraph_id_device.php');?>
-        </div>
+		<div class="module_spec_device_version2"
+		     th:replace="fragments/device-spec/device-spec-manf :: manfGraph(${device.manfDevice})">
+		</div>
         
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/CpuGraph_id_device.php');?>
-        </div>
-
-        <div class="module_spec_device_version2">
-        <?php require ($_SERVER['DOCUMENT_ROOT'].'/page2/page2view_id_spec/TypeGraph_id_device.php');?>
-        </div>
+        <div class="module_spec_device_version2"
+		     th:replace="fragments/device-spec/device-spec-cpu :: cpuGraph(${device.cpuDevice}, ${device.idCpu}, ${device.manfCpu})">
+		</div>
+        
+		<div class="module_spec_device_version2"
+		     th:replace="fragments/device-spec/device-spec-type :: typeGraph(${device.typeDevice})">
+		</div>
 
 		<div class="module_spec_device_version2"
 		     th:replace="fragments/device-spec/device-spec-release :: releaseGraph(${device.releaseDevice})">
@@ -262,8 +262,6 @@
 </div>
 </div>
 </div>
-
-
 
 
 

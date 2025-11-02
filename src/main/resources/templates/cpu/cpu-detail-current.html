@@ -45,9 +45,6 @@
                                                 <div class="Module_Layout_1_1_1_1_2_back_view" onclick="history.back()"><a class = "Module_Layout_1_1_1_1_1_0">뒤로가기</a></div>
                                             </div>
 
-
-
-
                                             <div class="page1view_id_body_title_ForMainTitle" style="margin-top:5px;">
 
 
@@ -64,13 +61,9 @@
 
                                             </div>
 
-            
-
                         </div>
                         </div>
 
-
-                    
 
                 </div>
 
@@ -81,20 +74,8 @@
                 </div>
 
 
-
-
-
             </div>
         </div>
-
-
-
-
-
-
-
-
-
 
 
     <div class="Module_Layout_1_1_2"><!--div class="Module_Layout_1_1_2"-->
@@ -110,25 +91,9 @@
     <div class="Module1_start_page1view_id"><!--모듈1-Start-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-        
     <!--내용-->
 
-    
 
-
-
-        
     <div class="module_name1">
     <div class="module_name2">
 
@@ -147,23 +112,15 @@
     </div> 
 
 
-
-
-
-
-
-
-
-
     <div class="module1">
     <div class="module2">  
     <div class="module3">
 
     <div class="module_spec_cpu">
 
-            <div class="module_spec_cpu_version2">
-            <?php include ($_SERVER['DOCUMENT_ROOT'].'/page1/page1view_id_spec/ManfGraph_id_cpu.php');?>
-            </div>  
+			<div class="module_spec_cpu_version2"
+			     th:replace="fragments/cpu-spec/cpu-spec-manf :: manfGraph(${cpu.manfCpu})">
+			</div>
 
 			<div class="module_spec_cpu_version2"
 			     th:replace="fragments/cpu-spec/cpu-spec-release :: releaseGraph(${cpu.releaseCpu})">
@@ -235,13 +192,6 @@
 
 
 
-
-
-
-
-
-
-
     <div class="module_name1">
     <div class="module_name2">
 
@@ -257,12 +207,6 @@
 
     </div>
     </div> 
-
-
-
-
-
-
 
 
     <div class="module1">
@@ -281,16 +225,7 @@
 
 
 
-
-
     <!--내용-->
-
-
-
-
-
-
-
 
 
 
