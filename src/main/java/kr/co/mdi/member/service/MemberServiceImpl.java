@@ -1,14 +1,15 @@
 package kr.co.mdi.member.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.co.mdi.common.util.PasswordUtil;
+import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.member.dao.MemberDao;
-import kr.co.mdi.member.dao.MemberPreferenceDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
 
@@ -18,13 +19,13 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao memberDao;
 
-	@Autowired
-	@Qualifier("memberCpuPreferenceDao")
-	private MemberPreferenceDao cpuPreferenceDao;
-
-	@Autowired
-	@Qualifier("memberDevicePreferenceDao")
-	private MemberPreferenceDao devicePreferenceDao;
+//	@Autowired
+//	@Qualifier("memberCpuPreferenceDao")
+//	private MemberPreferenceDao cpuPreferenceDao;
+//
+//	@Autowired
+//	@Qualifier("memberDevicePreferenceDao")
+//	private MemberPreferenceDao devicePreferenceDao;
 
 	@Override
 	public void registerUser(MemberDTO member) {
@@ -71,18 +72,18 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.insertUser(member);
 
 		// 6. 관심 CPU 저장
-		if (member.getCpuPreferenceIds() != null && !member.getCpuPreferenceIds().isEmpty()) {
-		    for (Integer cpuPreferenceId : member.getCpuPreferenceIds()) {
-		        cpuPreferenceDao.insert(member.getId(), cpuPreferenceId);
-		    }
-		}
+//		if (member.getCpuPreferenceIds() != null && !member.getCpuPreferenceIds().isEmpty()) {
+//			for (Integer cpuPreferenceId : member.getCpuPreferenceIds()) {
+//				cpuPreferenceDao.insert(member.getId(), cpuPreferenceId);
+//			}
+//		}
 
 		// 7. 관심 디바이스 저장
-		if (member.getDevicePreferenceIds() != null && !member.getDevicePreferenceIds().isEmpty()) {
-		    for (Integer devicePreferenceId : member.getDevicePreferenceIds()) {
-		        devicePreferenceDao.insert(member.getId(), devicePreferenceId);
-		    }
-		}
+//		if (member.getDevicePreferenceIds() != null && !member.getDevicePreferenceIds().isEmpty()) {
+//			for (Integer devicePreferenceId : member.getDevicePreferenceIds()) {
+//				devicePreferenceDao.insert(member.getId(), devicePreferenceId);
+//			}
+//		}
 
 	}
 
@@ -95,5 +96,43 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO findUserById(String id) {
 		return memberDao.findById(id);
 	}
+
+	//
+
+	@Override
+	public void addCpuPreference(String userId, int cpuId) {
+	    if (!memberDao.existsCpuPreference(userId, cpuId)) {
+	        memberDao.insertCpuPreference(userId, cpuId);
+	        memberDao.incrementCpuChoiceCount(cpuId);
+	    }
+	}
+	
+	@Override
+	public List<String> getFavoriteCpuNames(String userId) {
+	    int idMember = memberDao.getIdMemberById(userId);
+	    List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
+
+	    List<String> cpuNames = new ArrayList<>();
+	    for (int cpuId : cpuIds) {
+	        String name = memberDao.findCpuNameById(cpuId);
+	        cpuNames.add(name);
+	    }
+	    return cpuNames;
+	}
+
+	// 
+	@Override
+	public List<CpuDTO> getFavoriteCpuDetails(String userId) {
+	    int idMember = memberDao.getIdMemberById(userId);
+	    List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
+
+	    List<CpuDTO> cpuList = new ArrayList<>();
+	    for (int cpuId : cpuIds) {
+	        CpuDTO cpu = memberDao.findCpuDetailById(cpuId);
+	        cpuList.add(cpu);
+	    }
+	    return cpuList;
+	}
+
 
 }

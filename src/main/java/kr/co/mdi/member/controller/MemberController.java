@@ -1,5 +1,7 @@
 package kr.co.mdi.member.controller;
 
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.member.dto.MemberDTO;
 import kr.co.mdi.member.service.MemberService;
 
@@ -74,15 +77,48 @@ public class MemberController {
 		return "redirect:/login"; // 로그인 페이지로 이동
 	}
 	
-    @GetMapping("/member/detail")
-    public String loginDetail(HttpSession session, Model model) {
-        Object loginUser = session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("loginUser", loginUser);
-        return "member/member-detail";
-    }
+//    @GetMapping("/member/detail")
+//    public String loginDetail(HttpSession session, Model model) {
+//        Object loginUser = session.getAttribute("loginUser");
+//        if (loginUser == null) {
+//            return "redirect:/login";
+//        }
+//        model.addAttribute("loginUser", loginUser);
+//        return "member/member-detail";
+//    }
+	
+//	@GetMapping("/member/detail")
+//	public String loginDetail(HttpSession session, Model model) {
+//	    String loginUserId = (String) session.getAttribute("loginUser");
+//	    if (loginUserId == null) {
+//	        return "redirect:/login";
+//	    }
+//
+//	    model.addAttribute("loginUser", loginUserId);
+//
+//	    // 관심 CPU 목록 조회
+//	    List<String> favoriteCpus = userService.getFavoriteCpuNames(loginUserId);
+//	    model.addAttribute("favoriteCpus", favoriteCpus);
+//
+//	    return "member/member-detail";
+//	}
+	
+	@GetMapping("/member/detail")
+	public String loginDetail(HttpSession session, Model model) {
+	    String loginUserId = (String) session.getAttribute("loginUser");
+	    if (loginUserId == null) {
+	        return "redirect:/login";
+	    }
+
+	    model.addAttribute("loginUser", loginUserId);
+
+	    List<CpuDTO> favoriteCpus = userService.getFavoriteCpuDetails(loginUserId);
+	    model.addAttribute("favoriteCpus", favoriteCpus);
+
+	    return "member/member-detail";
+	}
+
+
     
     @GetMapping("/member/modify")
     public String loginModify(HttpSession session, Model model) {
@@ -100,5 +136,18 @@ public class MemberController {
         return "member/member-modify"; // templates/member/member-modify.html
     }
 
+    //
+    
+    @PostMapping("/member/add-cpu")
+    public String addCpuToFavorites(@RequestParam int cpuId, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
 
+        userService.addCpuPreference(loginUserId, cpuId);
+        return "redirect:/member/detail";
+    }
+
+    
 }

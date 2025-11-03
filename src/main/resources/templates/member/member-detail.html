@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/css/main_header.css}">
 <link rel="stylesheet" th:href="@{/css/user.css}">
-<link rel="stylesheet" th:href="@{/css/member/index_body_index.css	}">
+<link rel="stylesheet" th:href="@{/css/member/index_body_index.css}">
 <link rel="stylesheet" th:href="@{/css/member/index_body.css}">
+<link rel="stylesheet" th:href="@{/css/index.css}">
 <title>login-detail.html</title>
 </head>
 <body>
@@ -146,7 +147,11 @@
 <div class="action_user">
     <div class="slider_content1_pro_user">
         <div class="slider_content_text_div1_pro_user"><a style="margin-left: -280px;">관심 프로세서 관리를 통한 빠른 탐색과 사용자 통계를 제공합니다.</a></div>
-        <div class="slider_content_text_div1_pro_con_user"></div>
+        <div class="slider_content_text_div1_pro_con_user">
+			<div th:insert="~{fragments/member-cpu-module :: cpuModule(${favoriteCpus})}">
+			
+			</div>
+        </div>
     </div>
 </div>
 
@@ -174,7 +179,11 @@
 <div class="action_user">
     <div class="slider_content1_pro_user">
         <div class="slider_content_text_div1_pro_user"><a style="margin-left: -280px;">관심 디바이스 관리를 통한 빠른 탐색과 사용자 통계를 제공합니다.</a></div>
-        <div class="slider_content_text_div1_pro_con_user"></div>
+        <div class="slider_content_text_div1_pro_con_user">
+			<div th:insert="~{fragments/member-device-module :: deviceModule(${favoriteDevices})}">
+			
+			</div>
+        </div>
     </div>
 </div>
 
