@@ -238,5 +238,36 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	    return brandCountMap;
 	}
 
+	@Override
+	public List<DeviceDTO> selectDeviceListByName(String nameDevice) {
+	    List<DeviceDTO> list = new ArrayList<>();
+	    String sql = "SELECT * FROM device WHERE name_device LIKE ? ORDER BY id_device ASC";
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, "%" + nameDevice + "%");
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            DeviceDTO dto = new DeviceDTO();
+	            dto.setIdDevice(rs.getInt("id_device"));
+	            dto.setNameDevice(rs.getString("name_device"));
+	            dto.setLineupDevice(rs.getString("lineup_device"));
+	            dto.setReleaseDevice(rs.getInt("release_device"));
+	            dto.setWeightDevice(rs.getFloat("weight_device"));
+	            dto.setChoiceDevice(rs.getInt("choice_device"));
+	            dto.setTypeDevice(rs.getString("type_device"));
+	            dto.setManfDevice(rs.getString("manf_device"));
+	            dto.setIdCpu(rs.getInt("id_cpu"));
+	            list.add(dto);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 	
 }

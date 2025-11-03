@@ -21,5 +21,6 @@ public interface DeviceDao {
 	
 	Map<String, Integer> selectDeviceCountByBrand(String cpuName);
 
+	List<DeviceDTO> selectDeviceListByName(String nameDevice);
 
 }

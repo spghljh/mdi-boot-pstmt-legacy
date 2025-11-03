@@ -180,4 +180,36 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 		    }
 		    return null;
 		}
+		
+		//
+		
+		@Override
+		public List<CpuDTO> selectCpuListByName(String nameCpu) {
+		    List<CpuDTO> cpuList = new ArrayList<>();
+		    String sql = "SELECT * FROM cpu WHERE name_cpu LIKE ? ORDER BY id_cpu ASC";
+
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setString(1, "%" + nameCpu + "%");
+		        ResultSet rs = pstmt.executeQuery();
+
+		        while (rs.next()) {
+		            CpuDTO dto = new CpuDTO();
+		            dto.setIdCpu(rs.getInt("id_cpu"));
+		            dto.setNameCpu(rs.getString("name_cpu"));
+		            dto.setManfCpu(rs.getString("manf_cpu"));
+		            dto.setCoreCpu(rs.getInt("core_cpu"));
+		            dto.setThreadCpu(rs.getInt("thread_cpu"));
+		            dto.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		            dto.setMinghzCpu(rs.getFloat("minghz_cpu"));
+		            cpuList.add(dto);
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return cpuList;
+		}
 }

@@ -30,16 +30,22 @@
                 <td>
                     <div class="total1_name_device" style="margin-left:-100px;">
                         <div class="total2_name_device">
-                            <a th:href="@{'/page2/page2view_id?id_device=' + ${device.idDevice}}"
-                               th:text="${device.nameDevice}"></a>
+<!--                             <a th:href="@{'/page2/page2view_id?id_device=' + ${device.idDevice}}" -->
+<!--                                th:text="${device.nameDevice}"></a> -->
+							<a th:href="@{'/devices/' + ${device.idDevice}}"
+							   th:text="${device.nameDevice}"></a>
+
                         </div>	
                     </div>
                 </td>
                 <td style="margin-left: 50px;">
                     <div class="total1_cpuindevice">
                         <div class="total2_cpuindevice">
-                            <a th:href="@{'/page2/page2view_id?id_device=' + ${device.idDevice}}"
-                               th:text="${device.cpuDevice}"></a>
+<!--                             <a th:href="@{'/page2/page2view_id?id_device=' + ${device.idDevice}}" -->
+<!--                                th:text="${device.cpuDevice}"></a> -->
+							<a th:href="@{'/devices/' + ${device.idDevice}}"
+							   th:text="${device.cpuDevice}"></a>
+
                         </div>
                     </div>
                 </td>

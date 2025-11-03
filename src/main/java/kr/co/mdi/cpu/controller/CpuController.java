@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.cpu.service.CpuService;
@@ -119,7 +120,17 @@ public class CpuController {
 	    return "cpu/core-graph";
 	}
 
+	// -----------------------------------
 	
+	@GetMapping("/search/cpu")
+	public String searchCpu(@RequestParam("search") String search, Model model) {
+	    List<CpuDTO> cpuResults = cpuService.getCpuListByName(search); // 서비스 메서드 호출
+	    model.addAttribute("search", search);
+	    model.addAttribute("cpuResults", cpuResults);
+	    return "search/cpuResult"; // 결과 페이지
+	}
+
+
 	
 
 

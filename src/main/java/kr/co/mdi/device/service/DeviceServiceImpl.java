@@ -47,6 +47,12 @@ public class DeviceServiceImpl implements DeviceService {
 	public Map<String, Integer> getDeviceCountByBrand(String cpuName) {
 	    return deviceDAO.selectDeviceCountByBrand(cpuName);
 	}
+	
+	@Override
+	public List<DeviceDTO> getDeviceListByName(String nameDevice) {
+	    return deviceDAO.selectDeviceListByName(nameDevice);
+	}
+
 
 
 }

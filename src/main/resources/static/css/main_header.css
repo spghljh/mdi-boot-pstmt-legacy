@@ -670,30 +670,34 @@
                 width: auto;
                 display: flex;
                 justify-content: center;
-
-      
                 border-radius: 6px;
-         
-                
-
                 align-items: center;
-         
                 input::placeholder {
                 color: rgba(255, 255, 255, 0.832);
                 font-size: 25px;
-
-   
-           
-              
                 };
                 
               }
+              
+              .devicelist_searchbox_form{
+                margin: 1px;
+                width: auto;
+                display: flex;
+                justify-content: center;
+                border-radius: 6px;
+                align-items: center;
+                input::placeholder {
+                color: rgba(255, 255, 255, 0.832);
+                font-size: 25px;
+                };
+                
+              }
+              
               .cpulist_searchbox_text{
                 text-align: center;
                 border-color: rgb(255, 255, 255);
                 border-style: solid;
                 color: rgb(255, 255, 255);
-             
                 border-color: rgb(255, 112, 236);
                 border-width: 1;
                 width: 450px;
@@ -702,11 +706,25 @@
                 background-color: rgba(0, 0, 0, 0.233);
                 font-size: 36px;
                 font-weight: 400;
-          
                 padding-bottom: 7px;
-           
-     
               }
+              
+              .devicelist_searchbox_text{
+                text-align: center;
+                border-color: rgb(255, 255, 255);
+                border-style: solid;
+                color: rgb(255, 255, 255);
+                border-color: rgb(255, 112, 236);
+                border-width: 1;
+                width: 450px;
+                height: 50px;
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.233);
+                font-size: 36px;
+                font-weight: 400;
+                padding-bottom: 7px;
+              }
+              
   
   
   /* 로그인 */

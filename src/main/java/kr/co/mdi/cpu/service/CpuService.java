@@ -13,5 +13,9 @@ public interface CpuService {
 	
 	CpuDTO getCpuByName(String nameCpu);
 
+	// -------
+	
+	List<CpuDTO> getCpuListByName(String nameCpu);
+
 	
 }

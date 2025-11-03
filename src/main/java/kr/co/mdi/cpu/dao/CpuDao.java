@@ -15,4 +15,8 @@ public interface CpuDao {
 	//
 	
 	CpuDTO selectCpuByName(String nameCpu);
+	
+	//
+	
+	List<CpuDTO> selectCpuListByName(String nameCpu);
 }

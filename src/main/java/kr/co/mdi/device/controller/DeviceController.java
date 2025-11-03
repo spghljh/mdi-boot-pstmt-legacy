@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mdi.device.dto.DeviceDTO;
 import kr.co.mdi.device.service.DeviceService;
@@ -66,5 +67,16 @@ public class DeviceController {
 //		return "device/device-detail";
 		return "device/device-detail-current";
 	}
+	
+	//
+	
+	@GetMapping("/search/device")
+	public String searchDevice(@RequestParam("search") String search, Model model) {
+	    List<DeviceDTO> deviceResults = deviceService.getDeviceListByName(search);
+	    model.addAttribute("search", search);
+	    model.addAttribute("deviceResults", deviceResults);
+	    return "search/deviceResult";
+	}
+
 
 }

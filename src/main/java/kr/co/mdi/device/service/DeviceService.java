@@ -20,5 +20,10 @@ public interface DeviceService {
 	// ----
 	
 	Map<String, Integer> getDeviceCountByBrand(String cpuName);
+	
+	//
+	
+	List<DeviceDTO> getDeviceListByName(String nameDevice);
+
 
 }

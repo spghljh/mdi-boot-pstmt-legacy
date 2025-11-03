@@ -376,5 +376,84 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 
 	    return brandCountMap;
 	}// 부분 오류
+	
+	//
+	
+//	@Override
+//	public List<DeviceDTO> selectDeviceListByName(String nameDevice) {
+//	    List<DeviceDTO> list = new ArrayList<>();
+//	    String sql = "SELECT * FROM device WHERE name_device LIKE ? ORDER BY id_device ASC";
+//
+//	    try (Connection conn = dataSource.getConnection();
+//	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//	        pstmt.setString(1, "%" + nameDevice + "%");
+//	        ResultSet rs = pstmt.executeQuery();
+//
+//	        while (rs.next()) {
+//	            DeviceDTO dto = new DeviceDTO();
+//	            dto.setIdDevice(rs.getInt("id_device"));
+//	            dto.setNameDevice(rs.getString("name_device"));
+//	            dto.setLineupDevice(rs.getString("lineup_device"));
+//	            dto.setReleaseDevice(rs.getInt("release_device"));
+//	            dto.setWeightDevice(rs.getFloat("weight_device"));
+//	            dto.setChoiceDevice(rs.getInt("choice_device"));
+//	            dto.setTypeDevice(rs.getString("type_device"));
+//	            dto.setManfDevice(rs.getString("manf_device"));
+//	            dto.setIdCpu(rs.getInt("id_cpu"));
+//	            list.add(dto);
+//	        }
+//
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//
+//	    return list;
+//	}
+	
+	@Override
+	public List<DeviceDTO> selectDeviceListByName(String nameDevice) {
+	    List<DeviceDTO> deviceList = new ArrayList<>();
+
+	    String sql = """
+				SELECT
+				        d.id_device,
+				        d.name_device,
+				        d.id_cpu,
+				        b.manf_device,
+				        t.type_device,
+				        c.name_cpu AS cpu_device
+				    FROM device d
+				    LEFT JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+				    LEFT JOIN device_type t ON d.device_type_code = t.device_type_code
+				    LEFT JOIN cpu c ON d.id_cpu = c.id_cpu
+				    WHERE d.name_device LIKE ?
+				    ORDER BY d.id_device ASC
+	    """;
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, "%" + nameDevice + "%");
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            DeviceDTO dto = new DeviceDTO();
+	            dto.setIdDevice(rs.getInt("id_device"));
+	            dto.setNameDevice(rs.getString("name_device"));
+	            dto.setIdCpu(rs.getInt("id_cpu"));
+	            dto.setManfDevice(rs.getString("manf_device"));
+	            dto.setTypeDevice(rs.getString("type_device"));
+	            dto.setCpuDevice(rs.getString("cpu_device"));
+	            deviceList.add(dto);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return deviceList;
+	}
+
 
 }
