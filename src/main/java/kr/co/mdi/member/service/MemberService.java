@@ -15,12 +15,18 @@ public interface MemberService {
 
 	//
 
-	void addCpuPreference(String userId, int cpuId);
+//	void addCpuPreference(String userId, int cpuId);
+	
+	boolean addCpuPreference(String userId, int cpuId);
 
 	//
-	
+
 	List<String> getFavoriteCpuNames(String userId);
-	
+
 	List<CpuDTO> getFavoriteCpuDetails(String userId);
+
+	//
+
+	void removeCpuPreference(String userId, int cpuId);
 
 }

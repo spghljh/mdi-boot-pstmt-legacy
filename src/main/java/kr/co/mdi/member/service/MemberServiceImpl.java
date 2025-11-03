@@ -99,13 +99,24 @@ public class MemberServiceImpl implements MemberService {
 
 	//
 
+//	@Override
+//	public void addCpuPreference(String userId, int cpuId) {
+//	    if (!memberDao.existsCpuPreference(userId, cpuId)) {
+//	        memberDao.insertCpuPreference(userId, cpuId);
+//	        memberDao.incrementCpuChoiceCount(cpuId);
+//	    }
+//	}
+	
 	@Override
-	public void addCpuPreference(String userId, int cpuId) {
+	public boolean addCpuPreference(String userId, int cpuId) {
 	    if (!memberDao.existsCpuPreference(userId, cpuId)) {
 	        memberDao.insertCpuPreference(userId, cpuId);
 	        memberDao.incrementCpuChoiceCount(cpuId);
+	        return true; // 새로 추가됨
 	    }
+	    return false; // 이미 존재함
 	}
+
 	
 	@Override
 	public List<String> getFavoriteCpuNames(String userId) {
@@ -132,6 +143,16 @@ public class MemberServiceImpl implements MemberService {
 	        cpuList.add(cpu);
 	    }
 	    return cpuList;
+	}
+
+	// 
+	
+	@Override
+	public void removeCpuPreference(String userId, int cpuId) {
+	    if (memberDao.existsCpuPreference(userId, cpuId)) {
+	        memberDao.deleteCpuPreference(userId, cpuId);
+	        memberDao.decrementCpuChoiceCount(cpuId);
+	    }
 	}
 
 

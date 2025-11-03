@@ -273,4 +273,34 @@ public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, Sequenc
 	    }
 	    return null;
 	}
+	
+	// -----------
+	
+	@Override
+	public void deleteCpuPreference(String memberId, int cpuId) {
+	    int idMember = getIdMemberById(memberId);
+	    String sql = "DELETE FROM cpu_prefer WHERE id_member = ? AND cpu_id = ?";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idMember);
+	        pstmt.setInt(2, cpuId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("관심 CPU 삭제 중 오류 발생", e);
+	    }
+	}
+
+	@Override
+	public void decrementCpuChoiceCount(int cpuId) {
+	    String sql = "UPDATE cpu SET choice_cpu = choice_cpu - 1 WHERE id_cpu = ? AND choice_cpu > 0";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, cpuId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("CPU 선택 수 감소 중 오류 발생", e);
+	    }
+	}
 }

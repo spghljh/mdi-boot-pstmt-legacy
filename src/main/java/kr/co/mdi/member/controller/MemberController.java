@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.mdi.cpu.dto.CpuDTO;
@@ -138,16 +140,45 @@ public class MemberController {
 
     //
     
+//    @PostMapping("/member/add-cpu")
+//    public String addCpuToFavorites(@RequestParam int cpuId, HttpSession session) {
+//        String loginUserId = (String) session.getAttribute("loginUser");
+//        if (loginUserId == null) {
+//            return "redirect:/login";
+//        }
+//
+//        userService.addCpuPreference(loginUserId, cpuId);
+//        return "redirect:/member/detail";
+//    }
+    
     @PostMapping("/member/add-cpu")
-    public String addCpuToFavorites(@RequestParam int cpuId, HttpSession session) {
+    public String addCpuToFavorites(@RequestParam int cpuId, HttpSession session, RedirectAttributes redirectAttributes) {
         String loginUserId = (String) session.getAttribute("loginUser");
         if (loginUserId == null) {
             return "redirect:/login";
         }
 
-        userService.addCpuPreference(loginUserId, cpuId);
+        boolean added = userService.addCpuPreference(loginUserId, cpuId);
+        if (!added) {
+            redirectAttributes.addFlashAttribute("message", "이미 관심 CPU로 추가된 항목입니다.");
+        }
+
+//        return "redirect:/member/detail";
+        return "redirect:/cpus/" + cpuId;
+    }
+
+    
+    @PostMapping("/member/delete-cpu/{cpuId}")
+    public String deleteCpuPreference(@PathVariable int cpuId, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+
+        userService.removeCpuPreference(loginUserId, cpuId);
         return "redirect:/member/detail";
     }
+
 
     
 }

@@ -17,15 +17,18 @@
                     </div>
 
                     <div class="units4">
-                        <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.manfCpu}"></a>
+<!--                         <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.manfCpu}"></a> -->
+                        <a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.manfCpu}"></a>
                     </div>
 
                     <div class="units1_cpu">
-                        <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a>
+<!--                         <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a> -->
+                        <a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.nameCpu}"></a>
                     </div>
 
                     <div class="units">
-                        <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.coreCpu + ' 코어'}"></a>
+<!--                         <a th:href="@{'/cpu/detail/' + ${cpu.idCpu}}" th:text="${cpu.coreCpu + ' 코어'}"></a> -->
+                        <a th:href="@{'/cpus/' + ${cpu.idCpu}}" th:text="${cpu.coreCpu + ' 코어'}"></a>
                     </div>
                 </div>
             </div>
