@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.mdi.common.util.PasswordUtil;
 import kr.co.mdi.cpu.dto.CpuDTO;
+import kr.co.mdi.device.dto.DeviceDTO;
 import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
@@ -106,54 +107,85 @@ public class MemberServiceImpl implements MemberService {
 //	        memberDao.incrementCpuChoiceCount(cpuId);
 //	    }
 //	}
-	
+
 	@Override
 	public boolean addCpuPreference(String userId, int cpuId) {
-	    if (!memberDao.existsCpuPreference(userId, cpuId)) {
-	        memberDao.insertCpuPreference(userId, cpuId);
-	        memberDao.incrementCpuChoiceCount(cpuId);
-	        return true; // 새로 추가됨
-	    }
-	    return false; // 이미 존재함
+		if (!memberDao.existsCpuPreference(userId, cpuId)) {
+			memberDao.insertCpuPreference(userId, cpuId);
+			memberDao.incrementCpuChoiceCount(cpuId);
+			return true; // 새로 추가됨
+		}
+		return false; // 이미 존재함
 	}
 
-	
 	@Override
 	public List<String> getFavoriteCpuNames(String userId) {
-	    int idMember = memberDao.getIdMemberById(userId);
-	    List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
+		int idMember = memberDao.getIdMemberById(userId);
+		List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
 
-	    List<String> cpuNames = new ArrayList<>();
-	    for (int cpuId : cpuIds) {
-	        String name = memberDao.findCpuNameById(cpuId);
-	        cpuNames.add(name);
-	    }
-	    return cpuNames;
+		List<String> cpuNames = new ArrayList<>();
+		for (int cpuId : cpuIds) {
+			String name = memberDao.findCpuNameById(cpuId);
+			cpuNames.add(name);
+		}
+		return cpuNames;
 	}
 
-	// 
+	//
 	@Override
 	public List<CpuDTO> getFavoriteCpuDetails(String userId) {
-	    int idMember = memberDao.getIdMemberById(userId);
-	    List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
+		int idMember = memberDao.getIdMemberById(userId);
+		List<Integer> cpuIds = memberDao.findCpuPreferences(idMember);
 
-	    List<CpuDTO> cpuList = new ArrayList<>();
-	    for (int cpuId : cpuIds) {
-	        CpuDTO cpu = memberDao.findCpuDetailById(cpuId);
-	        cpuList.add(cpu);
-	    }
-	    return cpuList;
+		List<CpuDTO> cpuList = new ArrayList<>();
+		for (int cpuId : cpuIds) {
+			CpuDTO cpu = memberDao.findCpuDetailById(cpuId);
+			cpuList.add(cpu);
+		}
+		return cpuList;
 	}
 
-	// 
-	
+	//
+
 	@Override
 	public void removeCpuPreference(String userId, int cpuId) {
-	    if (memberDao.existsCpuPreference(userId, cpuId)) {
-	        memberDao.deleteCpuPreference(userId, cpuId);
-	        memberDao.decrementCpuChoiceCount(cpuId);
-	    }
+		if (memberDao.existsCpuPreference(userId, cpuId)) {
+			memberDao.deleteCpuPreference(userId, cpuId);
+			memberDao.decrementCpuChoiceCount(cpuId);
+		}
 	}
 
+	//
+
+	@Override
+	public boolean addDevicePreference(String userId, int deviceId) {
+		if (!memberDao.existsDevicePreference(userId, deviceId)) {
+			memberDao.insertDevicePreference(userId, deviceId);
+			memberDao.incrementDeviceChoiceCount(deviceId);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public List<DeviceDTO> getFavoriteDeviceDetails(String userId) {
+		int idMember = memberDao.getIdMemberById(userId);
+		List<Integer> deviceIds = memberDao.findDevicePreferences(idMember);
+
+		List<DeviceDTO> deviceList = new ArrayList<>();
+		for (int deviceId : deviceIds) {
+			DeviceDTO device = memberDao.findDeviceDetailById(deviceId);
+			deviceList.add(device);
+		}
+		return deviceList;
+	}
+
+	@Override
+	public void removeDevicePreference(String userId, int deviceId) {
+		if (memberDao.existsDevicePreference(userId, deviceId)) {
+			memberDao.deleteDevicePreference(userId, deviceId);
+			memberDao.decrementDeviceChoiceCount(deviceId);
+		}
+	}
 
 }

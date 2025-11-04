@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.mdi.cpu.dto.CpuDTO;
+import kr.co.mdi.device.dto.DeviceDTO;
 import kr.co.mdi.member.dto.MemberDTO;
 import kr.co.mdi.member.service.MemberService;
 
@@ -115,7 +116,11 @@ public class MemberController {
 	    model.addAttribute("loginUser", loginUserId);
 
 	    List<CpuDTO> favoriteCpus = userService.getFavoriteCpuDetails(loginUserId);
+	    List<DeviceDTO> favoriteDevices = userService.getFavoriteDeviceDetails(loginUserId);
+	    
+	    
 	    model.addAttribute("favoriteCpus", favoriteCpus);
+	    model.addAttribute("favoriteDevices", favoriteDevices);
 
 	    return "member/member-detail";
 	}
@@ -176,6 +181,34 @@ public class MemberController {
         }
 
         userService.removeCpuPreference(loginUserId, cpuId);
+        return "redirect:/member/detail";
+    }
+
+    //
+    
+    @PostMapping("/member/add-device")
+    public String addDeviceToFavorites(@RequestParam int deviceId, HttpSession session, RedirectAttributes redirectAttributes) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+
+        boolean added = userService.addDevicePreference(loginUserId, deviceId);
+        if (!added) {
+            redirectAttributes.addFlashAttribute("message", "이미 관심 디바이스로 추가된 항목입니다.");
+        }
+
+        return "redirect:/devices/" + deviceId;
+    }
+
+    @PostMapping("/member/delete-device/{deviceId}")
+    public String deleteDevicePreference(@PathVariable int deviceId, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+
+        userService.removeDevicePreference(loginUserId, deviceId);
         return "redirect:/member/detail";
     }
 

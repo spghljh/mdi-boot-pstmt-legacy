@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.cpu.dto.CpuDTO;
+import kr.co.mdi.device.dto.DeviceDTO;
 import kr.co.mdi.member.dao.MemberDao;
 import kr.co.mdi.member.dao.SequenceBasedMemberDao;
 import kr.co.mdi.member.dto.MemberDTO;
@@ -301,6 +302,147 @@ public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, Sequenc
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        throw new RuntimeException("CPU 선택 수 감소 중 오류 발생", e);
+	    }
+	}
+	
+	//
+	
+	@Override
+	public void insertDevicePreference(String memberId, int deviceId) {
+	    int idMember = getIdMemberById(memberId);
+	    String sql = "INSERT INTO device_prefer (id_member, device_id) VALUES (?, ?)";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idMember);
+	        pstmt.setInt(2, deviceId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("관심 디바이스 추가 중 오류 발생", e);
+	    }
+	}
+
+	
+	@Override
+	public boolean existsDevicePreference(String memberId, int deviceId) {
+	    int idMember = getIdMemberById(memberId);
+	    String sql = "SELECT COUNT(*) FROM device_prefer WHERE id_member = ? AND device_id = ?";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idMember);
+	        pstmt.setInt(2, deviceId);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("관심 디바이스 중복 확인 중 오류 발생", e);
+	    }
+	    return false;
+	}
+
+	@Override
+	public void incrementDeviceChoiceCount(int deviceId) {
+	    String sql = "UPDATE device SET choice_device = choice_device + 1 WHERE id_device = ?";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, deviceId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("디바이스 선택 수 증가 중 오류 발생", e);
+	    }
+	}
+
+	
+	@Override
+	public void decrementDeviceChoiceCount(int deviceId) {
+	    String sql = "UPDATE device SET choice_device = choice_device - 1 WHERE id_device = ? AND choice_device > 0";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, deviceId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("디바이스 선택 수 감소 중 오류 발생", e);
+	    }
+	}
+
+	
+	@Override
+	public List<Integer> findDevicePreferences(int idMember) {
+	    String sql = "SELECT device_id FROM device_prefer WHERE id_member = ?";
+	    List<Integer> deviceIds = new ArrayList<>();
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idMember);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                deviceIds.add(rs.getInt("device_id"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("관심 디바이스 목록 조회 중 오류 발생", e);
+	    }
+
+	    return deviceIds;
+	}
+
+	
+	@Override
+	public DeviceDTO findDeviceDetailById(int deviceId) {
+	    String sql = """
+	        SELECT d.*, t.type_device, m.manf_device
+	        FROM device d
+	        LEFT JOIN device_type t ON d.device_type_code = t.device_type_code
+	        LEFT JOIN device_manf_brand m ON d.device_manf_code = m.device_manf_code
+	        WHERE d.id_device = ?
+	    """;
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, deviceId);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                DeviceDTO device = new DeviceDTO();
+	                device.setIdDevice(rs.getInt("id_device"));
+	                device.setNameDevice(rs.getString("name_device"));
+	                device.setReleaseDevice(rs.getInt("release_device"));
+	                device.setChoiceDevice(rs.getInt("choice_device"));
+	                device.setDeviceTypeCode(rs.getString("device_type_code"));
+	                device.setTypeDevice(rs.getString("type_device"));
+	                device.setDeviceManfCode(rs.getString("device_manf_code"));
+	                device.setManfDevice(rs.getString("manf_device"));
+	                return device;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("디바이스 상세 조회 중 오류 발생", e);
+	    }
+	    return null;
+	}
+
+	@Override
+	public String findDeviceNameById(int deviceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteDevicePreference(String memberId, int deviceId) {
+	    int idMember = getIdMemberById(memberId);
+	    String sql = "DELETE FROM device_prefer WHERE id_member = ? AND device_id = ?";
+
+	    try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idMember);
+	        pstmt.setInt(2, deviceId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("관심 디바이스 삭제 중 오류 발생", e);
 	    }
 	}
 }

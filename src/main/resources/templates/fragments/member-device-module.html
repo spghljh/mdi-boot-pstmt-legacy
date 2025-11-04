@@ -6,19 +6,31 @@
     </div>
 
     <div class="units_line" th:if="${!#lists.isEmpty(favoriteDevices)}">
-        <div th:each="device, iterStat : ${favoriteDevices}">
-            <div class="device_unit">
-                <div class="device_title">
-                    <span th:text="'Device-' + ${iterStat.index + 1}"></span>
+        <div th:each="device : ${favoriteDevices}" class="cpulist_per_user2_outer">
+            <div class="cpulist_per_user2_1">
+                <div class="info1">
+                    <div class="units4_image" style="width:50px; height:50px; margin-left:30px; margin-right:10px;">
+                        <img th:src="@{'/image/' + ${#strings.toLowerCase(device.deviceManfCode)} + '.png'}" alt="브랜드 이미지" style="width:50px; height:50px;"/>
+                    </div>
+
+                    <div class="units4">
+                        <a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.manfDevice}"></a>
+                    </div>
+
+                    <div class="units1_cpu">
+                        <a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.nameDevice}"></a>
+                    </div>
+
+<!--                     <div class="units"> -->
+<!--                         <a th:href="@{'/devices/' + ${device.idDevice}}" th:text="${device.specDevice}"></a> -->
+<!--                     </div> -->
                 </div>
-                <div class="device_name">
-                    <span th:text="${device}"></span>
-                </div>
-                <div class="device_action">
-                    <form th:action="@{'/member/delete-device/' + ${iterStat.index + 1}}" method="post">
-                        <button type="submit" class="delete_button">삭제</button>
-                    </form>
-                </div>
+            </div>
+
+            <div class="cpulist_per_user2_2">
+                <form th:action="@{'/member/delete-device/' + ${device.idDevice}}" method="post">
+                    <button type="submit" class="delete_button_css">삭제</button>
+                </form>
             </div>
         </div>
     </div>

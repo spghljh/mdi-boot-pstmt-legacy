@@ -85,13 +85,18 @@
                                             </div>
 
 
-                                           <div class="page2view_id_body_title_part4_ForMainTitle">
-                                           <table>
-                                            
-                                                <tr><td><?php include "./page2view_id_maintitle/AddChoice_device.php"; ?></td></tr>
+<!--                                            <div class="page2view_id_body_title_part4_ForMainTitle"> -->
+<!--                                            <table> -->
+<!--                                                 <tr><td></td></tr> -->
+<!--                                             </table> -->
+<!--                                             </div> -->
 
-                                            </table>
-                                            </div>
+											<div class="page2view_id_body_title_part4_ForMainTitle">
+											    <form th:action="@{/member/add-device}" method="post" style="display:inline;">
+											        <input type="hidden" name="deviceId" th:value="${device.idDevice}" />
+											        <button type="submit" class="add_button">추가</button>
+											    </form>
+											</div>
 
                                         </div>
 
