@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
 
@@ -51,6 +52,11 @@ public class DeviceServiceImpl implements DeviceService {
 	@Override
 	public List<DeviceDTO> getDeviceListByName(String nameDevice) {
 	    return deviceDAO.selectDeviceListByName(nameDevice);
+	}
+	
+	@Override
+	public List<DeviceDTO> getHotDeviceList() {
+	    return deviceDAO.selectHotDeviceList();
 	}
 
 

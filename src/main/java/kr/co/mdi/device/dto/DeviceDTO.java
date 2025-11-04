@@ -18,6 +18,7 @@ public class DeviceDTO {
 	private Integer idCpu; // mdl.id_cpu (외래 키 → mcl.id_cpu)
 	private String cpuDevice; // mcl.name_cpu (표시용 CPU 이름)
 	private String manfCpu; // mcl.manf_cpu (CPU 제조사 이름)
+	
 	public Integer getIdDevice() {
 		return idDevice;
 	}

@@ -16,6 +16,8 @@ public interface CpuService {
 	// -------
 	
 	List<CpuDTO> getCpuListByName(String nameCpu);
-
 	
+	List<CpuDTO> getHotCpuList();
+
+
 }

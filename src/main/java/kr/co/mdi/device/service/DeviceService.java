@@ -3,6 +3,7 @@ package kr.co.mdi.device.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dto.DeviceDTO;
 
 public interface DeviceService {
@@ -24,6 +25,8 @@ public interface DeviceService {
 	//
 	
 	List<DeviceDTO> getDeviceListByName(String nameDevice);
+	
+	List<DeviceDTO> getHotDeviceList();
 
 
 }

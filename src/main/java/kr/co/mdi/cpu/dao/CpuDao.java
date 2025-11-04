@@ -19,4 +19,6 @@ public interface CpuDao {
 	//
 	
 	List<CpuDTO> selectCpuListByName(String nameCpu);
+	
+	List<CpuDTO> selectHotCpuList();
 }

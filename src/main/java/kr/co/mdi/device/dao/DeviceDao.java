@@ -3,6 +3,7 @@ package kr.co.mdi.device.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dto.DeviceDTO;
 
 public interface DeviceDao {
@@ -22,5 +23,7 @@ public interface DeviceDao {
 	Map<String, Integer> selectDeviceCountByBrand(String cpuName);
 
 	List<DeviceDTO> selectDeviceListByName(String nameDevice);
+	
+	List<DeviceDTO> selectHotDeviceList();
 
 }

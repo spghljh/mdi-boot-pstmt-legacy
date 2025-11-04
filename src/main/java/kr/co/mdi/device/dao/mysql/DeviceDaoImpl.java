@@ -454,6 +454,104 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 
 	    return deviceList;
 	}
+	
+//	@Override
+//	public List<DeviceDTO> selectHotDeviceList() {
+//	    List<DeviceDTO> hotDeviceList = new ArrayList<>();
+//
+//	    String sql = """
+//	    	    SELECT
+//	    	        d.id_device,
+//	    	        d.name_device,
+//	    	        d.choice_device,
+//	    	        d.device_manf_code,
+//	    	        b.manf_device,
+//	    	        d.id_cpu,
+//	    	        c.name_cpu AS cpu_name,
+//	    	        cb.manf_cpu AS cpu_manf
+//	    	    FROM device d
+//	    	    LEFT JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+//	    	    LEFT JOIN cpu c ON d.id_cpu = c.id_cpu
+//	    	    LEFT JOIN cpu_manf_brand cb ON c.cpu_manf_code = cb.cpu_manf_code
+//	    	    ORDER BY d.choice_device DESC
+//	    	    LIMIT 10
+//	    	""";
+//
+//
+//	    try (Connection conn = getConnection();
+//	         PreparedStatement pstmt = conn.prepareStatement(sql);
+//	         ResultSet rs = pstmt.executeQuery()) {
+//
+//	        while (rs.next()) {
+//	            DeviceDTO dto = new DeviceDTO();
+//	            dto.setIdDevice(rs.getInt("id_device"));
+//	            dto.setNameDevice(rs.getString("name_device"));
+//	            dto.setChoiceDevice(rs.getInt("choice_device"));
+//	            dto.setDeviceManfCode(rs.getString("device_manf_code"));
+//	            dto.setManfDevice(rs.getString("manf_device"));
+//	            dto.setIdCpu(rs.getInt("id_cpu"));
+//	            dto.setCpuDevice(rs.getString("cpu_name"));
+//	            dto.setManfCpu(rs.getString("cpu_manf"));
+//	            hotDeviceList.add(dto);
+//	        }
+//
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	        throw new RuntimeException("인기 디바이스 목록 조회 중 오류 발생", e);
+//	    }
+//
+//	    return hotDeviceList;
+//	}
+	
+	
+	@Override
+	public List<DeviceDTO> selectHotDeviceList() {
+	    List<DeviceDTO> hotDeviceList = new ArrayList<>();
+
+	    String sql = """
+	        SELECT
+	            d.id_device,
+	            d.name_device,
+	            d.choice_device,
+	            d.device_manf_code,
+	            b.manf_device,
+	            d.id_cpu,
+	            c.name_cpu AS cpu_name,
+	            cb.manf_cpu AS cpu_manf
+	        FROM device d
+	        LEFT JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+	        LEFT JOIN cpu c ON d.id_cpu = c.id_cpu
+	        LEFT JOIN cpu_manf_brand cb ON c.cpu_manf_code = cb.cpu_manf_code
+	        WHERE d.choice_device > 0
+	        ORDER BY d.choice_device DESC
+	        LIMIT 10
+	    """;
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            DeviceDTO dto = new DeviceDTO();
+	            dto.setIdDevice(rs.getInt("id_device"));
+	            dto.setNameDevice(rs.getString("name_device"));
+	            dto.setChoiceDevice(rs.getInt("choice_device"));
+	            dto.setDeviceManfCode(rs.getString("device_manf_code"));
+	            dto.setManfDevice(rs.getString("manf_device"));
+	            dto.setIdCpu(rs.getInt("id_cpu"));
+	            dto.setCpuDevice(rs.getString("cpu_name"));
+	            dto.setManfCpu(rs.getString("cpu_manf"));
+	            hotDeviceList.add(dto);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("인기 디바이스 목록 조회 중 오류 발생", e);
+	    }
+
+	    return hotDeviceList;
+	}
+
 
 
 }

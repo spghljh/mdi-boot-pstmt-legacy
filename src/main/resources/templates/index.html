@@ -86,7 +86,9 @@
 													</div>
 												</div>
 												<div class="Hot_Items2_2">
-													<div class="Hot_Items2_2_1"></div>
+													<div class="Hot_Items2_2_1">
+														<div th:insert="~{fragments/hot-cpus :: hotCpu}"></div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -176,6 +178,7 @@
 												</div>
 												<div class="Hot_Items2_2">
 													<div class="Hot_Items2_2_1">
+														<div th:insert="~{fragments/hot-devices :: hotDevice}"></div>
 													</div>
 												</div>
 											</div>
@@ -223,6 +226,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script th:src="@{/js/slider-init.js}"></script>
+<script th:src="@{/js/hotcpus.js}"></script>
+<script th:src="@{/js/hotdevices.js}"></script>
+
 
 
 

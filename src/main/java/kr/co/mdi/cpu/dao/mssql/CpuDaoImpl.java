@@ -212,4 +212,43 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 
 		    return cpuList;
 		}
+		@Override
+		public List<CpuDTO> selectHotCpuList() {
+		    List<CpuDTO> hotCpuList = new ArrayList<>();
+
+		    String sql = """
+		        SELECT
+		            m.id_cpu,
+		            m.name_cpu,
+		            m.choice_cpu,
+		            m.cpu_manf_code,
+		            b.manf_cpu
+		        FROM cpu m
+		        LEFT JOIN cpu_manf_brand b ON m.cpu_manf_code = b.cpu_manf_code
+		        ORDER BY m.choice_cpu DESC
+		        LIMIT 10
+		    """;
+
+		    try (Connection conn = getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql);
+		         ResultSet rs = pstmt.executeQuery()) {
+
+		        while (rs.next()) {
+		            CpuDTO dto = new CpuDTO();
+		            dto.setIdCpu(rs.getInt("id_cpu"));
+		            dto.setNameCpu(rs.getString("name_cpu"));
+		            dto.setChoiceCpu(rs.getInt("choice_cpu"));
+		            dto.setCpuManfCode(rs.getString("cpu_manf_code"));
+		            dto.setManfCpu(rs.getString("manf_cpu"));
+		            hotCpuList.add(dto);
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw new RuntimeException("인기 CPU 목록 조회 중 오류 발생", e);
+		    }
+
+		    return hotCpuList;
+		}
+
 }

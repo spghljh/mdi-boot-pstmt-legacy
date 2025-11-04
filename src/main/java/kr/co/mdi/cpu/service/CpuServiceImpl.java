@@ -47,7 +47,11 @@ public class CpuServiceImpl implements CpuService {
 	    return cpuDAO.selectCpuListByName(nameCpu);
 	}
 	
-	
+	@Override
+	public List<CpuDTO> getHotCpuList() {
+	    return cpuDAO.selectHotCpuList();
+	}
+
 	
 
 }
