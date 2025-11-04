@@ -18,7 +18,7 @@
             <!-- 제조사 이미지 -->
             <div class="chart_div_image4" style="width:45px;">
                 <div class="chart_div_image4_brand">
-                    <a th:href="@{'/devices?manf=' + ${manfDevice}}">
+                    <a th:href="@{/search/device(catgo='manf_device', search=${manfDevice})}">
                         <img th:src="@{'/image/' + ${#strings.toLowerCase(manfDevice)} + '.png'}"
                              alt="제조사 로고"
                              style="width:40px; height:auto;" />
@@ -30,7 +30,7 @@
             <div class="chart_div_image3" style="width:80px; justify-content:left; font-size:18px;">
                 <div>
                     <a class="chart_div_image3_parameter"
-                       th:href="@{'/devices?manf=' + ${manfDevice}}"
+                       th:href="@{/search/device(catgo='manf_device', search=${manfDevice})}"
                        th:text="${manfDevice}"></a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <!-- 버튼 -->
             <div class="chart_div_graph_device_nochart">
                 <div class="chart_div_graph_device_nochart_button">
-                    <a th:href="@{'/devices?manf=' + ${manfDevice}}">
+                    <a th:href="@{/search/device(catgo='manf_device', search=${manfDevice})}">
                         <span style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;"
                               th:text="${manfDevice}"></span>사의 다른 제품
                     </a>

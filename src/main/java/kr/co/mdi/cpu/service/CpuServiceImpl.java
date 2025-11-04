@@ -2,10 +2,10 @@ package kr.co.mdi.cpu.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.mdi.cpu.dao.CpuDao;
+import kr.co.mdi.cpu.dto.CoreStatDTO;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
 @Service
@@ -13,7 +13,6 @@ public class CpuServiceImpl implements CpuService {
 
 	private final CpuDao cpuDAO;
 
-	@Autowired
 	public CpuServiceImpl(CpuDao cpuDAO) {
 		this.cpuDAO = cpuDAO;
 	}
@@ -52,6 +51,31 @@ public class CpuServiceImpl implements CpuService {
 	    return cpuDAO.selectHotCpuList();
 	}
 
+	@Override
+	public List<CpuDTO> getCpuListByManufacturer(String manfCpu) {
+	    return cpuDAO.selectCpuListByManufacturer(manfCpu);
+	}
+
+	@Override
+	public List<CpuDTO> getCpuListByCore(int coreCpu) {
+	    return cpuDAO.selectCpuListByCore(coreCpu);
+	}
+
+	@Override
+	public List<CpuDTO> getCpuListByThread(int threadCpu) {
+	    return cpuDAO.selectCpuListByThread(threadCpu);
+	}
+
+	@Override
+	public List<CpuDTO> getCpuListByRelease(int releaseCpu) {
+	    return cpuDAO.selectCpuListByRelease(releaseCpu);
+	}
 	
+	@Override
+	public List<CoreStatDTO> getCoreCpuDistribution() {
+	    return cpuDAO.getCoreCpuDistribution();
+	}
+
+
 
 }

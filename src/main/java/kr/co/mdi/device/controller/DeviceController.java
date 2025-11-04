@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.dto.ManfStatDTO;
 import kr.co.mdi.device.service.DeviceService;
 
 @Controller
@@ -33,6 +34,7 @@ public class DeviceController {
 	public String deviceList(Model model) {
 	    List<DeviceDTO> deviceList = deviceService.getDeviceList();
 
+
 	    // 총 디바이스 수
 	    int totalDeviceCount = deviceList.size();
 
@@ -47,6 +49,8 @@ public class DeviceController {
 	    // 모델에 추가
 	    model.addAttribute("devices", deviceList);
 	    model.addAttribute("totalDeviceCount", totalDeviceCount);
+
+	    
 	    model.addAttribute("hpCount", hpCount);
 	    model.addAttribute("msiCount", msiCount);
 	    model.addAttribute("asusCount", asusCount);
@@ -70,13 +74,33 @@ public class DeviceController {
 	
 	//
 	
+//	@GetMapping("/search/device")
+//	public String searchDevice(@RequestParam("search") String search, Model model) {
+//	    List<DeviceDTO> deviceResults = deviceService.getDeviceListByName(search);
+//	    model.addAttribute("search", search);
+//	    model.addAttribute("deviceResults", deviceResults);
+//	    return "search/deviceResult";
+//	}
+
 	@GetMapping("/search/device")
-	public String searchDevice(@RequestParam("search") String search, Model model) {
-	    List<DeviceDTO> deviceResults = deviceService.getDeviceListByName(search);
+	public String searchDevice(@RequestParam("catgo") String catgo,
+	                           @RequestParam("search") String search,
+	                           Model model) {
+	    List<DeviceDTO> deviceResults;
+
+	    if ("manf_device".equals(catgo)) {
+	        deviceResults = deviceService.getDeviceListByManufacturer(search);
+	    } else if ("name_device".equals(catgo)) {
+	        deviceResults = deviceService.getDeviceListByName(search);
+	    } else if ("id_cpu_device".equals(catgo)) {
+	        deviceResults = deviceService.getDeviceListByCpuId(Integer.parseInt(search));
+	    } else {
+	        deviceResults = List.of();
+	    }
+
 	    model.addAttribute("search", search);
 	    model.addAttribute("deviceResults", deviceResults);
 	    return "search/deviceResult";
 	}
-
 
 }

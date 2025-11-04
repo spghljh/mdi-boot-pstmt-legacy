@@ -14,10 +14,15 @@
 
             <div class="chart_div_image3" style="width:80px; justify-content:left;">
                 <div>
-                    <a class="chart_div_image3_parameter"
-                       style="padding-left: 30px;"
-                       th:href="@{'/cpus?release=' + ${releaseCpu}}"
-                       th:text="${releaseCpu}"></a>
+<!--                     <a class="chart_div_image3_parameter" -->
+<!--                        style="padding-left: 30px;" -->
+<!--                        th:href="@{'/cpus?release=' + ${releaseCpu}}" -->
+<!--                        th:text="${releaseCpu}"></a> -->
+					<a class="chart_div_image3_parameter"
+					   style="padding-left: 30px;"
+					   th:href="@{/search/cpu(catgo='release_cpu', search=${releaseCpu})}"
+					   th:text="${releaseCpu}"></a>
+
                 </div>
             </div>
 
@@ -26,14 +31,22 @@
             </div>
 
             <div class="chart_div_graph_cpu_nochart" style="width:400px;">
-                <div class="chart_div_graph_cpu_nochart_button">
-                    <a th:href="@{'/cpus?release=' + ${releaseCpu}}">
-                        <a style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;"
-                           th:href="@{'/cpus?release=' + ${releaseCpu}}"
-                           th:text="${releaseCpu}"></a>
-                        <a th:href="@{'/cpus?release=' + ${releaseCpu}}">년 출시한 다른 제품</a>
-                    </a>
-                </div>
+<!--                 <div class="chart_div_graph_cpu_nochart_button"> -->
+<!--                     <a th:href="@{'/cpus?release=' + ${releaseCpu}}"> -->
+<!--                         <a style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;" -->
+<!--                            th:href="@{'/cpus?release=' + ${releaseCpu}}" -->
+<!--                            th:text="${releaseCpu}"></a> -->
+<!--                         <a th:href="@{'/cpus?release=' + ${releaseCpu}}">년 출시한 다른 제품</a> -->
+<!--                     </a> -->
+<!--                 </div> -->
+					<div class="chart_div_graph_cpu_nochart_button">
+					    <a th:href="@{/search/cpu(catgo='release_cpu', search=${releaseCpu})}">
+					        <span style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;"
+					              th:text="${releaseCpu}"></span>
+					        년 출시한 다른 제품
+					    </a>
+					</div>
+
             </div>
 
         </div>

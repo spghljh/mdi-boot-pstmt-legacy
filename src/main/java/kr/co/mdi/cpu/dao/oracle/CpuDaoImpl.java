@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.cpu.dao.CpuDao;
+import kr.co.mdi.cpu.dto.CoreStatDTO;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
 @Profile("dev-user-oracle")
@@ -249,6 +250,191 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 		    }
 
 		    return hotCpuList;
+		}
+		
+		//
+		
+		@Override
+		public List<CpuDTO> selectCpuListByManufacturer(String manfCpu) {
+		    List<CpuDTO> list = new ArrayList<>();
+		    String sql = "SELECT * FROM cpu WHERE manf_cpu = ?";
+
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setString(1, manfCpu);
+
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            while (rs.next()) {
+		                CpuDTO cpu = new CpuDTO();
+		                cpu.setIdCpu(rs.getInt("id_cpu"));
+		                cpu.setNameCpu(rs.getString("name_cpu"));
+		                cpu.setManfCpu(rs.getString("manf_cpu"));
+		                cpu.setCoreCpu(rs.getInt("core_cpu"));
+		                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		                // 필요한 필드 추가
+		                list.add(cpu);
+		            }
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace(); // 로깅 또는 예외 처리
+		    }
+
+		    return list;
+		}
+		
+		//
+		
+		@Override
+		public List<CpuDTO> selectCpuListByCore(int coreCpu) {
+		    List<CpuDTO> list = new ArrayList<>();
+		    String sql = """
+		        SELECT c.*, b.manf_cpu
+		        FROM cpu c
+		        JOIN cpu_manf_brand b ON c.cpu_manf_code = b.cpu_manf_code
+		        WHERE c.core_cpu = ?
+		    """;
+
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setInt(1, coreCpu);
+
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            while (rs.next()) {
+		                CpuDTO cpu = new CpuDTO();
+		                cpu.setIdCpu(rs.getInt("id_cpu"));
+		                cpu.setNameCpu(rs.getString("name_cpu"));
+		                cpu.setReleaseCpu(rs.getInt("release_cpu"));
+		                cpu.setCoreCpu(rs.getInt("core_cpu"));
+		                cpu.setThreadCpu(rs.getInt("thread_cpu"));
+		                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		                cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+		                cpu.setChoiceCpu(rs.getInt("choice_cpu"));
+		                cpu.setCpuTypeCode(rs.getString("cpu_type_code"));
+		                cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
+		                cpu.setManfCpu(rs.getString("manf_cpu"));
+		                list.add(cpu);
+		            }
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return list;
+		}
+
+		@Override
+		public List<CpuDTO> selectCpuListByThread(int threadCpu) {
+		    List<CpuDTO> list = new ArrayList<>();
+		    String sql = """
+		        SELECT c.*, b.manf_cpu
+		        FROM cpu c
+		        JOIN cpu_manf_brand b ON c.cpu_manf_code = b.cpu_manf_code
+		        WHERE c.thread_cpu = ?
+		    """;
+
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setInt(1, threadCpu);
+
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            while (rs.next()) {
+		                CpuDTO cpu = new CpuDTO();
+		                cpu.setIdCpu(rs.getInt("id_cpu"));
+		                cpu.setNameCpu(rs.getString("name_cpu"));
+		                cpu.setReleaseCpu(rs.getInt("release_cpu"));
+		                cpu.setCoreCpu(rs.getInt("core_cpu"));
+		                cpu.setThreadCpu(rs.getInt("thread_cpu"));
+		                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		                cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+		                cpu.setChoiceCpu(rs.getInt("choice_cpu"));
+		                cpu.setCpuTypeCode(rs.getString("cpu_type_code"));
+		                cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
+		                cpu.setManfCpu(rs.getString("manf_cpu"));
+		                list.add(cpu);
+		            }
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return list;
+		}
+
+		
+		@Override
+		public List<CpuDTO> selectCpuListByRelease(int releaseCpu) {
+		    List<CpuDTO> list = new ArrayList<>();
+		    String sql = """
+		        SELECT c.*, b.manf_cpu
+		        FROM cpu c
+		        JOIN cpu_manf_brand b ON c.cpu_manf_code = b.cpu_manf_code
+		        WHERE c.release_cpu = ?
+		    """;
+
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+		        pstmt.setInt(1, releaseCpu);
+
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            while (rs.next()) {
+		                CpuDTO cpu = new CpuDTO();
+		                cpu.setIdCpu(rs.getInt("id_cpu"));
+		                cpu.setNameCpu(rs.getString("name_cpu"));
+		                cpu.setReleaseCpu(rs.getInt("release_cpu"));
+		                cpu.setCoreCpu(rs.getInt("core_cpu"));
+		                cpu.setThreadCpu(rs.getInt("thread_cpu"));
+		                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
+		                cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
+		                cpu.setChoiceCpu(rs.getInt("choice_cpu"));
+		                cpu.setCpuTypeCode(rs.getString("cpu_type_code"));
+		                cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
+		                cpu.setManfCpu(rs.getString("manf_cpu"));
+		                list.add(cpu);
+		            }
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return list;
+		}
+		
+		//
+
+		@Override
+		public List<CoreStatDTO> getCoreCpuDistribution() {
+			List<CoreStatDTO> list = new ArrayList<>();
+			String sql = """
+					    SELECT core_cpu, COUNT(*) AS count
+					    FROM cpu
+					    GROUP BY core_cpu
+					    ORDER BY core_cpu
+					""";
+
+			try (Connection conn = dataSource.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql);
+					ResultSet rs = pstmt.executeQuery()) {
+
+				while (rs.next()) {
+					CoreStatDTO stat = new CoreStatDTO();
+					stat.setCoreCpu(rs.getInt("core_cpu"));
+					stat.setCount(rs.getInt("count"));
+					list.add(stat);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
 		}
 
 }

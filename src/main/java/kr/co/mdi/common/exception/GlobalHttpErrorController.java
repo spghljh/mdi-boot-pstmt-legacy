@@ -13,7 +13,7 @@ public class GlobalHttpErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        Object errorMessage = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+//        Object errorMessage = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
 
         int status = statusCode != null ? Integer.parseInt(statusCode.toString()) : 0;
         String message;

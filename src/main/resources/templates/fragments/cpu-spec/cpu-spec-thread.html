@@ -68,9 +68,13 @@
 
             <div class="chart_div_image3">
                 <div onclick="location.href='/cpus?thread=[[${threadCpu}]]'">
-                    <a class="chart_div_image3_parameter"
-                       th:href="@{'/cpus?thread=' + ${threadCpu}}"
-                       th:text="${threadCpu}"></a>
+<!--                     <a class="chart_div_image3_parameter" -->
+<!--                        th:href="@{'/cpus?thread=' + ${threadCpu}}" -->
+<!--                        th:text="${threadCpu}"></a> -->
+                       <a class="chart_div_image3_parameter"
+					   th:href="@{/search/cpu(catgo='thread_cpu', search=${threadCpu})}"
+					   th:text="${threadCpu}"></a>
+                       
                 </div>
             </div>
 
@@ -78,11 +82,16 @@
                 <div><a>스레드</a></div>
             </div>
 
-            <div class="chart_div_graph_thread_cpu">
-                <div id="chart_div_thread" style="width: 100%; height:100%;"
-                     th:onclick="'location.href=\'/cpus?thread=' + '[[${threadCpu}]]\''">
-                </div>
-            </div>
+<!--             <div class="chart_div_graph_thread_cpu"> -->
+<!--                 <div id="chart_div_thread" style="width: 100%; height:100%;" -->
+<!--                      th:onclick="'location.href=\'/cpus?thread=' + '[[${threadCpu}]]\''"> -->
+<!--                 </div> -->
+<!--             </div> -->
+				<div class="chart_div_graph_thread_cpu"
+				     th:onclick="'location.href=\'/search/cpu?catgo=thread_cpu&search=' + ${threadCpu} + '\''">
+				    <div id="chart_div_thread" style="width: 100%; height:100%;"></div>
+				</div>
+
 
         </div>
     </div>

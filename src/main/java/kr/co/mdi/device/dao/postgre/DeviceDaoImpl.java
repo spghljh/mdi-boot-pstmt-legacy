@@ -11,14 +11,13 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.dto.ManfStatDTO;
 
 @Profile("dev-user-postgre")
 @Repository
@@ -38,7 +37,6 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	
 	private final DataSource dataSource;
 
-	@Autowired
 	public DeviceDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
@@ -326,6 +324,84 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	    }
 
 	    return hotDeviceList;
+	}
+	
+	@Override
+	public List<DeviceDTO> selectDeviceListByManufacturer(String manfDevice) {
+	    List<DeviceDTO> list = new ArrayList<>();
+	    String sql = """
+	        SELECT d.*, b.manf_device
+	        FROM device d
+	        JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+	        WHERE b.manf_device = ?
+	    """;
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, manfDevice);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DeviceDTO device = new DeviceDTO();
+	                device.setIdDevice(rs.getInt("id_device"));
+	                device.setNameDevice(rs.getString("name_device"));
+	                device.setIdCpu(rs.getInt("id_cpu"));
+	                device.setLineupDevice(rs.getString("lineup_device"));
+	                device.setReleaseDevice(rs.getInt("release_device"));
+	                device.setWeightDevice(rs.getFloat("weight_device"));
+	                device.setChoiceDevice(rs.getInt("choice_device"));
+	                device.setDeviceTypeCode(rs.getString("device_type_code"));
+	                device.setDeviceManfCode(rs.getString("device_manf_code"));
+	                device.setManfDevice(rs.getString("manf_device")); // 제조사 이름 세팅
+	                list.add(device);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+
+	@Override
+	public List<DeviceDTO> selectDeviceListByCpuId(int idCpu) {
+	    List<DeviceDTO> list = new ArrayList<>();
+
+	    String sql = """
+	        SELECT d.*, b.manf_device, c.name_cpu
+	        FROM device d
+	        JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+	        JOIN cpu c ON d.id_cpu = c.id_cpu
+	        WHERE d.id_cpu = ?
+	    """;
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, idCpu);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DeviceDTO device = new DeviceDTO();
+	                device.setIdDevice(rs.getInt("id_device"));
+	                device.setNameDevice(rs.getString("name_device"));
+	                device.setCpuDevice(rs.getString("name_cpu")); // CPU 이름
+	                device.setManfDevice(rs.getString("manf_device")); // 제조사 이름
+	                device.setDeviceTypeCode(rs.getString("device_type_code"));
+	                device.setDeviceManfCode(rs.getString("device_manf_code"));
+	                device.setIdCpu(rs.getInt("id_cpu"));
+	                device.setChoiceDevice(rs.getInt("choice_device"));
+	                list.add(device);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
 	}
 
 }

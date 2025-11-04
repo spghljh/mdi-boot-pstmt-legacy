@@ -38,7 +38,12 @@
                                                 <div class="page1view_id_body_title_part1_ForMainTitle_Total" >
                                                         <a class = "Module_Layout_1_1_1_1_1_0" STYLE="MARGIN-RIGHT:12PX; font-size:22px; color: white !important;">프로세서 상세정보</a>
                                                         <a class = "Module_Layout_1_1_1_1_1_0_22" STYLE="MARGIN-RIGHT:12PX; font-size:22px;">></a>
-                                                        <a class = "Module_Layout_1_1_1_1_1_0" STYLE="MARGIN-RIGHT:12PX; font-size:22px; color: white !important;" th:text="${cpu.manfCpu}"></a>
+<!--                                                         <a class = "Module_Layout_1_1_1_1_1_0" STYLE="MARGIN-RIGHT:12PX; font-size:22px; color: white !important;" th:text="${cpu.manfCpu}"></a> -->
+														<a class="Module_Layout_1_1_1_1_1_0"
+														   STYLE="MARGIN-RIGHT:12PX; font-size:22px; color: white !important;"
+														   th:href="@{/search/cpu(catgo='manf_cpu', search=${cpu.manfCpu})}"
+														   th:text="${cpu.manfCpu}"></a>
+
                                                         <a class = "Module_Layout_1_1_1_1_1_0_22" STYLE="MARGIN-RIGHT:12PX; font-size:22px;">></a>
                                                         <a class = "Module_Layout_1_1_1_1_1_0" STYLE="MARGIN-RIGHT:12PX; font-size:22px; color: white !important;" th:text="${cpu.nameCpu}"></a>
                                                 </div>

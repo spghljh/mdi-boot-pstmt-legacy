@@ -63,15 +63,26 @@
             <div class="chart_div_image2"><div><a>코어 수</a></div></div>
             <div class="chart_div_image3">
                 <div onclick="location.href='/cpus?core=[[${coreCpu}]]'">
-                    <a class="chart_div_image3_parameter" th:href="@{'/cpus?core=' + ${coreCpu}}" th:text="${coreCpu}"></a>
+<!--                     <a class="chart_div_image3_parameter" th:href="@{'/cpus?core=' + ${coreCpu}}" th:text="${coreCpu}"></a> -->
+					<a class="chart_div_image3_parameter"
+					   th:href="@{/search/cpu(catgo='core_cpu', search=${coreCpu})}"
+					   th:text="${coreCpu}"></a>
                 </div>
             </div>
             <div class="chart_div_image4"><div><a>코어</a></div></div>
-            <div class="chart_div_graph_core_cpu">
-                <div id="chart_div_core" style="width: 100%; height:100%;"
-                     th:onclick="'location.href=\'/cpus?core=' + '[[${coreCpu}]]\''">
-                </div>
-            </div>
+<!--             <div class="chart_div_graph_core_cpu"> -->
+<!--                 <div id="chart_div_core" style="width: 100%; height:100%;" -->
+<!--                      th:onclick="'location.href=\'/cpus?core=' + '[[${coreCpu}]]\''"> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!-- 				<div class="chart_div_graph_core_cpu" onclick="location.href='/search/cpu?catgo=core_cpu&search=[[${coreCpu}]]'"> -->
+<!-- 				    <div id="chart_div_core" style="width: 100%; height:100%;"></div> -->
+<!-- 				</div> -->
+				<div class="chart_div_graph_core_cpu"
+				     th:onclick="'location.href=\'/search/cpu?catgo=core_cpu&search=' + ${coreCpu} + '\''">
+				    <div id="chart_div_core" style="width: 100%; height:100%;"></div>
+				</div>
+
         </div>
     </div>
 </div>

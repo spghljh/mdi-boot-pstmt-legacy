@@ -3,19 +3,17 @@ package kr.co.mdi.device.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dao.DeviceDao;
 import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.dto.ManfStatDTO;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
 	private final DeviceDao deviceDAO;
 
-	@Autowired
 	public DeviceServiceImpl(DeviceDao deviceDAO) {
 		this.deviceDAO = deviceDAO;
 	}
@@ -59,6 +57,17 @@ public class DeviceServiceImpl implements DeviceService {
 	    return deviceDAO.selectHotDeviceList();
 	}
 
+	@Override
+	public List<DeviceDTO> getDeviceListByManufacturer(String manfDevice) {
+	    return deviceDAO.selectDeviceListByManufacturer(manfDevice);
+	}
+
+	//
+	
+	@Override
+	public List<DeviceDTO> getDeviceListByCpuId(int idCpu) {
+	    return deviceDAO.selectDeviceListByCpuId(idCpu);
+	}
 
 
 }

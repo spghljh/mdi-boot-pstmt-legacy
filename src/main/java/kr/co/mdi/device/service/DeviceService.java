@@ -3,8 +3,8 @@ package kr.co.mdi.device.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.dto.ManfStatDTO;
 
 public interface DeviceService {
 
@@ -28,5 +28,11 @@ public interface DeviceService {
 	
 	List<DeviceDTO> getHotDeviceList();
 
+	List<DeviceDTO> getDeviceListByManufacturer(String manfDevice);
+	
+	//
+	
+	List<DeviceDTO> getDeviceListByCpuId(int idCpu);
+	
 
 }

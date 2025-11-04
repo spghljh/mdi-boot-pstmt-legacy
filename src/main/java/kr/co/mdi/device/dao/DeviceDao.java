@@ -3,8 +3,8 @@ package kr.co.mdi.device.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.mdi.cpu.dto.CpuDTO;
 import kr.co.mdi.device.dto.DeviceDTO;
+import kr.co.mdi.device.dto.ManfStatDTO;
 
 public interface DeviceDao {
 
@@ -25,5 +25,13 @@ public interface DeviceDao {
 	List<DeviceDTO> selectDeviceListByName(String nameDevice);
 	
 	List<DeviceDTO> selectHotDeviceList();
+	
+	List<DeviceDTO> selectDeviceListByManufacturer(String manfDevice);
+
+	//
+	
+	List<DeviceDTO> selectDeviceListByCpuId(int idCpu);
+	
+
 
 }

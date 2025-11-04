@@ -2,6 +2,7 @@ package kr.co.mdi.cpu.dao;
 
 import java.util.List;
 
+import kr.co.mdi.cpu.dto.CoreStatDTO;
 import kr.co.mdi.cpu.dto.CpuDTO;
 
 public interface CpuDao {
@@ -21,4 +22,18 @@ public interface CpuDao {
 	List<CpuDTO> selectCpuListByName(String nameCpu);
 	
 	List<CpuDTO> selectHotCpuList();
+	
+	//
+	
+	List<CpuDTO> selectCpuListByManufacturer(String manfCpu);
+
+	List<CpuDTO> selectCpuListByCore(int coreCpu);
+	List<CpuDTO> selectCpuListByThread(int threadCpu);
+	List<CpuDTO> selectCpuListByRelease(int releaseCpu);
+	
+	//
+	
+	List<CoreStatDTO> getCoreCpuDistribution();
+
+	
 }

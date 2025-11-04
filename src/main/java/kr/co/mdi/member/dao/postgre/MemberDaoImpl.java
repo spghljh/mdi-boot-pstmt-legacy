@@ -10,8 +10,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +38,6 @@ public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao, Sequenc
 	
     private final DataSource dataSource;
 
-    @Autowired
     public MemberDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
