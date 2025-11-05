@@ -126,14 +126,27 @@ public class DeviceController {
 
 	    if ("manf_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByManufacturer(search);
+
 	    } else if ("name_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByName(search);
+
 	    } else if ("id_cpu_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByCpuId(Integer.parseInt(search));
+
 	    } else if ("type_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByType(search);
+
 	    } else if ("release_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByReleaseYear(Integer.parseInt(search));
+
+	    // 🔹 새로 추가: CPU + 제조사 동시 조건
+	    } else if ("cpu_manf_device".equals(catgo)) {
+	        // search 파라미터를 "idCpu:manf" 형태로 넘긴다고 가정 (예: "24:HP")
+	        String[] parts = search.split(":");
+	        int idCpu = Integer.parseInt(parts[0]);
+	        String manf = parts[1];
+	        deviceResults = deviceService.getDeviceListByCpuAndManf(idCpu, manf);
+
 	    } else {
 	        deviceResults = List.of();
 	    }
@@ -142,6 +155,7 @@ public class DeviceController {
 	    model.addAttribute("deviceResults", deviceResults);
 	    return "search/deviceResult";
 	}
+
 
 
 }

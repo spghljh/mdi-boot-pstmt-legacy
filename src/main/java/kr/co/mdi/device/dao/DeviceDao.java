@@ -37,5 +37,9 @@ public interface DeviceDao {
 	List<DeviceDTO> selectDevicesByTypeCode(String typeCode);
 	
 	List<DeviceDTO> selectDeviceListByReleaseYear(int releaseYear);
+	
+	//
+	
+	List<DeviceDTO> selectDeviceListByCpuAndManf(int idCpu, String manfDevice);
 
 }

@@ -578,4 +578,65 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	    }
 	    return list;
 	}
+	
+	@Override
+	public List<DeviceDTO> selectDeviceListByCpuAndManf(int idCpu, String manfDevice) {
+	    List<DeviceDTO> list = new ArrayList<>();
+
+	    String sql = """
+	        SELECT d.id_device,
+	               d.name_device,
+	               d.lineup_device,
+	               d.release_device,
+	               d.weight_device,
+	               d.choice_device,
+	               d.device_type_code,
+	               t.type_device,
+	               d.device_manf_code,
+	               b.manf_device,
+	               d.id_cpu,
+	               c.name_cpu
+	        FROM device d
+	        LEFT JOIN device_type t ON d.device_type_code = t.device_type_code
+	        LEFT JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+	        LEFT JOIN cpu c ON d.id_cpu = c.id_cpu
+	        WHERE d.id_cpu = ? AND b.manf_device = ?
+	    """;
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, idCpu);
+	        pstmt.setString(2, manfDevice);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DeviceDTO dto = new DeviceDTO();
+	                dto.setIdDevice(rs.getInt("id_device"));
+	                dto.setNameDevice(rs.getString("name_device"));
+	                dto.setLineupDevice(rs.getString("lineup_device"));
+	                dto.setReleaseDevice(rs.getInt("release_device"));
+	                dto.setWeightDevice(rs.getFloat("weight_device"));
+	                dto.setChoiceDevice(rs.getInt("choice_device"));
+
+	                dto.setDeviceTypeCode(rs.getString("device_type_code"));
+	                dto.setTypeDevice(rs.getString("type_device"));
+
+	                dto.setDeviceManfCode(rs.getString("device_manf_code"));
+	                dto.setManfDevice(rs.getString("manf_device"));
+
+	                dto.setIdCpu(rs.getInt("id_cpu"));
+	                dto.setCpuDevice(rs.getString("name_cpu"));
+
+	                list.add(dto);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("CPU + 제조사 조건으로 디바이스 조회 중 오류 발생", e);
+	    }
+
+	    return list;
+	}
+
 }

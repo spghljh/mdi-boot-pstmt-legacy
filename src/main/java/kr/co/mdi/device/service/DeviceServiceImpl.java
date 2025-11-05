@@ -83,5 +83,11 @@ public class DeviceServiceImpl implements DeviceService {
 	public List<DeviceDTO> getDeviceListByReleaseYear(int releaseYear) {
 	    return deviceDAO.selectDeviceListByReleaseYear(releaseYear);
 	}
+	
+	@Override
+	public List<DeviceDTO> getDeviceListByCpuAndManf(int idCpu, String manfDevice) {
+	    return deviceDAO.selectDeviceListByCpuAndManf(idCpu, manfDevice);
+	}
+
 
 }

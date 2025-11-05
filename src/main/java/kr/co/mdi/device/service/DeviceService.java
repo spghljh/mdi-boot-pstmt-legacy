@@ -39,4 +39,8 @@ public interface DeviceService {
 	List<DeviceDTO> getDeviceListByType(String typeCode);
 	
 	List<DeviceDTO> getDeviceListByReleaseYear(int releaseYear);
+	
+	//
+	
+	List<DeviceDTO> getDeviceListByCpuAndManf(int idCpu, String manfDevice);
 }
