@@ -68,6 +68,11 @@ public class DeviceServiceImpl implements DeviceService {
 	public List<DeviceDTO> getDeviceListByCpuId(int idCpu) {
 	    return deviceDAO.selectDeviceListByCpuId(idCpu);
 	}
+	
+	@Override
+	public List<ManfStatDTO> getDeviceManufacturerDistribution() {
+	    return deviceDAO.getDeviceManufacturerDistribution();
+	}
 
-
+	
 }

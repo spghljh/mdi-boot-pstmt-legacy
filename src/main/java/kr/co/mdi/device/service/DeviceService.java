@@ -34,5 +34,7 @@ public interface DeviceService {
 	
 	List<DeviceDTO> getDeviceListByCpuId(int idCpu);
 	
+	List<ManfStatDTO> getDeviceManufacturerDistribution();
+	
 
 }

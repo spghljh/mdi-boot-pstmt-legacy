@@ -1,23 +1,22 @@
 package kr.co.mdi.device.dto;
 
 public class ManfStatDTO {
-	private String manufacturer;
-	private int count;
+    private String manfDevice;
+    private int count;
 
-	public String getManufacturer() {
-		return manufacturer;
-	}
+    public String getManfDevice() {
+        return manfDevice;
+    }
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
+    public void setManfDevice(String manfDevice) {
+        this.manfDevice = manfDevice;
+    }
 
-	public int getCount() {
-		return count;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
-
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

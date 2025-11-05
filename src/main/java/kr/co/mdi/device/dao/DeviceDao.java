@@ -32,6 +32,8 @@ public interface DeviceDao {
 	
 	List<DeviceDTO> selectDeviceListByCpuId(int idCpu);
 	
+	List<ManfStatDTO> getDeviceManufacturerDistribution();
+	
 
 
 }

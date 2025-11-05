@@ -393,6 +393,62 @@ public class DeviceDaoImpl extends AbstractJdbcDao implements DeviceDao {
 	    return list;
 	}
 	
+//	@Override
+//	public List<ManfStatDTO> getDeviceManufacturerDistribution() {
+//	    List<ManfStatDTO> list = new ArrayList<>();
+//	    String sql = """
+//	        SELECT manf_device, COUNT(*) AS count
+//	        FROM device
+//	        GROUP BY manf_device
+//	        ORDER BY manf_device
+//	    """;
+//
+//	    try (Connection conn = dataSource.getConnection();
+//	         PreparedStatement pstmt = conn.prepareStatement(sql);
+//	         ResultSet rs = pstmt.executeQuery()) {
+//
+//	        while (rs.next()) {
+//	            ManfStatDTO stat = new ManfStatDTO();
+//	            stat.setManfDevice(rs.getString("manf_device"));
+//	            stat.setCount(rs.getInt("count"));
+//	            list.add(stat);
+//	        }
+//
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    }
+//
+//	    return list;
+//	}
 
+	@Override
+	public List<ManfStatDTO> getDeviceManufacturerDistribution() {
+	    List<ManfStatDTO> list = new ArrayList<>();
+	    String sql = """
+	        SELECT b.manf_device, COUNT(*) AS count
+	        FROM device d
+	        JOIN device_manf_brand b ON d.device_manf_code = b.device_manf_code
+	        GROUP BY b.manf_device
+	        ORDER BY b.manf_device
+	    """;
 
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            ManfStatDTO stat = new ManfStatDTO();
+	            stat.setManfDevice(rs.getString("manf_device"));
+	            stat.setCount(rs.getInt("count"));
+	            list.add(stat);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+	
+	
 }
