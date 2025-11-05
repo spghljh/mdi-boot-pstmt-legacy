@@ -27,7 +27,7 @@ public class DeviceController {
 //		model.addAttribute("devices", deviceList);
 //		return "device/device-list";
 //	}
-	
+
 	// HTML 반환 컨트롤러
 	// DEVICE 목록 페이지(mdi)
 //	@GetMapping("/devices")
@@ -61,37 +61,58 @@ public class DeviceController {
 //	    return "device/device-list";
 //	}
 
-
 	@GetMapping("/devices")
 	public String deviceList(Model model) {
-	    List<DeviceDTO> deviceList = deviceService.getDeviceList();
-	    List<ManfStatDTO> manfStats = deviceService.getDeviceManufacturerDistribution();
+		List<DeviceDTO> deviceList = deviceService.getDeviceList();
+		List<ManfStatDTO> manfStats = deviceService.getDeviceManufacturerDistribution();
 
-	    int totalDeviceCount = deviceList.size();
+		int totalDeviceCount = deviceList.size();
 
-	    model.addAttribute("devices", deviceList);
-	    model.addAttribute("totalDeviceCount", totalDeviceCount);
-	    model.addAttribute("manfStats", manfStats);
+		model.addAttribute("devices", deviceList);
+		model.addAttribute("totalDeviceCount", totalDeviceCount);
+		model.addAttribute("manfStats", manfStats);
 
-	    return "device/device-list";
+		return "device/device-list";
 	}
 
-	
 	// DEVICE 상세 페이지
 	@GetMapping("/devices/{deviceId}")
 	public String deviceDetail(@PathVariable Integer deviceId, Model model) {
 		DeviceDTO device = deviceService.getDeviceById(deviceId); // 상세 정보 조회
-		
+
 		model.addAttribute("device", device); // 뷰에 전달
+		model.addAttribute("typeDevice", device.getDeviceTypeCode());
+		
 //		return "device/device-detail";
 		return "device/device-detail-current";
 	}
-	
+
 	//
-	
+
 //	@GetMapping("/search/device")
 //	public String searchDevice(@RequestParam("search") String search, Model model) {
 //	    List<DeviceDTO> deviceResults = deviceService.getDeviceListByName(search);
+//	    model.addAttribute("search", search);
+//	    model.addAttribute("deviceResults", deviceResults);
+//	    return "search/deviceResult";
+//	}
+
+//	@GetMapping("/search/device")
+//	public String searchDevice(@RequestParam("catgo") String catgo,
+//	                           @RequestParam("search") String search,
+//	                           Model model) {
+//	    List<DeviceDTO> deviceResults;
+//
+//	    if ("manf_device".equals(catgo)) {
+//	        deviceResults = deviceService.getDeviceListByManufacturer(search);
+//	    } else if ("name_device".equals(catgo)) {
+//	        deviceResults = deviceService.getDeviceListByName(search);
+//	    } else if ("id_cpu_device".equals(catgo)) {
+//	        deviceResults = deviceService.getDeviceListByCpuId(Integer.parseInt(search));
+//	    } else {
+//	        deviceResults = List.of();
+//	    }
+//
 //	    model.addAttribute("search", search);
 //	    model.addAttribute("deviceResults", deviceResults);
 //	    return "search/deviceResult";
@@ -109,6 +130,10 @@ public class DeviceController {
 	        deviceResults = deviceService.getDeviceListByName(search);
 	    } else if ("id_cpu_device".equals(catgo)) {
 	        deviceResults = deviceService.getDeviceListByCpuId(Integer.parseInt(search));
+	    } else if ("type_device".equals(catgo)) {
+	        deviceResults = deviceService.getDeviceListByType(search);
+	    } else if ("release_device".equals(catgo)) {
+	        deviceResults = deviceService.getDeviceListByReleaseYear(Integer.parseInt(search));
 	    } else {
 	        deviceResults = List.of();
 	    }
@@ -117,5 +142,6 @@ public class DeviceController {
 	    model.addAttribute("deviceResults", deviceResults);
 	    return "search/deviceResult";
 	}
+
 
 }

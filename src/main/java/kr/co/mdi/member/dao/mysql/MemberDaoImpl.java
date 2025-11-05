@@ -429,6 +429,6 @@ public class MemberDaoImpl extends AbstractJdbcDao implements MemberDao {
 	        throw new RuntimeException("관심 디바이스 삭제 중 오류 발생", e);
 	    }
 	}
-	
+
 	
 }

@@ -36,5 +36,7 @@ public interface DeviceService {
 	
 	List<ManfStatDTO> getDeviceManufacturerDistribution();
 	
-
+	List<DeviceDTO> getDeviceListByType(String typeCode);
+	
+	List<DeviceDTO> getDeviceListByReleaseYear(int releaseYear);
 }

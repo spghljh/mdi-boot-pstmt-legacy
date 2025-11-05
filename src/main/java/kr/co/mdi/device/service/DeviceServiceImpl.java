@@ -73,6 +73,15 @@ public class DeviceServiceImpl implements DeviceService {
 	public List<ManfStatDTO> getDeviceManufacturerDistribution() {
 	    return deviceDAO.getDeviceManufacturerDistribution();
 	}
-
 	
+	@Override
+	public List<DeviceDTO> getDeviceListByType(String typeCode) {
+	    return deviceDAO.selectDevicesByTypeCode(typeCode);
+	}
+
+	@Override
+	public List<DeviceDTO> getDeviceListByReleaseYear(int releaseYear) {
+	    return deviceDAO.selectDeviceListByReleaseYear(releaseYear);
+	}
+
 }

@@ -15,7 +15,7 @@
             <div class="chart_div_image3" style="width:80px;">
                 <div>
                     <a class="chart_div_image3_parameter"
-                       th:href="@{'/devices?release=' + ${releaseDevice}}"
+                       th:href="@{'/search/device?catgo=release_device&search=' + ${releaseDevice}}"
                        th:text="${releaseDevice}"></a>
                 </div>
             </div>
@@ -26,11 +26,12 @@
 
             <div class="chart_div_graph_device_nochart">
                 <div class="chart_div_graph_device_nochart_button">
-                    <a th:href="@{'/devices?release=' + ${releaseDevice}}">
-                        <a style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:-5px !important; margin-left:-8px !important;"
-                           th:href="@{'/devices?release=' + ${releaseDevice}}"
-                           th:text="${releaseDevice}"></a>
-                        <a th:href="@{'/devices?release=' + ${releaseDevice}}">년 출시 다른 제품</a>
+                    <!-- 하나의 링크 안에 releaseDevice + 설명 같이 -->
+                    <a th:href="@{'/search/device?catgo=release_device&search=' + ${releaseDevice}}">
+                        <span style="color:#e0c2fe !important; text-shadow:0 0 2px black !important; font-weight:700 !important; margin-right:3px;">
+                            <span th:text="${releaseDevice}"></span>
+                        </span>
+                        년 출시 다른 제품
                     </a>
                 </div>
             </div>

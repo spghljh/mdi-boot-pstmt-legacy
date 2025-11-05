@@ -34,6 +34,8 @@ public interface DeviceDao {
 	
 	List<ManfStatDTO> getDeviceManufacturerDistribution();
 	
-
+	List<DeviceDTO> selectDevicesByTypeCode(String typeCode);
+	
+	List<DeviceDTO> selectDeviceListByReleaseYear(int releaseYear);
 
 }
