@@ -1,4 +1,4 @@
-name: Build and Push Docker Image - mdi-boot-pstmt-legacy
+name: Build and Push Docker Image - mdi-boot-ssr-pstmt-legacy
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Print Build Metadata
         run: |
-          echo "App Name: mdi-boot-pstmt-legacy"
+          echo "App Name: mdi-boot-ssr-pstmt-legacy"
           echo "Build Time (UTC): ${{ env.BUILD_TIMESTAMP }}"
           echo "Branch: ${{ github.ref }}"
           echo "Triggered by: ${{ github.actor }}"
@@ -73,6 +73,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mdi-prj-pstmt:mdi-jar-${{ env.COMMIT_MSG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mdi-boot-ssr-pstmt-legacy:mdi-boot-ssr-pstmt-legacy-jar-${{ env.COMMIT_MSG }}
           build-args: |
             JAR_FILE=${{ env.JAR_NAME }}
