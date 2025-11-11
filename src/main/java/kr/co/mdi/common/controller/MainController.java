@@ -22,20 +22,20 @@ public class MainController {
 	private DeviceService deviceService;
 
 	// 메인 페이지
-//	@GetMapping("/")
-//	public String index(Model model) {
-//
-//		int totalCpuCount = cpuService.getTotalCpuCount();
-//		int totalDeviceCount = deviceService.getTotalDeviceCount();
-//		model.addAttribute("totalCpuCount", totalCpuCount);
-//		model.addAttribute("totalDeviceCount", totalDeviceCount);
-//
-//		List<CpuDTO> hotCpuList = cpuService.getHotCpuList();
-//		List<DeviceDTO> hotDeviceList = deviceService.getHotDeviceList();
-//		model.addAttribute("hotCpuList", hotCpuList);
-//		model.addAttribute("hotDeviceList", hotDeviceList);
-//		return "index";
-//	}
+	@GetMapping("/")
+	public String index(Model model) {
+
+		int totalCpuCount = cpuService.getTotalCpuCount();
+		int totalDeviceCount = deviceService.getTotalDeviceCount();
+		model.addAttribute("totalCpuCount", totalCpuCount);
+		model.addAttribute("totalDeviceCount", totalDeviceCount);
+
+		List<CpuDTO> hotCpuList = cpuService.getHotCpuList();
+		List<DeviceDTO> hotDeviceList = deviceService.getHotDeviceList();
+		model.addAttribute("hotCpuList", hotCpuList);
+		model.addAttribute("hotDeviceList", hotDeviceList);
+		return "index";
+	}
 
 	// 로그인 페이지
 	@GetMapping("/login")
