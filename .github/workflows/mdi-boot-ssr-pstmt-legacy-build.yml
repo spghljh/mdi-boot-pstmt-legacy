@@ -59,7 +59,7 @@ jobs:
       - name: Upload JAR as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mdi-jar-${{ env.COMMIT_MSG }}
+          name: mdi-boot-ssr-pstmt-legacy-${{ env.COMMIT_MSG }}
           path: target/*.jar
 
       - name: Log in to Docker Hub
