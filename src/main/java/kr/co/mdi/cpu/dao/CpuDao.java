@@ -12,28 +12,21 @@ public interface CpuDao {
 	List<CpuDTO> selectAllCpus();
 
 	CpuDTO selectCpuById(Integer cpuId);
-	
-	//
-	
+
 	CpuDTO selectCpuByName(String nameCpu);
-	
-	//
-	
+
 	List<CpuDTO> selectCpuListByName(String nameCpu);
-	
+
 	List<CpuDTO> selectHotCpuList();
-	
-	//
-	
+
 	List<CpuDTO> selectCpuListByManufacturer(String manfCpu);
 
 	List<CpuDTO> selectCpuListByCore(int coreCpu);
+
 	List<CpuDTO> selectCpuListByThread(int threadCpu);
+
 	List<CpuDTO> selectCpuListByRelease(int releaseCpu);
-	
-	//
-	
+
 	List<CoreStatDTO> getCoreCpuDistribution();
 
-	
 }

@@ -22,10 +22,20 @@ public class CpuServiceImpl implements CpuService {
 		return cpuDAO.selectTotalCpuCount();
 	}
 
+//	@Override
+//	public List<CpuDTO> getCpuList() {
+//		return cpuDAO.selectAllCpus();
+//	}
+	
 	@Override
 	public List<CpuDTO> getCpuList() {
-		return cpuDAO.selectAllCpus();
+	    List<CpuDTO> list = cpuDAO.selectAllCpus();
+	    for (CpuDTO cpu : list) {
+	        System.out.println(cpu);
+	    }
+	    return list;
 	}
+
 
 	@Override
 	public CpuDTO getCpuById(Integer cpuId) {

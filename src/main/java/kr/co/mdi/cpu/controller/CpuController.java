@@ -3,7 +3,6 @@ package kr.co.mdi.cpu.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,168 +18,150 @@ import kr.co.mdi.device.service.DeviceService;
 @Controller
 public class CpuController {
 
-	@Autowired
-	private CpuService cpuService;
-	
-	@Autowired
-	private DeviceService deviceService;
+//	Spring Framework 4.3 이후부터 단일 생성자에 Autowired 어노테이션 생략 가능.
 
-	// HTML 반환 컨트롤러
-	// CPU 목록 페이지
-//	@GetMapping("/cpus")
-//	public String cpuList(Model model) {
-//		List<CpuDTO> cpuList = cpuService.getCpuList();
-//		model.addAttribute("cpus", cpuList);
-//		return "cpu/cpu-list";
-//	}
-	
-	// HTML 반환 컨트롤러
-	// CPU 목록 페이지(mdi)
+	// -----------------------------------------------
+
+//	1) 필드 주입 : 기본 생성자로 new 후 리플렉션으로 private 필드 주입	
+//	Mock 객체 주입 불편
+//	IoC 컨테이너 필요
+//	ApplicationContext를 통한 통합테스트 적합
+//	final 불가
+//	
+//	@Autowired
+//	private CpuService cpuService;
+//
+//	@Autowired
+//	private DeviceService deviceService;
+
+	// -----------------------------------------------
+
+//	2) 생성자 주입 : 리플렉션으로 생성자 호출 및 빈 인스턴스를 파라미터로 전달
+//	Mock 객체 주입 용이
+//	직접 객체 생성 가능
+//	Mock 객체를 통한 단위테스트 적합
+//	final 가능
+
+	private final CpuService cpuService;
+	private final DeviceService deviceService;
+
+	public CpuController(CpuService cpuService, DeviceService deviceService) {
+		this.cpuService = cpuService;
+		this.deviceService = deviceService;
+	}
+
+	/**
+	 * 전체 프로세서(P1)에 대한 통계와 목록
+	 * 
+	 * @param model 전체 프로세서 모델
+	 * @return cpu-list
+	 */
 	@GetMapping("/cpus")
 	public String cpuList(Model model) {
-	    List<CpuDTO> cpuList = cpuService.getCpuList();
-	    List<CoreStatDTO> coreStats = cpuService.getCoreCpuDistribution();
+		List<CpuDTO> cpuList = cpuService.getCpuList();
+		List<CoreStatDTO> coreStats = cpuService.getCoreCpuDistribution();
 
-	    // 총 CPU 수
-	    int totalCpuCount = cpuList.size();
+		int totalCpuCount = cpuList.size();
 
-	    // 코어별 빈도 계산
-//	    long coreCount2 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 2).count();
-//	    long coreCount4 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 4).count();
-//	    long coreCount6 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 6).count();
-//	    long coreCount8 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 8).count();
-//	    long coreCount12 = cpuList.stream().filter(cpu -> cpu.getCoreCpu() == 12).count();
+		model.addAttribute("cpus", cpuList);
+		model.addAttribute("totalCpuCount", totalCpuCount);
+		model.addAttribute("coreStats", coreStats);
 
-	    // 모델에 추가
-	    model.addAttribute("cpus", cpuList);
-	    model.addAttribute("totalCpuCount", totalCpuCount);
-	    model.addAttribute("coreStats", coreStats);
-	    
-//	    model.addAttribute("coreCount2", coreCount2);
-//	    model.addAttribute("coreCount4", coreCount4);
-//	    model.addAttribute("coreCount6", coreCount6);
-//	    model.addAttribute("coreCount8", coreCount8);
-//	    model.addAttribute("coreCount12", coreCount12);
-
-	    return "cpu/cpu-list";
+		return "cpu/cpu-list";
 	}
 
-
-	// HTML 반환 컨트롤러
-	// CPU 상세 페이지
-//	@GetMapping("/cpus/{cpuId}")
-//	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
-//		CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
-//		
-//		List<DeviceDTO> devices = deviceService.getDevicesByCpuName(cpu.getNameCpu());
-//		model.addAttribute("devices", devices);
-//		
-//		model.addAttribute("cpu", cpu); // 뷰에 전달
-//		return "cpu/cpu-detail-current";
-//	}
-	
+	/**
+	 * 단일 프로세서(P2)에 대한 상세 정보
+	 * 
+	 * @param cpuId 단일 프로세서의 고유ID
+	 * @param model 단일 프로세서 모델
+	 * @return cpu-detail-current
+	 */
 	@GetMapping("/cpus/{cpuId}")
 	public String cpuDetail(@PathVariable Integer cpuId, Model model) {
-	    CpuDTO cpu = cpuService.getCpuById(cpuId); // 상세 정보 조회
-	    String cpuName = cpu.getNameCpu();
+		CpuDTO cpu = cpuService.getCpuById(cpuId);
+		String cpuName = cpu.getNameCpu();
 
-	    List<DeviceDTO> devices = deviceService.getDevicesByCpuName(cpuName);
-	    System.out.println("조회된 디바이스 수: " + devices.size());
-	    Map<String, Integer> brandCounts = deviceService.getDeviceCountByBrand(cpuName);
+		List<DeviceDTO> devices = deviceService.getDevicesByCpuName(cpuName);
+		Map<String, Integer> brandCounts = deviceService.getDeviceCountByBrand(cpuName);
 
-	    model.addAttribute("cpu", cpu);
-	    model.addAttribute("devices", devices);
-	    model.addAttribute("brandCounts", brandCounts);
-	    
+		model.addAttribute("cpu", cpu);
+		model.addAttribute("devices", devices);
+		model.addAttribute("brandCounts", brandCounts);
 
-	    return "cpu/cpu-detail-current";
+		return "cpu/cpu-detail-current";
 	}
 
-	
+	// -----------------------------------------------
 
-	// HTML 반환 컨트롤러
+	/**
+	 * js를 활용해 브라우저(클라이언트) 렌더링<br>
+	 * fetch('/api/cpus') 호출을 통해 REST API 응답(JSON)을 받아옴<br>
+	 * ECMAScript의 Fetch API 기반 비동기 요청 방식의 CSR(Promise)<br>
+	 * 
+	 * @return
+	 */
 	@GetMapping("/cpus-fetch")
 	public String cpuRestPageFetch() {
 		return "cpu/cpu-list-fetch";
 	}
 
-	// HTML 반환 컨트롤러
+	/**
+	 * js를 활용해 브라우저(클라이언트) 렌더링<br>
+	 * $.ajax('/api/cpus') 호출을 통해 REST API 응답(JSON)을 받아옴<br>
+	 * jQuery 라이브러리 기반 AJAX 요청 방식의 CSR(XMLHttpRequest)<br>
+	 * 
+	 * @return
+	 */
 	@GetMapping("/cpus-jquery")
 	public String cpuRestPageJquery() {
 		return "cpu/cpu-list-jquery";
 	}
-	
-	// ---------------------------------
-	
+
+	/**
+	 * @param name
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/cpu-core-graph/{name}")
 	public String cpuCoreGraph(@PathVariable String name, Model model) {
-	    CpuDTO cpu = cpuService.getCpuByName(name);
-	    if (cpu == null) {
-	        return "error/404"; // 또는 에러 처리
-	    }
-	    
-	    model.addAttribute("coreCpu", cpu.getCoreCpu());
-	    model.addAttribute("nameCpu", cpu.getNameCpu());
-	    return "cpu/core-graph";
+		CpuDTO cpu = cpuService.getCpuByName(name);
+		if (cpu == null) {
+			return "error/404";
+		}
+
+		model.addAttribute("coreCpu", cpu.getCoreCpu());
+		model.addAttribute("nameCpu", cpu.getNameCpu());
+		return "cpu/core-graph";
 	}
 
-	// -----------------------------------
-	
-//	@GetMapping("/search/cpu")
-//	public String searchCpu(@RequestParam("search") String search, Model model) {
-//	    List<CpuDTO> cpuResults = cpuService.getCpuListByName(search); // 서비스 메서드 호출
-//	    model.addAttribute("search", search);
-//	    model.addAttribute("cpuResults", cpuResults);
-//	    return "search/cpuResult"; // 결과 페이지
-//	}
-
-
-	
-//	@GetMapping("/search/cpu")
-//	public String searchCpu(@RequestParam("catgo") String catgo,
-//	                        @RequestParam("search") String search,
-//	                        Model model) {
-//	    List<CpuDTO> cpuResults;
-//
-//	    if ("name_cpu".equals(catgo)) {
-//	        cpuResults = cpuService.getCpuListByName(search);
-//	    } else if ("manf_cpu".equals(catgo)) {
-//	        cpuResults = cpuService.getCpuListByManufacturer(search);
-//	    } else {
-//	        cpuResults = List.of(); // 또는 전체 목록 반환 등
-//	    }
-//
-//	    model.addAttribute("search", search);
-//	    model.addAttribute("cpuResults", cpuResults);
-//	    return "search/cpuResult";
-//	}
-	
+	/**
+	 * @param catgo
+	 * @param search
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/search/cpu")
-	public String searchCpu(@RequestParam("catgo") String catgo,
-	                        @RequestParam("search") String search,
-	                        Model model) {
-	    List<CpuDTO> cpuResults;
+	public String searchCpu(@RequestParam("catgo") String catgo, @RequestParam("search") String search, Model model) {
+		List<CpuDTO> cpuResults;
 
-	    if ("name_cpu".equals(catgo)) {
-	        cpuResults = cpuService.getCpuListByName(search);
-	    } else if ("manf_cpu".equals(catgo)) {
-	        cpuResults = cpuService.getCpuListByManufacturer(search);
-	    } else if ("core_cpu".equals(catgo)) {
-	        cpuResults = cpuService.getCpuListByCore(Integer.parseInt(search));
-	    } else if ("thread_cpu".equals(catgo)) {
-	        cpuResults = cpuService.getCpuListByThread(Integer.parseInt(search));
-	    } else if ("release_cpu".equals(catgo)) {
-	        cpuResults = cpuService.getCpuListByRelease(Integer.parseInt(search));
-	    } else {
-	        cpuResults = List.of(); // 또는 전체 목록 반환
-	    }
+		if ("name_cpu".equals(catgo)) {
+			cpuResults = cpuService.getCpuListByName(search);
+		} else if ("manf_cpu".equals(catgo)) {
+			cpuResults = cpuService.getCpuListByManufacturer(search);
+		} else if ("core_cpu".equals(catgo)) {
+			cpuResults = cpuService.getCpuListByCore(Integer.parseInt(search));
+		} else if ("thread_cpu".equals(catgo)) {
+			cpuResults = cpuService.getCpuListByThread(Integer.parseInt(search));
+		} else if ("release_cpu".equals(catgo)) {
+			cpuResults = cpuService.getCpuListByRelease(Integer.parseInt(search));
+		} else {
+			cpuResults = List.of();
+		}
 
-	    model.addAttribute("search", search);
-	    model.addAttribute("cpuResults", cpuResults);
-	    return "search/cpuResult";
+		model.addAttribute("search", search);
+		model.addAttribute("cpuResults", cpuResults);
+		return "search/cpuResult";
 	}
-
-
-
 
 }
