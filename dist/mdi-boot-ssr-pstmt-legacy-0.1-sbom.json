@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.4",
-  "serialNumber" : "urn:uuid:9a52c091-8989-483a-bdbc-cd41fe917d5b",
+  "serialNumber" : "urn:uuid:bca6f86f-04aa-4ffc-9dfd-cd4f40b5d78a",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2025-11-11T10:46:43Z",
+    "timestamp" : "2025-11-12T05:07:21Z",
     "tools" : [
       {
         "vendor" : "OWASP Foundation",
@@ -48,11 +48,11 @@
     ],
     "component" : {
       "group" : "kr.co.mdi",
-      "name" : "mdi",
+      "name" : "mdi-boot-ssr-pstmt-legacy",
       "version" : "0.1",
       "description" : "mobile-device-info",
       "licenses" : [ ],
-      "purl" : "pkg:maven/kr.co.mdi/mdi@0.1?type=jar",
+      "purl" : "pkg:maven/kr.co.mdi/mdi-boot-ssr-pstmt-legacy@0.1?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -64,7 +64,7 @@
         }
       ],
       "type" : "application",
-      "bom-ref" : "pkg:maven/kr.co.mdi/mdi@0.1?type=jar"
+      "bom-ref" : "pkg:maven/kr.co.mdi/mdi-boot-ssr-pstmt-legacy@0.1?type=jar"
     }
   },
   "components" : [
@@ -6066,7 +6066,7 @@
   ],
   "dependencies" : [
     {
-      "ref" : "pkg:maven/kr.co.mdi/mdi@0.1?type=jar",
+      "ref" : "pkg:maven/kr.co.mdi/mdi-boot-ssr-pstmt-legacy@0.1?type=jar",
       "dependsOn" : [
         "pkg:maven/org.springframework.boot/spring-boot-starter-data-jpa@3.5.5?type=jar",
         "pkg:maven/org.springframework.boot/spring-boot-starter-thymeleaf@3.5.5?type=jar",
