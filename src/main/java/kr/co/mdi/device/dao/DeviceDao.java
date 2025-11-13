@@ -13,33 +13,25 @@ public interface DeviceDao {
 	List<DeviceDTO> selectAllDevices();
 
 	DeviceDTO selectDeviceById(Integer deviceId);
-	
-	// ok
-	
+
 	List<DeviceDTO> selectDevicesByCpuName(String cpuName);
-	
-	// --
-	
+
 	Map<String, Integer> selectDeviceCountByBrand(String cpuName);
 
 	List<DeviceDTO> selectDeviceListByName(String nameDevice);
-	
+
 	List<DeviceDTO> selectHotDeviceList();
-	
+
 	List<DeviceDTO> selectDeviceListByManufacturer(String manfDevice);
 
-	//
-	
 	List<DeviceDTO> selectDeviceListByCpuId(int idCpu);
-	
+
 	List<ManfStatDTO> getDeviceManufacturerDistribution();
-	
+
 	List<DeviceDTO> selectDevicesByTypeCode(String typeCode);
-	
+
 	List<DeviceDTO> selectDeviceListByReleaseYear(int releaseYear);
-	
-	//
-	
+
 	List<DeviceDTO> selectDeviceListByCpuAndManf(int idCpu, String manfDevice);
 
 }

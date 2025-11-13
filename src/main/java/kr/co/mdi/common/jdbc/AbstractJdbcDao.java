@@ -19,6 +19,5 @@ public abstract class AbstractJdbcDao {
 		return dataSource.getConnection();
 	}
 	
-
 }
 

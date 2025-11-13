@@ -7,12 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import kr.co.mdi.common.jdbc.AbstractJdbcDao;
+import kr.co.mdi.common.util.MethodNameUtil;
 import kr.co.mdi.cpu.dao.CpuDao;
 import kr.co.mdi.cpu.dto.CoreStatDTO;
 import kr.co.mdi.cpu.dto.CpuDTO;
@@ -20,16 +19,6 @@ import kr.co.mdi.cpu.dto.CpuDTO;
 @Profile("dev-user-mysql")
 @Repository
 public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
-
-	private final DataSource dataSource;
-
-	public CpuDaoImpl(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public Connection getConnection() throws SQLException {
-		return dataSource.getConnection(); // 커넥션 풀에서 가져옴
-	}
 
 	@Override
 	public int selectTotalCpuCount() {
@@ -40,8 +29,8 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 			if (rs.next()) {
 				return rs.getInt(1);
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException("CPU row 수 조회 중 오류 발생", e);
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
 		return 0;
 	}
@@ -90,8 +79,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 			}
 
 		} catch (SQLException se) {
-			se.printStackTrace();
-			throw new RuntimeException("DB 조회 중 오류 발생", se);
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
 
 		return cpuList;
@@ -143,20 +131,16 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 			}
 
 		} catch (SQLException se) {
-			se.printStackTrace();
-			throw new RuntimeException("DB 조회 중 오류 발생2", se);
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
 
 		return cpu;
 	}
 
-	// ---------------------------------
-
 	@Override
 	public CpuDTO selectCpuByName(String nameCpu) {
 		String sql = "SELECT * FROM cpu WHERE name_cpu = ?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, nameCpu);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -173,43 +157,11 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 					return cpu;
 				}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace(); // 로깅 처리 권장
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
 		return null;
 	}
-
-	//
-
-	// @Override
-	// public List<CpuDTO> selectCpuListByName(String nameCpu) {
-	// List<CpuDTO> cpuList = new ArrayList<>();
-	// String sql = "SELECT * FROM cpu WHERE name_cpu LIKE ? ORDER BY id_cpu ASC";
-	//
-	// try (Connection conn = dataSource.getConnection();
-	// PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	//
-	// pstmt.setString(1, "%" + nameCpu + "%");
-	// ResultSet rs = pstmt.executeQuery();
-	//
-	// while (rs.next()) {
-	// CpuDTO dto = new CpuDTO();
-	// dto.setIdCpu(rs.getInt("id_cpu"));
-	// dto.setNameCpu(rs.getString("name_cpu"));
-	// dto.setManfCpu(rs.getString("manf_cpu"));
-	// dto.setCoreCpu(rs.getInt("core_cpu"));
-	// dto.setThreadCpu(rs.getInt("thread_cpu"));
-	// dto.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
-	// dto.setMinghzCpu(rs.getFloat("minghz_cpu"));
-	// cpuList.add(dto);
-	// }
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return cpuList;
-	// }
 
 	@Override
 	public List<CpuDTO> selectCpuListByName(String nameCpu) {
@@ -230,7 +182,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    ORDER BY c.id_cpu ASC
 				""";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setString(1, "%" + nameCpu + "%");
 			ResultSet rs = pstmt.executeQuery();
@@ -246,52 +198,13 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				dto.setManfCpu(rs.getString("manf_cpu")); // 제조사 이름
 				cpuList.add(dto);
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return cpuList;
 	}
 
-//		@Override
-//		public List<CpuDTO> selectHotCpuList() {
-//		    List<CpuDTO> hotCpuList = new ArrayList<>();
-//
-//		    String sql = """
-//		        SELECT
-//		            m.id_cpu,
-//		            m.name_cpu,
-//		            m.choice_cpu,
-//		            m.cpu_manf_code,
-//		            b.manf_cpu
-//		        FROM cpu m
-//		        LEFT JOIN cpu_manf_brand b ON m.cpu_manf_code = b.cpu_manf_code
-//		        ORDER BY m.choice_cpu DESC
-//		        LIMIT 10
-//		    """;
-//
-//		    try (Connection conn = getConnection();
-//		         PreparedStatement pstmt = conn.prepareStatement(sql);
-//		         ResultSet rs = pstmt.executeQuery()) {
-//
-//		        while (rs.next()) {
-//		            CpuDTO dto = new CpuDTO();
-//		            dto.setIdCpu(rs.getInt("id_cpu"));
-//		            dto.setNameCpu(rs.getString("name_cpu"));
-//		            dto.setChoiceCpu(rs.getInt("choice_cpu"));
-//		            dto.setCpuManfCode(rs.getString("cpu_manf_code"));
-//		            dto.setManfCpu(rs.getString("manf_cpu"));
-//		            hotCpuList.add(dto);
-//		        }
-//
-//		    } catch (SQLException e) {
-//		        e.printStackTrace();
-//		        throw new RuntimeException("인기 CPU 목록 조회 중 오류 발생", e);
-//		    }
-//
-//		    return hotCpuList;
-//		}
+	// -----------------------------------------
 
 	@Override
 	public List<CpuDTO> selectHotCpuList() {
@@ -324,84 +237,11 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				dto.setManfCpu(rs.getString("manf_cpu"));
 				hotCpuList.add(dto);
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("인기 CPU 목록 조회 중 오류 발생", e);
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return hotCpuList;
 	}
-
-	//
-
-//	@Override
-//	public List<CpuDTO> selectCpuListByManufacturer(String manfCpu) {
-//	    List<CpuDTO> list = new ArrayList<>();
-//	    String sql = "SELECT * FROM cpu WHERE manf_cpu = ?";
-//
-//	    try (Connection conn = dataSource.getConnection();
-//	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//	        pstmt.setString(1, manfCpu);
-//
-//	        try (ResultSet rs = pstmt.executeQuery()) {
-//	            while (rs.next()) {
-//	                CpuDTO cpu = new CpuDTO();
-//	                cpu.setIdCpu(rs.getInt("id_cpu"));
-//	                cpu.setNameCpu(rs.getString("name_cpu"));
-//	                cpu.setManfCpu(rs.getString("manf_cpu"));
-//	                cpu.setCoreCpu(rs.getInt("core_cpu"));
-//	                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
-//	                // 필요한 필드 추가
-//	                list.add(cpu);
-//	            }
-//	        }
-//
-//	    } catch (SQLException e) {
-//	        e.printStackTrace(); // 로깅 또는 예외 처리
-//	    }
-//
-//	    return list;
-//	}
-
-//	public List<CpuDTO> selectCpuListByManufacturer(String manfCpu) {
-//	    List<CpuDTO> list = new ArrayList<>();
-//	    String sql = """
-//	        SELECT c.*
-//	        FROM cpu c
-//	        JOIN cpu_manf_brand b ON c.cpu_manf_code = b.cpu_manf_code
-//	        WHERE b.manf_cpu = ?
-//	    """;
-//
-//	    try (Connection conn = dataSource.getConnection();
-//	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//	        pstmt.setString(1, manfCpu);
-//
-//	        try (ResultSet rs = pstmt.executeQuery()) {
-//	            while (rs.next()) {
-//	                CpuDTO cpu = new CpuDTO();
-//	                cpu.setIdCpu(rs.getInt("id_cpu"));
-//	                cpu.setNameCpu(rs.getString("name_cpu"));
-//	                cpu.setReleaseCpu(rs.getInt("release_cpu"));
-//	                cpu.setCoreCpu(rs.getInt("core_cpu"));
-//	                cpu.setThreadCpu(rs.getInt("thread_cpu"));
-//	                cpu.setMaxghzCpu(rs.getFloat("maxghz_cpu"));
-//	                cpu.setMinghzCpu(rs.getFloat("minghz_cpu"));
-//	                cpu.setChoiceCpu(rs.getInt("choice_cpu"));
-//	                cpu.setCpuTypeCode(rs.getString("cpu_type_code"));
-//	                cpu.setCpuManfCode(rs.getString("cpu_manf_code"));
-//	                list.add(cpu);
-//	            }
-//	        }
-//
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	    }
-//
-//	    return list;
-//	}
 
 	public List<CpuDTO> selectCpuListByManufacturer(String manfCpu) {
 		List<CpuDTO> list = new ArrayList<>();
@@ -412,7 +252,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    WHERE b.manf_cpu = ?
 				""";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setString(1, manfCpu);
 
@@ -433,15 +273,11 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 					list.add(cpu);
 				}
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return list;
 	}
-
-	//
 
 	@Override
 	public List<CpuDTO> selectCpuListByCore(int coreCpu) {
@@ -453,7 +289,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    WHERE c.core_cpu = ?
 				""";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setInt(1, coreCpu);
 
@@ -474,11 +310,9 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 					list.add(cpu);
 				}
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return list;
 	}
 
@@ -492,7 +326,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    WHERE c.thread_cpu = ?
 				""";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setInt(1, threadCpu);
 
@@ -513,11 +347,9 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 					list.add(cpu);
 				}
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return list;
 	}
 
@@ -531,7 +363,7 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    WHERE c.release_cpu = ?
 				""";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setInt(1, releaseCpu);
 
@@ -552,15 +384,11 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 					list.add(cpu);
 				}
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return list;
 	}
-
-	//
 
 	@Override
 	public List<CoreStatDTO> getCoreCpuDistribution() {
@@ -572,27 +400,22 @@ public class CpuDaoImpl extends AbstractJdbcDao implements CpuDao {
 				    ORDER BY core_cpu
 				""";
 
-		try (Connection conn = dataSource.getConnection();
+		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
-
 			while (rs.next()) {
 				CoreStatDTO stat = new CoreStatDTO();
 				stat.setCoreCpu(rs.getInt("core_cpu"));
 				stat.setCount(rs.getInt("count"));
 				list.add(stat);
 			}
-			
 			System.out.println("코어 분포:");
 			for (CoreStatDTO stat : list) {
-			    System.out.println(stat.getCoreCpu() + "코어: " + stat.getCount());
+				System.out.println(stat.getCoreCpu() + "코어: " + stat.getCount());
 			}
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(MethodNameUtil.getCurrentMethodName(), se);
 		}
-
 		return list;
 	}
 
